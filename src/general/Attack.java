@@ -1,4 +1,4 @@
-package monsters;
+package general;
 
 public enum Attack {
 }

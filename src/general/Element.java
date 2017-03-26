@@ -1,4 +1,4 @@
-package monsters;
+package general;
 /**
  * Created by Alexandre Dias on 07-Mar-17.
  */

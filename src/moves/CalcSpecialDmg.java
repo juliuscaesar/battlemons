@@ -1,6 +1,8 @@
-package monsters;
+package moves;
 import java.util.HashMap;
 import java.util.Map;
+
+import general.Element;
 
 public class CalcSpecialDmg {
   private static Map<String, Double> values;
@@ -29,7 +31,7 @@ public class CalcSpecialDmg {
    * @param targetPokemon the element of the Target Pokemon.
    * @return the multiplier for that move.
    */
-  public double elemMultiplier(Element sourceMove, Element targetPokemon){
+  private double elemMultiplier(Element sourceMove, Element targetPokemon){
     String key = linkNames(sourceMove, targetPokemon);
     if(values.containsKey(key)) {
       return values.get(key);
@@ -51,6 +53,13 @@ public class CalcSpecialDmg {
     }
   }
 
+  public double getMultiplier(Element source, Element... target){
+	  double val = 1;
+	  for(Element e : target) {
+		  val *= elemMultiplier(source, e);
+	  }
+	  return val;
+  }
 
 
 
