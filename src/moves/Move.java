@@ -7,7 +7,7 @@ import general.Status;
 
 public class Move{
     final Attack name;
-    final int dmg;
+    final int damage;
     final int acc;
     final int pp;
     final Element element;
@@ -16,7 +16,7 @@ public class Move{
     
     Move(Attack name, int dmg, int acc, int pp,  Element element, MoveCategory cat, Status cause) {
       this.name = name;
-      this.dmg = dmg;
+      this.damage = dmg;
       this.acc = acc;
       this.pp = pp;
       this.element = element;
@@ -30,7 +30,7 @@ public class Move{
     }
     
     public int rawDmg(int offensiveAttribute){
-    	int value = (12 * this.dmg * offensiveAttribute);
+    	int value = (12 * this.damage * offensiveAttribute);
     	return ((value + 2)/50);
     }
     
