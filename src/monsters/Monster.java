@@ -180,49 +180,64 @@ public final class Monster {
    * Will execute the abnormal status' debuff. If duration of status is over, will change the
    * Monster's status back to Normal.
    *
-   * @param round
    */
-  public void updateStats(int round){
+  public void updateStats(){
     if(this.status == Status.Normal){
       return;
     }
-    if((round - this.statusStart) >= this.statusDuration) {
+    if(this.statusStart >= this.statusDuration) {
       resetStatus();
     }
     else{
       applyStatus();
       checkAlive();
     }
+    this.statusStart++;
   }
   
-  public void restoreHP(int percent) {
+  /**
+   * Restore the Monster's HP by an absolute value.
+   * 
+   * @param value is the value restored.
+   */
+  public void restoreHP(int value) {
 	  if(!alive) {
 		  throw new IllegalArgumentException("Can't heal dead Monsters.");
 	  }
 	  if(hp == maxHP) {
 		  throw new IllegalArgumentException("Max HP Already.");
 	  }
-	  hp = (maxHP * percent)/100;
+	  hp += value;
 	  if(hp > maxHP){
 		  hp = maxHP;
 	  }
   }
   
-  public int calculateDmg(Attack atk) {
-	  Move move = moves.get(atk);
-	  double rawDmg = calculateRawDmg(atk);
-	  double multiplier;
-	  CalcSpecialDmg csd = new CalcSpecialDmg();
-	  if(twoElements) {
-		  multiplier = csd.getMultiplier(move.getElem(), e1,e2);
+  /**
+   * Restore a percent of the Monster's health.
+   * 
+   * @param percent is the percent restored.
+   */
+  public void restoreHP(double percent) {
+	  if(!alive) {
+		  throw new IllegalArgumentException("Can't heal dead Monsters.");
 	  }
-	  else {
-		  multiplier = csd.getMultiplier(move.getElem(), e1);
+	  if(hp == maxHP) {
+		  throw new IllegalArgumentException("Max HP Already.");
 	  }
-	  return (int)(rawDmg * multiplier);
+	  hp = (int)((double)maxHP * percent);
+	  if(hp > maxHP){
+		  hp = maxHP;
+	  }
   }
   
-  public int calculateRawDmg(Attack atk){
+  /**
+   * Calculate the Damage that should be received if a Monster is hit by an Attack.
+   * 
+   * @param atk is the Attack received.
+   * @return the damage taken.
+   */
+  public int calculateDmg(Attack atk) {
 	  Move move = moves.get(atk);
 	  int offense;
 	  switch(move.getCat()){
@@ -236,22 +251,56 @@ public final class Monster {
 			  offense = 0;
 		  }
 	  }
-	  return move.rawDmg(offense);
+	  double rawDmg = (double)move.rawDmg(offense);
+	  double multiplier;
+	  CalcSpecialDmg csd = new CalcSpecialDmg();
+	  if(twoElements) {
+		  multiplier = csd.getMultiplier(move.getElem(), e1,e2);
+	  }
+	  else {
+		  multiplier = csd.getMultiplier(move.getElem(), e1);
+	  }
+	  return (int)(rawDmg * multiplier);
   }
-  
+    
+  /**
+   * Recalculate the Monster's remaining HP.
+   * 
+   * @param atk is the value that should be decreased from the Monster's HP.
+   */
   public void receiveAttack(Attack atk){
 	  int dmg = calculateDmg(atk);
 	  this.hp -= dmg;
 	  checkAlive();
   }
   
+  /**
+   * Check if the Monster is alive or not.
+   * 
+   * @return true if the Monster is alive, false if not.
+   */
   public boolean isAlive(){
 	  return this.alive;
   }
   
+  /**
+   * Revive the Monster. And restore is HP.
+   * 
+   * @param restore is the absolute value of HP restored.
+   */
   public void revive(int restore) {
 	  this.alive = true;
 	  this.hp = restore;
+  }
+  
+  /**
+   * Revive the Monster. And restore is HP.
+   * 
+   * @param percent is the percent of HP restored.
+   */
+  public void revive(double percent) {
+	  this.alive = true;
+	  this.hp = (int)((double)maxHP * percent);
   }
   
   /**
@@ -265,6 +314,11 @@ public final class Monster {
 	  }
   }
   
+  /**
+   * List all the Moves for this Monster.
+   * 
+   * @return a list with AttackEnums for this Monster Moves.
+   */
   public List<Attack> listMoves(){
 	  List<Attack> list = new ArrayList<>();
 	  for(Entry<Attack, Move> e : moves.entrySet()){
