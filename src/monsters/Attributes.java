@@ -10,6 +10,9 @@ public class Attributes {
 	private final int dft_speed;
 	private final int dft_acc;
 	
+	private final double[] buff = {1, 1.5, 2, 2.5, 3, 3.5, 4};
+	private final double[] debuff = {1, 0.66, 0.5, 0.4, 0.33, 0.28, 0.25};
+	
 	private final static int maxStage = 6;
 	
 	private int atkStage;
@@ -138,39 +141,88 @@ public class Attributes {
 	}
 	
 	int getAtk(){
-		return 0;
+		double multi = 1;
+		if(atkStage > 0){
+			multi = buff[atkStage];
+		}
+		else{
+			multi = debuff[atkStage];
+		}
+		return (int)((double)dft_atk * multi);
 	}
 	
 	int getSpAtk(){
-		return 0;
+		double multi = 1;
+		if(spAtkStage > 0){
+			multi = buff[spAtkStage];
+		}
+		else{
+			multi = debuff[spAtkStage];
+		}
+		return (int)((double)dft_spAtk * multi);
 	}
 	
 	int getSpDef(){
-		return 0;
+		double multi = 1;
+		if(spDefStage > 0){
+			multi = buff[spDefStage];
+		}
+		else{
+			multi = debuff[spDefStage];
+		}
+		return (int)((double)dft_spDef * multi);
 	}
 	
 	int getDef(){
-		return 0;
+		double multi = 1;
+		if(defStage > 0){
+			multi = buff[defStage];
+		}
+		else{
+			multi = debuff[defStage];
+		}
+		return (int)((double)dft_def * multi);
 	}
 	
 	int getSpd(Status stat){
-		int spd = 0;
+		double multi = 1;
+		if(defStage > 0){
+			multi = buff[spdStage];
+		}
+		else{
+			multi = debuff[spdStage];
+		}
+		double spd = (double)dft_speed * multi;
 		switch(stat){
 			case Paralysis: {
-				return spd / 4;
+				return (int)(spd / 4);
 			}
 			default: {
-				return 0;
+				return (int)spd;
 			}
 		}
 	}
 	
 	int getDodge(){
-		return 0;
+		double multi = 1;
+		if(dodgeStage < 0){
+			multi = buff[dodgeStage];
+		}
+		else{
+			multi = debuff[dodgeStage];
+		}
+		return (int)(100.0 * multi);
 	}
 	
 	int getAcc(){
-		return 0;
+		double multi = 1;
+		if(accStage < 0){
+			multi = buff[accStage];
+		}
+		else{
+			multi = debuff[accStage];
+		}
+		return (int)(100.0 * multi);
 	}
 	
 	int getCriticalChance(){

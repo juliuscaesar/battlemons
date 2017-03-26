@@ -192,7 +192,18 @@ public final class Monster {
 	  this.att.reset();
 	  this.canMove = true;
   }
-
+  
+  /**
+   * Will check if the Monster is still alive, if not, reset the Monster.
+   */
+  private void checkAlive(){
+	  if(hp <= 0){
+		  hp = 0;
+		  alive = false;
+		  resetStatus();
+	  }
+  }
+  
   /**
    * Will execute the abnormal status' debuff. If duration of status is over, will change the
    * Monster's status back to Normal.
@@ -265,16 +276,17 @@ public final class Monster {
 	  else {
 		  multiplier = csd.getMultiplier(move.getElem(), e1);
 	  }
-	  return (int)(rawDmg * multiplier);
+	  Random r = new Random();
+	  double rng = 0.85 + (0.15) * r.nextDouble();
+	  return (int)(rawDmg * multiplier * rng);
   }
     
   /**
    * Recalculate the Monster's remaining HP.
    * 
-   * @param atk is the value that should be decreased from the Monster's HP.
+   * @param dmg is the value that should be decreased from the Monster's HP.
    */
-  public void receiveAttack(Attack atk){
-	  int dmg = calculateDmg(atk);
+  public void receiveAttack(int dmg){
 	  this.hp -= dmg;
 	  checkAlive();
   }
@@ -307,18 +319,7 @@ public final class Monster {
 	  this.alive = true;
 	  this.hp = (int)((double)maxHP * percent);
   }
-  
-  /**
-   * Will check if the Monster is still alive, if not, reset the Monster.
-   */
-  private void checkAlive(){
-	  if(hp <= 0){
-		  hp = 0;
-		  alive = false;
-		  resetStatus();
-	  }
-  }
-  
+    
   /**
    * List all the Moves for this Monster.
    * 
