@@ -4,7 +4,7 @@ import monsters.Element;
 
 public class Move{
     final String name;
-    final int dmg;
+    final int damage;
     final int acc;
     final int pp;
     final Element element;
@@ -12,7 +12,7 @@ public class Move{
 
     Move(String name, int dmg, int acc, int pp,  Element element, MoveCategory cat) {
       this.name = name;
-      this.dmg = dmg;
+      this.damage = dmg;
       this.acc = acc;
       this.pp = pp;
       this.element = element;
