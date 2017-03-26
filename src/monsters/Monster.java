@@ -5,7 +5,6 @@ import java.util.Random;
 
 import general.Attack;
 import general.Element;
-import general.MoveCategory;
 import general.Status;
 import general.MonsterID;
 
@@ -19,8 +18,9 @@ import moves.CalcSpecialDmg;
 /**
  * Monster Class.
  * A Monster consists of:
- * - Name (String)
- * - Stats
+ * - Name (Attack)
+ * - Attributes
+ * - Its Current Status.
  * - Element1
  * - Element2
  * - List of Moves
@@ -78,11 +78,11 @@ public final class Monster {
    * @param stat the status.
    * @param roundStart the round where this Status started.
    */
-  public void addStatus(Status stat, int roundStart) {
+  public void addStatus(Status stat) {
     if (this.status == stat) {
       throw new IllegalArgumentException("Already with this stat.");
     }
-    this.statusStart = roundStart;
+    this.statusStart = 0;
     this.status = stat;
     getStatusDuration();
   }
@@ -132,14 +132,16 @@ public final class Monster {
 
   /**
    * Calculate the Duration in rounds for a given Status.
-   * 37.5% chance of 2 rounds
-   * 37.5% chance of 3 rounds
-   * 12.5% chance of 4 rounds
-   * 12.5% chance of 5 rounds
    */
   private void getStatusDuration() {
 	  switch(this.status){
 	  case Burn: {
+		  /*
+		   * 37.5% chance of lasting 2 rounds
+		   * 37.5% chance of lasting 3 rounds
+		   * 12.5% chance of lasting 4 rounds
+		   * 12.5% chance of lasting 5 rounds
+		   */
 		  Random rng = new Random();
 		  int minimum = 2;
 		  int percent = rng.nextInt(1000);
@@ -158,8 +160,23 @@ public final class Monster {
 		  return;
 	  }
 	  case Sleep: {
+		  /*
+		   * Lasts a random value of 1 to 7 rounds.
+		   */
 		  Random rng = new Random();
 		  this.statusDuration = rng.nextInt(7) + 1;
+	  }
+	  case Freeze: {
+		  /*
+		   * Each round there is a 20% chance to break the ice.
+		   */
+		  int rounds = 1;
+		  Random rng = new Random();
+		  while(rng.nextInt(100) >= 20){
+			  rounds++;
+		  }
+		  this.statusDuration = rounds;
+		  return;
 	  }
 	  default: {
 		  this.statusDuration = Integer.MAX_VALUE;
@@ -239,19 +256,7 @@ public final class Monster {
    */
   public int calculateDmg(Attack atk) {
 	  Move move = moves.get(atk);
-	  int offense;
-	  switch(move.getCat()){
-		  case Physical: {
-			  offense = att.getAtk();
-		  }
-		  case Special: {
-			  offense = att.getSpAtk();
-		  }
-		  default: {
-			  offense = 0;
-		  }
-	  }
-	  double rawDmg = (double)move.rawDmg(offense);
+	  double rawDmg = (double)move.rawDmg(att);
 	  double multiplier;
 	  CalcSpecialDmg csd = new CalcSpecialDmg();
 	  if(twoElements) {
