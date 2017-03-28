@@ -1,4 +1,4 @@
-package moves;
+package damage;
 import java.util.HashMap;
 import java.util.Map;
 

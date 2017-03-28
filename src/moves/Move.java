@@ -49,19 +49,7 @@ public class Move{
      * @param offensiveAttribute is the value of either Sp.Atk or Atk, depending on the Move.
      * @return the value of the raw damage of this move.
      */
-    public int rawDmg(Attributes att){
-    	int offensiveAttribute;
-    	switch(cat){
-		  case Physical: {
-			  offensiveAttribute = att.getAtk();
-		  }
-		  case Special: {
-			  offensiveAttribute = att.getSpAtk();
-		  }
-		  default: {
-			  offensiveAttribute = 0;
-		  }
-	  }
+    public double rawDmg(int offensiveAttribute){
     	int value = (12 * this.damage * offensiveAttribute);
     	return ((value + 2)/50);
     }
@@ -84,5 +72,9 @@ public class Move{
     
     public int getStatusChance(){
     	return statChance;
+    }
+    
+    public int getPower(){
+    	return damage;
     }
   }

@@ -1,6 +1,9 @@
 package monsters;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import damage.CalcSpecialDmg;
+
 import java.util.Random;
 
 import general.Attack;
@@ -13,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import moves.Move;
-import moves.CalcSpecialDmg;
 
 /**
  * Monster Class.
@@ -258,29 +260,7 @@ public final class Monster {
 		  hp = maxHP;
 	  }
   }
-  
-  /**
-   * Calculate the Damage that should be received if a Monster is hit by an Attack.
-   * 
-   * @param atk is the Attack received.
-   * @return the damage taken.
-   */
-  public int calculateDmg(Attack atk) {
-	  Move move = moves.get(atk);
-	  double rawDmg = (double)move.rawDmg(att);
-	  double multiplier;
-	  CalcSpecialDmg csd = new CalcSpecialDmg();
-	  if(twoElements) {
-		  multiplier = csd.getMultiplier(move.getElem(), e1,e2);
-	  }
-	  else {
-		  multiplier = csd.getMultiplier(move.getElem(), e1);
-	  }
-	  Random r = new Random();
-	  double rng = 0.85 + (0.15) * r.nextDouble();
-	  return (int)(rawDmg * multiplier * rng);
-  }
-    
+      
   /**
    * Recalculate the Monster's remaining HP.
    * 
@@ -349,4 +329,23 @@ public final class Monster {
 	  return this.name;
   }
   
+  public int getAtk(){
+	  return this.att.getAtk();
+  }
+  
+  public int getDef(){
+	  return this.att.getDef();
+  }
+  
+  public int getSpDef(){
+	  return this.att.getSpDef();
+  }
+  
+  public Element getElem(){
+	  return this.e1;
+  }
+  
+  public int getSpAtk(){
+	  return this.att.getSpAtk();
+  }  
 }

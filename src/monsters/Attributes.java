@@ -140,7 +140,7 @@ public class Attributes {
 		criticalStage = 0;
 	}
 	
-	int getAtk(){
+	public int getAtk(){
 		double multi = 1;
 		if(atkStage > 0){
 			multi = buff[atkStage];
@@ -151,7 +151,7 @@ public class Attributes {
 		return (int)((double)dft_atk * multi);
 	}
 	
-	int getSpAtk(){
+	public int getSpAtk(){
 		double multi = 1;
 		if(spAtkStage > 0){
 			multi = buff[spAtkStage];
