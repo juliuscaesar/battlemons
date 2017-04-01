@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import general.Battle;
+import general.Decision;
 import general.MonsterID;
-
 import monsters.Monster;
 
 public class Trainer {
@@ -16,11 +17,12 @@ public class Trainer {
 	private List<MonsterID> order; // List in order of this Trainer's Monsters.
 	private Monster active; // The First Pokemon, The one in-battle.
 	private String name; // Trainer's Name.
-	private List<Item> itens; // List of this Trainer's itens.
+	private List<Item> items; // List of this Trainer's items.
+	private Decision decision; // The decision made by the AI for this player.
 	
 	Trainer(String name, List<Monster> monsters, List<Item> itens){
 		this.name = name;
-		this.itens = itens;
+		this.items = itens;
 		if(monsters.size() == 0) {
 			throw new IllegalArgumentException("Trainer can't have no Monsters.");
 		}
@@ -53,5 +55,42 @@ public class Trainer {
 		}
 		throw new IllegalArgumentException("Can't select dead Monsters.");
 	}
+
+    public void makeDecision(Battle battle) {
+        // TODO this is where the AI happens
+        decision = null;
+    }
+    
+    public Monster getActiveMonster() {
+        return active;
+    }
+
+    public Decision getDecision() {
+        return decision;
+    }
+
+    public boolean hasAliveMonster() {
+        for (Monster m : monsters.values()) {
+            if (m.isAlive()) return true;
+        }
+        return false;
+    }
+
+    public void chooseNewMonster() {
+        
+        List<Monster> choices = new ArrayList<Monster>();
+        
+        for (Monster m : monsters.values()) {
+            if (m.isAlive()) {
+                choices.add(m);
+            }
+        }
+        
+        if (choices.size() == 1) {
+            changeActive(choices.get(0));
+        } else {
+            // TODO AI STUFF
+        }
+    }
 
 }
