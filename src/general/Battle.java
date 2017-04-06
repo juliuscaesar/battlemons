@@ -1,11 +1,12 @@
 package general;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import trainers.Trainer;
 
 public class Battle {
-
+    
     Trainer p1; // "our" AI
     Trainer p2; // the base AI
     Random rng;
