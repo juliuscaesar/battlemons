@@ -358,4 +358,11 @@ public final class Monster {
 		  return true;
 	  }
   }
+  
+  public boolean increasePP(Attack atk, int amount){
+	  if(moves.containsKey(atk)){
+		  return moves.get(atk).increasePP(amount);
+	  }
+	  return false;
+  }
 }

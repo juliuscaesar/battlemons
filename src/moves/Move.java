@@ -8,12 +8,13 @@ import general.Status;
 import monsters.Attributes;
 
 public class Move{
-    final Attack name;
-    final int damage;
-    final int acc;
-    final int pp;
-    final Element element;
-    final MoveCategory cat;
+	private final Attack name;
+	private final int damage;
+	private final int acc;
+	private final int pp;
+	private int current_pp;
+	private final Element element;
+	private final MoveCategory cat;
     private Status stats;
     private int statChance;
     
@@ -22,6 +23,7 @@ public class Move{
       this.damage = dmg;
       this.acc = acc;
       this.pp = pp;
+      current_pp = pp;
       this.element = element;
       this.cat = cat;
       this.stats = Status.Normal;
@@ -78,5 +80,22 @@ public class Move{
     
     public int getPower(){
     	return damage;
+    }
+    
+    public boolean useMove(){
+    	if(this.current_pp == 0){
+    		return false;
+    	}
+    	this.current_pp--;
+    	return true;
+    }
+    
+    public boolean increasePP(int amount){
+    	if(this.current_pp == this.pp){
+    		return false;
+    	}
+    	this.current_pp += amount;
+    	this.current_pp %= this.pp;
+    	return true;
     }
   }
