@@ -82,7 +82,7 @@ public class Damage {
 	}
 	
 	/**
-	 * Compare all highest possible damage for every attack from source monster's moveset.
+	 * Compare all highest possible damage for every attack from source monster's move set.
 	 * 
 	 * @param atks is a list of the attacking Monster's attacks.
 	 * @param source is attacking Monster.

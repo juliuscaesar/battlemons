@@ -347,5 +347,15 @@ public final class Monster {
   
   public int getSpAtk(){
 	  return this.att.getSpAtk();
-  }  
+  } 
+  
+  public boolean cureStatus(Status stat){
+	  if(this.status == Status.Normal || this.status != stat){
+		  return false;
+	  }
+	  else{
+		  this.status = Status.Normal;
+		  return true;
+	  }
+  }
 }
