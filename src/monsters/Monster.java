@@ -75,127 +75,6 @@ public final class Monster {
   }
 
   /**
-   * Add the Status to a Monster.
-   *
-   * @param stat the status.
-   * @param roundStart the round where this Status started.
-   */
-  public void addStatus(Status stat) {
-    if (this.status == stat) {
-      throw new IllegalArgumentException("Already with this stat.");
-    }
-    this.statusStart = 0;
-    this.status = stat;
-    getStatusDuration();
-  }
-
-  /**
-   * This method will apply the status debuff.
-   * Burn: takes damage to equal of 16% of max HP.
-   * Freeze: cant move.
-   * Poison: takes damage to equal of 16% of max HP.
-   * Sleep: cant move.
-   * Paralysis: 25% chance of not moving. Cuts Speed in half.
-   */
-  private void applyStatus() {
-    switch (this.status) {
-      case Burn: {
-    	  this.hp = this.maxHP / 16;
-    	  return;
-      }
-      case Freeze: {
-    	  this.canMove = false;
-    	  return;
-      }
-      case Poison: {
-    	  this.hp = this.maxHP / 16;  	 
-    	  return;
-      }
-      case Paralysis: {
-    	  Random rng = new Random();
-    	  int percent = rng.nextInt(100);
-    	  if(percent < 25) {
-    		  this.canMove = false;
-    	  } else {
-    		  this.canMove = true;
-    	  }
-    	  return;
-      }
-      case Sleep: {
-    	  this.canMove = false;
-    	  return;
-      }
-      default: {
-    	  
-      }
-    }
-  }
-
-
-  /**
-   * Calculate the Duration in rounds for a given Status.
-   */
-  private void getStatusDuration() {
-	  switch(this.status){
-	  case Burn: {
-		  /*
-		   * 37.5% chance of lasting 2 rounds
-		   * 37.5% chance of lasting 3 rounds
-		   * 12.5% chance of lasting 4 rounds
-		   * 12.5% chance of lasting 5 rounds
-		   */
-		  Random rng = new Random();
-		  int minimum = 2;
-		  int percent = rng.nextInt(1000);
-		  if(percent < 375){
-			  this.statusDuration = minimum;
-		  }
-		  else if(percent < 750){
-			  this.statusDuration = minimum + 1;
-		  }
-		  else if(percent < 875){
-			  this.statusDuration = minimum + 2;
-		  }
-		  else{
-			  this.statusDuration = minimum + 3;
-		  }
-		  return;
-	  }
-	  case Sleep: {
-		  /*
-		   * Lasts a random value of 1 to 7 rounds.
-		   */
-		  Random rng = new Random();
-		  this.statusDuration = rng.nextInt(7) + 1;
-	  }
-	  case Freeze: {
-		  /*
-		   * Each round there is a 20% chance to break the ice.
-		   */
-		  int rounds = 1;
-		  Random rng = new Random();
-		  while(rng.nextInt(100) >= 20){
-			  rounds++;
-		  }
-		  this.statusDuration = rounds;
-		  return;
-	  }
-	  default: {
-		  this.statusDuration = Integer.MAX_VALUE;
-	  }
-	  }
-  }
-  
-  /**
-   * This method will reset the Monster's Status to initial values.
-   */
-  private void resetStatus(){
-	  this.status = Status.Normal;
-	  this.att.reset();
-	  this.canMove = true;
-  }
-  
-  /**
    * Will check if the Monster is still alive, if not, reset the Monster.
    */
   private void checkAlive(){
@@ -206,62 +85,7 @@ public final class Monster {
 	  }
   }
   
-  /**
-   * Will execute the abnormal status' debuff. If duration of status is over, will change the
-   * Monster's status back to Normal.
-   *
-   */
-  public void updateStats(){
-    if(this.status == Status.Normal){
-      return;
-    }
-    if(this.statusStart >= this.statusDuration) {
-      resetStatus();
-    }
-    else{
-      applyStatus();
-      checkAlive();
-    }
-    this.statusStart++;
-  }
-  
-  /**
-   * Restore the Monster's HP by an absolute value.
-   * 
-   * @param value is the value restored.
-   */
-  public void restoreHP(int value) {
-	  if(!alive) {
-		  throw new IllegalArgumentException("Can't heal dead Monsters.");
-	  }
-	  if(hp == maxHP) {
-		  throw new IllegalArgumentException("Max HP Already.");
-	  }
-	  hp += value;
-	  if(hp > maxHP){
-		  hp = maxHP;
-	  }
-  }
-  
-  /**
-   * Restore a percent of the Monster's health.
-   * 
-   * @param percent is the percent restored.
-   */
-  public void restoreHP(double percent) {
-	  if(!alive) {
-		  throw new IllegalArgumentException("Can't heal dead Monsters.");
-	  }
-	  if(hp == maxHP) {
-		  throw new IllegalArgumentException("Max HP Already.");
-	  }
-	  hp = (int)((double)maxHP * percent);
-	  if(hp > maxHP){
-		  hp = maxHP;
-	  }
-  }
-      
-  /**
+    /**
    * Recalculate the Monster's remaining HP.
    * 
    * @param dmg is the value that should be decreased from the Monster's HP.
@@ -270,6 +94,12 @@ public final class Monster {
 	  this.hp -= dmg;
 	  checkAlive();
   }
+  
+  /************************************************
+   * 
+   * 		GET METHODS
+   * 
+   * **********************************************/
   
   /**
    * Check if the Monster is alive or not.
@@ -280,26 +110,7 @@ public final class Monster {
 	  return this.alive;
   }
   
-  /**
-   * Revive the Monster. And restore is HP.
-   * 
-   * @param restore is the absolute value of HP restored.
-   */
-  public void revive(int restore) {
-	  this.alive = true;
-	  this.hp = restore;
-  }
-  
-  /**
-   * Revive the Monster. And restore is HP.
-   * 
-   * @param percent is the percent of HP restored.
-   */
-  public void revive(double percent) {
-	  this.alive = true;
-	  this.hp = (int)((double)maxHP * percent);
-  }
-    
+     
   /**
    * List all the Moves for this Monster.
    * 
@@ -348,6 +159,151 @@ public final class Monster {
   public int getSpAtk(){
 	  return this.att.getSpAtk();
   } 
+   
+  
+  /************************************************
+   * 
+   * 		STATUS METHODS
+   * 
+   * **********************************************/
+  
+  /**
+   * Add the Status to a Monster.
+   *
+   * @param stat the status.
+   */
+  public void addStatus(Status stat) {
+    if (this.status == stat) {
+      throw new IllegalArgumentException("Already with this stat.");
+    }
+    this.statusStart = 0;
+    this.status = stat;
+    getStatusDuration();
+  }
+
+  /**
+   * This method will apply the status debuff.
+   * Burn: takes damage to equal of 16% of max HP.
+   * Freeze: cant move.
+   * Poison: takes damage to equal of 16% of max HP.
+   * Sleep: cant move.
+   * Paralysis: 25% chance of not moving. Cuts Speed in half.
+   */
+  private void applyStatus() {
+    switch (this.status) {
+      case Burn: {
+    	  this.hp = this.maxHP / 16;
+    	  return;
+      }
+      case Freeze: {
+    	  this.canMove = false;
+    	  return;
+      }
+      case Poison: {
+    	  this.hp = this.maxHP / 16;  	 
+    	  return;
+      }
+      case Paralysis: {
+    	  Random rng = new Random();
+    	  int percent = Math.abs(rng.nextInt(100));
+    	  if(percent < 25) {
+    		  this.canMove = false;
+    	  } else {
+    		  this.canMove = true;
+    	  }
+    	  return;
+      }
+      case Sleep: {
+    	  this.canMove = false;
+    	  return;
+      }
+      default: {
+    	  
+      }
+    }
+  }
+
+  /**
+   * Calculate the Duration in rounds for a given Status.
+   */
+  private void getStatusDuration() {
+	  switch(this.status){
+	  case Burn: {
+		  /*
+		   * 37.5% chance of lasting 2 rounds
+		   * 37.5% chance of lasting 3 rounds
+		   * 12.5% chance of lasting 4 rounds
+		   * 12.5% chance of lasting 5 rounds
+		   */
+		  Random rng = new Random();
+		  int minimum = 2;
+		  int percent = Math.abs(rng.nextInt(1000));
+		  if(percent < 375){
+			  this.statusDuration = minimum;
+		  }
+		  else if(percent < 750){
+			  this.statusDuration = minimum + 1;
+		  }
+		  else if(percent < 875){
+			  this.statusDuration = minimum + 2;
+		  }
+		  else{
+			  this.statusDuration = minimum + 3;
+		  }
+		  return;
+	  }
+	  case Sleep: {
+		  /*
+		   * Lasts a random value of 1 to 7 rounds.
+		   */
+		  Random rng = new Random();
+		  this.statusDuration = Math.abs(rng.nextInt(7)) + 1;
+	  }
+	  case Freeze: {
+		  /*
+		   * Each round there is a 20% chance to break the ice.
+		   */
+		  int rounds = 1;
+		  Random rng = new Random();
+		  while(Math.abs(rng.nextInt(100)) >= 20){
+			  rounds++;
+		  }
+		  this.statusDuration = rounds;
+		  return;
+	  }
+	  default: {
+		  this.statusDuration = Integer.MAX_VALUE;
+	  }
+	  }
+  }
+  
+  /**
+   * This method will reset the Monster's Status to initial values.
+   */
+  private void resetStatus(){
+	  this.status = Status.Normal;
+	  this.att.reset();
+	  this.canMove = true;
+  }
+  
+   /**
+   * Will check if the status should be over.
+   */
+  public void updateStats(){
+    if(this.status == Status.Normal){
+      return;
+    }
+    if(this.statusStart >= this.statusDuration) {
+      resetStatus();
+    }
+    this.statusStart++;
+  }
+  
+  /************************************************
+   * 
+   * 		ITEM METHODS
+   * 
+   * **********************************************/
   
   public boolean cureStatus(Status stat){
 	  if(this.status == Status.Normal || this.status != stat){
@@ -364,5 +320,61 @@ public final class Monster {
 		  return moves.get(atk).increasePP(amount);
 	  }
 	  return false;
+  }
+  
+  /**
+   * Revive the Monster. And restore is HP.
+   * 
+   * @param restore is the absolute value of HP restored.
+   */
+  public void revive(int restore) {
+	  this.alive = true;
+	  this.hp = restore;
+  }
+  
+  /**
+   * Revive the Monster. And restore is HP.
+   * 
+   * @param percent is the percent of HP restored.
+   */
+  public void revive(double percent) {
+	  this.alive = true;
+	  this.hp = (int)((double)maxHP * percent);
+  }
+  
+  /**
+   * Restore the Monster's HP by an absolute value.
+   * 
+   * @param value is the value restored.
+   */
+  public void restoreHP(int value) {
+	  if(!alive) {
+		  throw new IllegalArgumentException("Can't heal dead Monsters.");
+	  }
+	  if(hp == maxHP) {
+		  throw new IllegalArgumentException("Max HP Already.");
+	  }
+	  hp += value;
+	  if(hp > maxHP){
+		  hp = maxHP;
+	  }
+  }
+  
+  /**
+   * Restore a percent of the Monster's health.
+   * 
+   * @param percent is the percent restored.
+   */
+  public void restoreHP(double percent) {
+	  if(!alive) {
+		  throw new IllegalArgumentException("Can't heal dead Monsters.");
+	  }
+	  if(hp == maxHP) {
+		  throw new IllegalArgumentException("Max HP Already.");
+	  }
+	  hp = (int)((double)maxHP * percent);
+	  if(hp > maxHP){
+		  hp = maxHP;
+	  }
   }
 }
