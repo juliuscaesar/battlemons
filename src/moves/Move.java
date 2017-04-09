@@ -17,7 +17,7 @@ public class Move{
     private Status stats;
     private int statChance;
     
-    Move(Attack name, int dmg, int acc, int pp,  Element element, MoveCategory cat) {
+     public Move(Attack name, int dmg, int acc, int pp,  Element element, MoveCategory cat) {
       this.name = name;
       this.damage = dmg;
       this.acc = acc;
@@ -31,6 +31,8 @@ public class Move{
             "Accuracy out of bounds. Valid values are only between 1 and 100");
       }
     }
+     
+    
     
     /**
      * Add a status to a Move.
