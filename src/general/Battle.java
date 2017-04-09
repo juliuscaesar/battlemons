@@ -73,14 +73,10 @@ public class Battle {
     boolean takeTurn(Trainer user, Trainer opponent) {
 
         // Check status effects
-        Status status = user.getActiveMonster().getStatus();
-
-        // TODO include shaking off effects and stuff here
-
-        // Skip turns based on hindering status effects
-        if (status == Status.Sleep) return true;
-        if (status == Status.Freeze) return true;
-        if (status == Status.Paralysis) return true;
+        user.getActiveMonster().updateStats();
+        if(user.getActiveMonster().canMove()){
+        	return true;
+        }
 
         // Do the thing!
         user.getDecision().executeDecision(this, user);
@@ -89,12 +85,7 @@ public class Battle {
         if (!checkMonster(user)) return false;
         if (!checkMonster(opponent)) return false;
 
-        // Deal damage from status effects
-        if (status == Status.Burn) {
-            // TODO do burn damage
-        } else if (status == Status.Poison) {
-            // TODO do poison damage
-        }
+        user.getActiveMonster().applyStatusDamage();
 
         // Check user's monster again to see if they died from status effects
         if (!checkMonster(user)) return false;

@@ -101,6 +101,10 @@ public final class Monster {
    * 
    * **********************************************/
   
+  public boolean canMove(){
+	  return this.canMove;
+  }
+  
   /**
    * Check if the Monster is alive or not.
    * 
@@ -184,24 +188,14 @@ public final class Monster {
 
   /**
    * This method will apply the status debuff.
-   * Burn: takes damage to equal of 16% of max HP.
-   * Freeze: cant move.
-   * Poison: takes damage to equal of 16% of max HP.
-   * Sleep: cant move.
+   * Freeze: can't move.
+   * Sleep: can't move.
    * Paralysis: 25% chance of not moving. Cuts Speed in half.
    */
   private void applyStatus() {
     switch (this.status) {
-      case Burn: {
-    	  this.hp = this.maxHP / 16;
-    	  return;
-      }
       case Freeze: {
     	  this.canMove = false;
-    	  return;
-      }
-      case Poison: {
-    	  this.hp = this.maxHP / 16;  	 
     	  return;
       }
       case Paralysis: {
@@ -224,6 +218,28 @@ public final class Monster {
     }
   }
 
+  /**
+   * This method will apply the status damage
+   * Burn: takes damage to equal of 16% of max HP.
+   * Poison: takes damage to equal of 16% of max HP.
+   */
+  public void applyStatusDamage() {
+	  switch (this.status) {
+	  case Burn: {
+		  this.hp = this.maxHP / 16;
+		  return;
+	  }
+	  case Poison: {
+		  this.hp = this.maxHP / 16;  	 
+		  return;
+	  	}
+	  	default: {
+
+	  	}
+	  }
+	  checkAlive();
+  }
+  
   /**
    * Calculate the Duration in rounds for a given Status.
    */
@@ -296,6 +312,8 @@ public final class Monster {
     }
     if(this.statusStart >= this.statusDuration) {
       resetStatus();
+    }else{
+    	applyStatus();
     }
     this.statusStart++;
   }
