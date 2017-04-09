@@ -107,6 +107,7 @@ public final class Monster {
    * @return true if the Monster is alive, false if not.
    */
   public boolean isAlive(){
+	  checkAlive();
 	  return this.alive;
   }
   
