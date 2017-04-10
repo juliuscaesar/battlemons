@@ -8,13 +8,13 @@ import general.Status;
 import monsters.Attributes;
 
 public class Move{
-	private final Attack name;
-	private final int damage;
-	private final int acc;
-	private final int pp;
-	private int current_pp;
-	private final Element element;
-	private final MoveCategory cat;
+    final Attack name;
+     int damage;
+     int acc;
+    int pp;
+    int maxPP;
+    final Element element;
+    final MoveCategory cat;
     private Status stats;
     private int statChance;
     
@@ -23,7 +23,6 @@ public class Move{
       this.damage = dmg;
       this.acc = acc;
       this.pp = pp;
-      current_pp = pp;
       this.element = element;
       this.cat = cat;
       this.stats = Status.Normal;
@@ -82,20 +81,10 @@ public class Move{
     	return damage;
     }
     
-    public boolean useMove(){
-    	if(this.current_pp == 0){
-    		return false;
-    	}
-    	this.current_pp--;
-    	return true;
-    }
-    
-    public boolean increasePP(int amount){
-    	if(this.current_pp == this.pp){
-    		return false;
-    	}
-    	this.current_pp += amount;
-    	this.current_pp %= this.pp;
-    	return true;
+    public void addPowerPoints(int amount)
+    {
+    	this.pp = this.pp + amount;
+    	if (this.pp > this.maxPP)
+    		this.pp = this.maxPP;
     }
   }
