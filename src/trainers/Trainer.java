@@ -19,8 +19,8 @@ public class Trainer {
 	private String name; // Trainer's Name.
 	private List<Item> items; // List of this Trainer's items.
 	private Decision decision; // The decision made by the AI for this player.
-	
-	Trainer(String name, List<Monster> monsters, List<Item> itens){
+
+	public Trainer(String name, List<Monster> monsters, List<Item> itens){
 		this.name = name;
 		this.items = itens;
 		if(monsters.size() == 0) {
@@ -35,7 +35,7 @@ public class Trainer {
 		}
 		active = monsters.get(0);
 	}
-	
+
 	public List<Monster> listMonsters(){
 		List<Monster> list = new ArrayList<>();
 		for(MonsterID m : order){
@@ -43,10 +43,10 @@ public class Trainer {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * Change the Monster in-battle.
-	 * 
+	 *
 	 * @param m the new Active Monster.
 	 */
 	public void changeActive(Monster m){
@@ -60,7 +60,7 @@ public class Trainer {
         // TODO this is where the AI happens
         decision = null;
     }
-    
+
     public Monster getActiveMonster() {
         return active;
     }
@@ -77,15 +77,15 @@ public class Trainer {
     }
 
     public void chooseNewMonster() {
-        
+
         List<Monster> choices = new ArrayList<Monster>();
-        
+
         for (Monster m : monsters.values()) {
             if (m.isAlive()) {
                 choices.add(m);
             }
         }
-        
+
         if (choices.size() == 1) {
             changeActive(choices.get(0));
         } else {

@@ -6,12 +6,12 @@ import java.util.Random;
 import trainers.Trainer;
 
 public class Battle {
-    
+
     Trainer p1; // "our" AI
     Trainer p2; // the base AI
     Random rng;
 
-    Battle(Trainer p1, Trainer p2) {
+    public Battle(Trainer p1, Trainer p2) {
         this.p1 = p1;
         this.p2 = p2;
         this.rng = new Random(0); // TODO should this be unique per genetic
