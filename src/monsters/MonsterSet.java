@@ -95,8 +95,8 @@ public class MonsterSet {
      Haunting.addMoves(MoveSet.getMove(Attack.Lick), MoveSet.getMove(Attack.Teleport),
                       MoveSet.getMove(Attack.Counter), MoveSet.getMove(Attack.TwinNeedle));
      Nadifly.addMoves(MoveSet.getMove(Attack.Fly), MoveSet.getMove(Attack.Toxic),
-                      MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.TwinNeedle);
-     Adnocana.addMoves((MoveSet.getMove(Attack.Lick), MoveSet.getMove(Attack.BodySlam),
+                      MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.TwinNeedle));
+     Adnocana.addMoves(MoveSet.getMove(Attack.Lick), MoveSet.getMove(Attack.BodySlam),
                       MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.TwinNeedle));
 
      /**
