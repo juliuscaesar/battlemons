@@ -14,10 +14,10 @@ public class MonsterSet {
     // Monsters name, int hp, int atk, int spAtk, int def, int spDef, int spd, Element... elements)
 	  static Monster Emberfly = new Monster(MonsterID.Emberfly, 120, 100, 75, 110, 75, 90, Element.Fire);
     static Monster Flamber = new Monster(MonsterID.Flamber, 110, 80, 115, 85, 85, 60, Element.Fire);
-    static Monster Oceolot = new Monster(MonsterID.Ocelot, 130, 80, 120, 95, 110, 110, Element.Water);
+    static Monster Oceolot = new Monster(MonsterID.Oceolot, 130, 80, 120, 95, 110, 110, Element.Water);
     static Monster Feesh = new Monster(MonsterID.Feesh, 120, 80, 75, 88, 89, 101, Element.Water);
     static Monster Parrit = new Monster(MonsterID.Parrit, 110, 80, 75, 65, 75, 55, Element.Flying);
-    static Monster Humbee = new Monster(MonsterID.Humbee, 140, 80, 75, 65, 75, 55, Element.Flying);
+    static Monster Hummbee = new Monster(MonsterID.Hummbee, 140, 80, 75, 65, 75, 55, Element.Flying);
     static Monster Shockeel = new Monster(MonsterID.Shockeel, 100, 80, 115, 65, 75, 140, Element.Electric);
     static Monster Bulblight = new Monster(MonsterID.Bulblight, 95, 80, 75, 65, 75, 55, Element.Electric);
     static Monster Enchantu = new Monster(MonsterID.Enchantu, 120, 80, 75, 65, 75, 55, Element.Psychic);
@@ -56,7 +56,7 @@ public class MonsterSet {
                       MoveSet.getMove(Attack.Acid), MoveSet.getMove(Attack.BodySlam));
      Parrit.addMoves(MoveSet.getMove(Attack.Fly), MoveSet.getMove(Attack.WingAttack),
                       MoveSet.getMove(Attack.SkyAttack), MoveSet.getMove(Attack.Counter));
-     Humbee.addMoves(MoveSet.getMove(Attack.ConfuseRay), MoveSet.getMove(Attack.WingAttack),
+     Hummbee.addMoves(MoveSet.getMove(Attack.ConfuseRay), MoveSet.getMove(Attack.WingAttack),
                       MoveSet.getMove(Attack.Amnesia), MoveSet.getMove(Attack.BodySlam));
      Shockeel.addMoves(MoveSet.getMove(Attack.Thunder), MoveSet.getMove(Attack.AcidMove),
                       MoveSet.getMove(Attack.Toxic), MoveSet.getMove(Attack.WaterGun));
