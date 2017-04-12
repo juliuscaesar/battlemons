@@ -48,7 +48,7 @@ public class MonsterSet {
      */
      Emberfly.addMoves(MoveSet.getMove(Attack.FirePunch), MoveSet.getMove(Attack.WingAttack),
                       MoveSet.getMove(Attack.Amnesia), MoveSet.getMove(Attack.BodySlam));
-     Flameber.addMoves(MoveSet.getMove(Attack.FireBlast), MoveSet.getMove(Attack.Barrier),
+     Flamber.addMoves(MoveSet.getMove(Attack.FireBlast), MoveSet.getMove(Attack.Barrier),
                       MoveSet.getMove(Attack.Sandattack), MoveSet.getMove(Attack.ConfuseRay));
      Oceolot.addMoves(MoveSet.getMove(Attack.WaterGun), MoveSet.getMove(Attack.Blizzard),
                       MoveSet.getMove(Attack.Mist), MoveSet.getMove(Attack.Barrier));

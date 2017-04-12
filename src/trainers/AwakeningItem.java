@@ -13,7 +13,7 @@ public class AwakeningItem implements ItemEffect{
 	public void useItem(Monster battlemon) {
 
 		if (battlemon.getStatus().equals(Status.Sleep))
-			battlemon.setStatus(Status.Normal);
+			battlemon.addStatus(Status.Normal);
 		
 	}
 

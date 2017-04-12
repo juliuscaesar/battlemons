@@ -13,7 +13,7 @@ public class ParalyzHealItem implements ItemEffect{
 	public void useItem(Monster battlemon) {
 
 		if (battlemon.getStatus().equals(Status.Paralysis))
-			battlemon.setStatus(Status.Normal);		
+			battlemon.addStatus(Status.Normal);		
 	}
 
 	@Override

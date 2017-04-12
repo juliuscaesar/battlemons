@@ -14,7 +14,7 @@ public class Antidote implements ItemEffect{
 	public void useItem(Monster battlemon) {
 
 		if (battlemon.getStatus().equals(general.Status.Poison))
-			battlemon.setStatus(general.Status.Normal);
+			battlemon.addStatus(general.Status.Normal);
 		
 	
 		

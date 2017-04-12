@@ -13,7 +13,7 @@ public class BurnHealItem implements ItemEffect{
 	public void useItem(Monster battlemon) {
 
 		if (battlemon.getStatus().equals(Status.Burn))
-			battlemon.setStatus(Status.Normal);
+			battlemon.addStatus(Status.Normal);
 		
 	}
 

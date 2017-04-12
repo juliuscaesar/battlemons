@@ -13,7 +13,7 @@ public class IceHealItem implements ItemEffect{
 	public void useItem(Monster battlemon) {
 
 		if (battlemon.getStatus().equals(Status.Freeze))
-			battlemon.setStatus(Status.Normal);
+			battlemon.addStatus(Status.Normal);
 		
 	}
 
