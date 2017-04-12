@@ -72,6 +72,7 @@ public final class Monster {
 	  moves.put(m1.toAttack(), m1);
 	  moves.put(m2.toAttack(), m2);
 	  moves.put(m3.toAttack(), m3);
+	  
 	  moves.put(m4.toAttack(), m4);
   }
 
