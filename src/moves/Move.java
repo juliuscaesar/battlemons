@@ -81,10 +81,15 @@ public class Move{
     	return damage;
     }
     
-    public void addPowerPoints(int amount)
+    public boolean addPowerPoints(int amount)
     {
+    	if(this.pp >= this.maxPP){
+    		return false;
+    	}
     	this.pp = this.pp + amount;
-    	if (this.pp > this.maxPP)
+    	if (this.pp > this.maxPP){
     		this.pp = this.maxPP;
+    	}
+    	return true;
     }
   }

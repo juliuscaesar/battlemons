@@ -70,6 +70,13 @@ public class Battle {
         return 0; // TODO fitness
     }
 
+    /**
+     * Take Turn method.
+     * 
+     * @param user
+     * @param opponent
+     * @return
+     */
     boolean takeTurn(Trainer user, Trainer opponent) {
 
         // Check status effects
