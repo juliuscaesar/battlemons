@@ -39,7 +39,7 @@ public final class Monster {
   private Map<Attack, Move> moves; // Map of Moves for this Monster.
   private boolean canMove; // True if the Monster can move, false if not.
   private boolean alive;
-  
+
   private final Attributes att;
   private int hp;
   private final int maxHP;
@@ -67,7 +67,7 @@ public final class Monster {
     }
     this.alive = true;
   }
-  
+
   public void addMoves(Move... moves){
 	  for(Move ms : moves){
 		  this.moves.put(ms.toAttack(), ms);
@@ -75,12 +75,109 @@ public final class Monster {
   }
 
   /**
+   * Will check if the Monster is still alive, if not, reset the Monster.
+   */
+  private void checkAlive(){
+	  if(hp <= 0){
+		  hp = 0;
+		  alive = false;
+		  resetStatus();
+	  }
+  }
+
+    /**
+   * Recalculate the Monster's remaining HP.
+   *
+   * @param dmg is the value that should be decreased from the Monster's HP.
+   */
+  public void receiveAttack(int dmg){
+	  this.hp -= dmg;
+	  checkAlive();
+  }
+
+  /************************************************
+   *
+   * 		GET METHODS
+   *
+   * **********************************************/
+
+  public boolean canMove(){
+	  return this.canMove;
+  }
+
+  /**
+   * Check if the Monster is alive or not.
+   *
+   * @return true if the Monster is alive, false if not.
+   */
+  public boolean isAlive(){
+	  checkAlive();
+	  return this.alive;
+  }
+
+
+  /**
+   * List all the Moves for this Monster.
+   *
+   * @return a list with AttackEnums for this Monster Moves.
+   */
+  public List<Attack> listMoves(){
+	  List<Attack> list = new ArrayList<>();
+	  for(Entry<Attack, Move> e : moves.entrySet()){
+		  list.add(e.getKey());
+	  }
+	  return list;
+  }
+
+  public int getSpeed(){
+	  return att.getSpd(this.status);
+  }
+
+  public int getHP() {
+	  return this.hp;
+  }
+
+  public Status getStatus(){
+	  return this.status;
+  }
+
+  public MonsterID getID(){
+	  return this.name;
+  }
+
+  public int getAtk(){
+	  return this.att.getAtk();
+  }
+
+  public int getDef(){
+	  return this.att.getDef();
+  }
+
+  public int getSpDef(){
+	  return this.att.getSpDef();
+  }
+
+  public Element getElem(){
+	  return this.e1;
+  }
+
+  public int getSpAtk(){
+	  return this.att.getSpAtk();
+  }
+
+
+  /************************************************
+   *
+   * 		STATUS METHODS
+   *
+   * **********************************************/
+
+  /**
    * Add the Status to a Monster.
    *
    * @param stat the status.
-   * @param roundStart the round where this Status started.
    */
-  public void setStatus(Status stat) {
+  public void addStatus(Status stat) {
     if (this.status == stat) {
       throw new IllegalArgumentException("Already with this stat.");
     }
@@ -91,29 +188,19 @@ public final class Monster {
 
   /**
    * This method will apply the status debuff.
-   * Burn: takes damage to equal of 16% of max HP.
-   * Freeze: cant move.
-   * Poison: takes damage to equal of 16% of max HP.
-   * Sleep: cant move.
+   * Freeze: can't move.
+   * Sleep: can't move.
    * Paralysis: 25% chance of not moving. Cuts Speed in half.
    */
   private void applyStatus() {
     switch (this.status) {
-      case Burn: {
-    	  this.hp = this.maxHP / 16;
-    	  return;
-      }
       case Freeze: {
     	  this.canMove = false;
     	  return;
       }
-      case Poison: {
-    	  this.hp = this.maxHP / 16;  	 
-    	  return;
-      }
       case Paralysis: {
     	  Random rng = new Random();
-    	  int percent = rng.nextInt(100);
+    	  int percent = Math.abs(rng.nextInt(100));
     	  if(percent < 25) {
     		  this.canMove = false;
     	  } else {
@@ -126,11 +213,32 @@ public final class Monster {
     	  return;
       }
       default: {
-    	  
+
       }
     }
   }
 
+  /**
+   * This method will apply the status damage
+   * Burn: takes damage to equal of 16% of max HP.
+   * Poison: takes damage to equal of 16% of max HP.
+   */
+  public void applyStatusDamage() {
+	  switch (this.status) {
+	  case Burn: {
+		  this.hp = this.maxHP / 16;
+		  return;
+	  }
+	  case Poison: {
+		  this.hp = this.maxHP / 16;
+		  return;
+	  	}
+	  	default: {
+
+	  	}
+	  }
+	  checkAlive();
+  }
 
   /**
    * Calculate the Duration in rounds for a given Status.
@@ -146,7 +254,7 @@ public final class Monster {
 		   */
 		  Random rng = new Random();
 		  int minimum = 2;
-		  int percent = rng.nextInt(1000);
+		  int percent = Math.abs(rng.nextInt(1000));
 		  if(percent < 375){
 			  this.statusDuration = minimum;
 		  }
@@ -166,7 +274,7 @@ public final class Monster {
 		   * Lasts a random value of 1 to 7 rounds.
 		   */
 		  Random rng = new Random();
-		  this.statusDuration = rng.nextInt(7) + 1;
+		  this.statusDuration = Math.abs(rng.nextInt(7)) + 1;
 	  }
 	  case Freeze: {
 		  /*
@@ -174,7 +282,7 @@ public final class Monster {
 		   */
 		  int rounds = 1;
 		  Random rng = new Random();
-		  while(rng.nextInt(100) >= 20){
+		  while(Math.abs(rng.nextInt(100)) >= 20){
 			  rounds++;
 		  }
 		  this.statusDuration = rounds;
@@ -185,7 +293,7 @@ public final class Monster {
 	  }
 	  }
   }
-  
+
   /**
    * This method will reset the Monster's Status to initial values.
    */
@@ -194,22 +302,9 @@ public final class Monster {
 	  this.att.reset();
 	  this.canMove = true;
   }
-  
-  /**
-   * Will check if the Monster is still alive, if not, reset the Monster.
-   */
-  private void checkAlive(){
-	  if(hp <= 0){
-		  hp = 0;
-		  alive = false;
-		  resetStatus();
-	  }
-  }
-  
-  /**
-   * Will execute the abnormal status' debuff. If duration of status is over, will change the
-   * Monster's status back to Normal.
-   *
+
+   /**
+   * Will check if the status should be over.
    */
   public void updateStats(){
     if(this.status == Status.Normal){
@@ -217,17 +312,58 @@ public final class Monster {
     }
     if(this.statusStart >= this.statusDuration) {
       resetStatus();
-    }
-    else{
-      applyStatus();
-      checkAlive();
+    }else{
+    	applyStatus();
     }
     this.statusStart++;
   }
-  
+
+  /************************************************
+   *
+   * 		ITEM METHODS
+   *
+   * **********************************************/
+
+  public boolean cureStatus(Status stat){
+	  if(this.status == Status.Normal || this.status != stat){
+		  return false;
+	  }
+	  else{
+		  this.status = Status.Normal;
+		  return true;
+	  }
+  }
+
+  public boolean increasePP(Attack atk, int amount){
+	  if(moves.containsKey(atk)){
+		  return moves.get(atk).increasePP(amount);
+	  }
+	  return false;
+  }
+
+  /**
+   * Revive the Monster. And restore is HP.
+   *
+   * @param restore is the absolute value of HP restored.
+   */
+  public void revive(int restore) {
+	  this.alive = true;
+	  this.hp = restore;
+  }
+
+  /**
+   * Revive the Monster. And restore is HP.
+   *
+   * @param percent is the percent of HP restored.
+   */
+  public void revive(double percent) {
+	  this.alive = true;
+	  this.hp = (int)((double)maxHP * percent);
+  }
+
   /**
    * Restore the Monster's HP by an absolute value.
-   * 
+   *
    * @param value is the value restored.
    */
   public void restoreHP(int value) {
@@ -242,10 +378,10 @@ public final class Monster {
 		  hp = maxHP;
 	  }
   }
-  
+
   /**
    * Restore a percent of the Monster's health.
-   * 
+   *
    * @param percent is the percent restored.
    */
   public void restoreHP(double percent) {
@@ -260,97 +396,4 @@ public final class Monster {
 		  hp = maxHP;
 	  }
   }
-      
-  /**
-   * Recalculate the Monster's remaining HP.
-   * 
-   * @param dmg is the value that should be decreased from the Monster's HP.
-   */
-  public void receiveAttack(int dmg){
-	  this.hp -= dmg;
-	  checkAlive();
-  }
-  
-  /**
-   * Check if the Monster is alive or not.
-   * 
-   * @return true if the Monster is alive, false if not.
-   */
-  public boolean isAlive(){
-	  return this.alive;
-  }
-  
-  /**
-   * Revive the Monster. And restore is HP.
-   * 
-   * @param restore is the absolute value of HP restored.
-   */
-  public void revive(int restore) {
-	  this.alive = true;
-	  this.hp = restore;
-  }
-  
-  /**
-   * Revive the Monster. And restore is HP.
-   * 
-   * @param percent is the percent of HP restored.
-   */
-  public void revive(double percent) {
-	  this.alive = true;
-	  this.hp = (int)((double)maxHP * percent);
-  }
-    
-  /**
-   * List all the Moves for this Monster.
-   * 
-   * @return a list with AttackEnums for this Monster Moves.
-   */
-  public List<Attack> listMoves(){
-	  List<Attack> list = new ArrayList<>();
-	  for(Entry<Attack, Move> e : moves.entrySet()){
-		  list.add(e.getKey());
-	  }
-	  return list;
-  }
-  
-  public int getSpeed(){
-	  return att.getSpd(this.status);
-  }
-  
-  public int getMaxHP()
-  {
-	  return this.maxHP;
-  }
-    
-  public int getHP() {
-	  return this.hp;
-  }
-  
-  public Status getStatus(){
-	  return this.status;
-  }
-  
-  public MonsterID getID(){
-	  return this.name;
-  }
-  
-  public int getAtk(){
-	  return this.att.getAtk();
-  }
-  
-  public int getDef(){
-	  return this.att.getDef();
-  }
-  
-  public int getSpDef(){
-	  return this.att.getSpDef();
-  }
-  
-  public Element getElem(){
-	  return this.e1;
-  }
-  
-  public int getSpAtk(){
-	  return this.att.getSpAtk();
-  }  
 }
