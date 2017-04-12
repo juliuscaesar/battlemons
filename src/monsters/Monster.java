@@ -36,7 +36,7 @@ public final class Monster {
   private Element e1; // Monster's Element 1.
   private Element e2; // Monster's Element 2.
   private boolean twoElements; // True if Monster has 2 Elements, False if not.
-  private Map<Attack, Move> moves; // Map of Moves for this Monster.
+  private static Map<Attack, Move> moves; // Map of Moves for this Monster.
   private boolean canMove; // True if the Monster can move, false if not.
   private boolean alive;
 
@@ -68,10 +68,11 @@ public final class Monster {
     this.alive = true;
   }
 
-  public void addMoves(Move... moves){
-	  for(Move ms : moves){
-		  this.moves.put(ms.toAttack(), ms);
-	  }
+  public static void addMoves(Move m1, Move m2, Move m3, Move m4){
+	  moves.put(m1.toAttack(), m1);
+	  moves.put(m2.toAttack(), m2);
+	  moves.put(m3.toAttack(), m3);
+	  moves.put(m4.toAttack(), m4);
   }
 
   /**
@@ -179,7 +180,7 @@ public final class Monster {
    */
   public void addStatus(Status stat) {
     if (this.status == stat) {
-      throw new IllegalArgumentException("Already with this stat.");
+      return;
     }
     this.statusStart = 0;
     this.status = stat;
@@ -336,7 +337,7 @@ public final class Monster {
 
   public boolean increasePP(Attack atk, int amount){
 	  if(moves.containsKey(atk)){
-		  return moves.get(atk).increasePP(amount);
+		  return moves.get(atk).addPowerPoints(amount);
 	  }
 	  return false;
   }
