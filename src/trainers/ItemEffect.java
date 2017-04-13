@@ -2,6 +2,7 @@ package trainers;
 
 import monsters.Monster;
 import moves.Move;
+import general.Attack;
 
 public interface ItemEffect {
 

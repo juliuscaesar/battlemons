@@ -130,6 +130,17 @@ public final class Monster {
   public int getHP() {
 	  return this.hp;
   }
+  
+  /**
+   * Returns the percent value of the in a double number in the range of
+   * 0.0000 to 1.0000.
+   * @return the percent value of the monster.
+   */
+  public double getPercentHP(){
+	  double current = (double)this.hp;
+	  double max = (double)this.maxHP;
+	  return (current/max);
+  }
 
   public Status getStatus(){
 	  return this.status;
@@ -177,6 +188,7 @@ public final class Monster {
     }
     this.statusStart = 0;
     this.status = stat;
+    this.applyStatus();
     getStatusDuration();
   }
 
