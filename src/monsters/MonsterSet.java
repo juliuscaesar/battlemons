@@ -7,6 +7,7 @@ import general.Attack;
 import general.Element;
 import moves.MoveSet;
 
+@SuppressWarnings("static-access")
 public class MonsterSet {
   private static Map<MonsterID, Monster> monsters;
 
@@ -48,7 +49,7 @@ public class MonsterSet {
      */
      Emberfly.addMoves(MoveSet.getMove(Attack.FirePunch), MoveSet.getMove(Attack.WingAttack),
                       MoveSet.getMove(Attack.Amnesia), MoveSet.getMove(Attack.BodySlam));
-     Flameber.addMoves(MoveSet.getMove(Attack.FireBlast), MoveSet.getMove(Attack.Barrier),
+     Flamber.addMoves(MoveSet.getMove(Attack.FireBlast), MoveSet.getMove(Attack.Barrier),
                       MoveSet.getMove(Attack.Sandattack), MoveSet.getMove(Attack.ConfuseRay));
      Oceolot.addMoves(MoveSet.getMove(Attack.WaterGun), MoveSet.getMove(Attack.Blizzard),
                       MoveSet.getMove(Attack.Mist), MoveSet.getMove(Attack.Barrier));
@@ -58,7 +59,7 @@ public class MonsterSet {
                       MoveSet.getMove(Attack.SkyAttack), MoveSet.getMove(Attack.Counter));
      Hummbee.addMoves(MoveSet.getMove(Attack.ConfuseRay), MoveSet.getMove(Attack.WingAttack),
                       MoveSet.getMove(Attack.Amnesia), MoveSet.getMove(Attack.BodySlam));
-     Shockeel.addMoves(MoveSet.getMove(Attack.Thunder), MoveSet.getMove(Attack.AcidMove),
+     Shockeel.addMoves(MoveSet.getMove(Attack.Thunder), MoveSet.getMove(Attack.Acid),
                       MoveSet.getMove(Attack.Toxic), MoveSet.getMove(Attack.WaterGun));
      Bulblight.addMoves(MoveSet.getMove(Attack.ThunderPunch), MoveSet.getMove(Attack.ThunderWave),
                       MoveSet.getMove(Attack.BodySlam), MoveSet.getMove(Attack.Sandattack));
@@ -82,13 +83,13 @@ public class MonsterSet {
                       MoveSet.getMove(Attack.ConfuseRay), MoveSet.getMove(Attack.IcePunch));
      Carrotay.addMoves(MoveSet.getMove(Attack.Earthquake), MoveSet.getMove(Attack.LowKick),
                       MoveSet.getMove(Attack.SeismicToss), MoveSet.getMove(Attack.ConfuseRay));
-     Grandant.addMoves(MoveSet.getMove(Attack.StringShot), MoveSet.getMove(Attack.SporeMove),
+     Grandant.addMoves(MoveSet.getMove(Attack.StringShot), MoveSet.getMove(Attack.Spore),
                       MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.PinMissile));
-     Skorpen.addMoves(MoveSet.getMove(Attack.StringShot), MoveSet.getMove(Attack.SporeMove),
+     Skorpen.addMoves(MoveSet.getMove(Attack.StringShot), MoveSet.getMove(Attack.Spore),
                       MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.PinMissile));
-     Supalm.addMoves(MoveSet.getMove(Attack.RazorLeaf), MoveSet.getMove(Attack.SporeMove),
+     Supalm.addMoves(MoveSet.getMove(Attack.RazorLeaf), MoveSet.getMove(Attack.Spore),
                       MoveSet.getMove(Attack.LeechLife), MoveSet.getMove(Attack.LeechSeed));
-     Crysanthum.addMoves(MoveSet.getMove(Attack.IceBeam), MoveSet.getMove(Attack.Poison),
+     Crysanthum.addMoves(MoveSet.getMove(Attack.IceBeam), MoveSet.getMove(Attack.PoisonGas),
                       MoveSet.getMove(Attack.SolarBeam), MoveSet.getMove(Attack.PinMissile));
      Boomtu.addMoves(MoveSet.getMove(Attack.Psybeam), MoveSet.getMove(Attack.Thunder),
                       MoveSet.getMove(Attack.Nightshade), MoveSet.getMove(Attack.ConfuseRay));
@@ -103,7 +104,7 @@ public class MonsterSet {
       * Adds the Battlemons to the HashMap
       */
       monsters.put(MonsterID.Emberfly, Emberfly);
-      monsters.put(MonsterId.Flamber, Flamber);
+      monsters.put(MonsterID.Flamber, Flamber);
       monsters.put(MonsterID.Oceolot, Oceolot);
       monsters.put(MonsterID.Feesh, Feesh);
       monsters.put(MonsterID.Parrit, Parrit);
