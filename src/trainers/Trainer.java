@@ -36,6 +36,22 @@ public class Trainer {
 		active = monsters.get(0);
 	}
 
+	public void clearMonsters(){
+		this.monsters.clear();
+		this.order.clear();
+		this.active = null;
+	}
+	
+	public void addMonster(Monster m){
+		if(this.monsters.size() < 6){
+			this.monsters.put(m.getID(), m);
+			this.order.add(m.getID());
+			if(this.active == null){
+				this.active = m;
+			}
+		}
+	}
+	
 	public List<Monster> listMonsters(){
 		List<Monster> list = new ArrayList<>();
 		for(MonsterID m : order){

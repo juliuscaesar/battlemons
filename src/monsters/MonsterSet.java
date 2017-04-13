@@ -1,6 +1,9 @@
 package monsters;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import general.MonsterID;
 import general.Attack;
@@ -140,5 +143,12 @@ public class MonsterSet {
       return monsters.get(name);
     }
     throw new IllegalArgumentException("Monster: [" + name.name() + "] not found.");
+  }
+  
+  public static Monster getRandomMonster(){
+	  Random rng = new Random();
+	  int randomIndex = Math.abs(rng.nextInt(monsters.size()));
+	  List<Monster> list = new ArrayList<Monster>(monsters.values());
+	  return list.get(randomIndex);
   }
 }
