@@ -5,7 +5,6 @@ import java.util.Map;
 import general.Attack;
 import general.Element;
 import general.MoveCategory;
-import general.Status;
 
 
 public class MoveSet {
