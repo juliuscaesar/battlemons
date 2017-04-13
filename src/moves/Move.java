@@ -5,8 +5,6 @@ import general.MoveCategory;
 import general.Attack;
 import general.Status;
 
-import monsters.Attributes;
-
 public class Move{
     final Attack name;
      int damage;

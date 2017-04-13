@@ -1,6 +1,5 @@
 package trainers;
 
-import general.Attack;
 import monsters.Monster;
 import moves.Move;
 

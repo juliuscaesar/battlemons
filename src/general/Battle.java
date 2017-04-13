@@ -1,6 +1,5 @@
 package general;
 
-import java.util.HashMap;
 import java.util.Random;
 
 import monsters.MonsterSet;
