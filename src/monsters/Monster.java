@@ -179,7 +179,7 @@ public final class Monster {
    *
    * @param stat the status.
    */
-  public void addStatus(Status stat) {
+  public void setStatus(Status stat) {
     if (this.status == stat) {
       return;
     }
