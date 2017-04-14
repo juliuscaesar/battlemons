@@ -2,8 +2,6 @@ package monsters;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import damage.CalcSpecialDmg;
-
 import java.util.Random;
 
 import general.Attack;
@@ -34,9 +32,7 @@ public final class Monster {
   private int statusStart; // The Round where the Monster got this Status.
   private int statusDuration; // The Duration for this Status.
   private Element e1; // Monster's Element 1.
-  private Element e2; // Monster's Element 2.
-  private boolean twoElements; // True if Monster has 2 Elements, False if not.
-  private static Map<Attack, Move> moves; // Map of Moves for this Monster.
+  private static Map<Attack, Move> moves = new HashMap<Attack, Move>(); // Map of Moves for this Monster.
   private boolean canMove; // True if the Monster can move, false if not.
   private boolean alive;
 
@@ -46,7 +42,6 @@ public final class Monster {
 
   Monster(MonsterID name, int hp, int atk, int spAtk, int def, int spDef, int spd, Element... elements) {
     this.name = name;
-    this.moves = new HashMap<>();
     this.status = Status.Normal;
     this.hp = hp;
     this.maxHP = hp;
@@ -56,10 +51,7 @@ public final class Monster {
     for (Element e : elements) {
       if (i == 0) {
         this.e1 = e;
-        this.twoElements = false;
       } else if (i == 1) {
-        this.e2 = e;
-        this.twoElements = true;
       } else {
         throw new IllegalArgumentException("More than 2 Elements");
       }
@@ -138,6 +130,17 @@ public final class Monster {
   public int getHP() {
 	  return this.hp;
   }
+  
+  /**
+   * Returns the percent value of the in a double number in the range of
+   * 0.0000 to 1.0000.
+   * @return the percent value of the monster.
+   */
+  public double getPercentHP(){
+	  double current = (double)this.hp;
+	  double max = (double)this.maxHP;
+	  return (current/max);
+  }
 
   public Status getStatus(){
 	  return this.status;
@@ -179,12 +182,13 @@ public final class Monster {
    *
    * @param stat the status.
    */
-  public void addStatus(Status stat) {
+  public void setStatus(Status stat) {
     if (this.status == stat) {
       return;
     }
     this.statusStart = 0;
     this.status = stat;
+    this.applyStatus();
     getStatusDuration();
   }
 

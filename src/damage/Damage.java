@@ -14,7 +14,6 @@ import moves.MoveSet;
 
 public class Damage {
 	private CalcSpecialDmg csd;
-	private MoveSet mset;
 	private Random r;
 	
 	/**
@@ -22,7 +21,7 @@ public class Damage {
 	 */
 	Damage(){
 		csd = new CalcSpecialDmg();
-		mset = new MoveSet();
+		new MoveSet();
 		r = new Random();
 	}
 	
@@ -36,7 +35,7 @@ public class Damage {
 	 * @return the damage that target should receive.
 	 */
 	public double getDamage(Attack atk, Monster source, Monster target){
-		  Move move = mset.getMove(atk);
+		  Move move = MoveSet.getMove(atk);
 		  double power = (double)move.getPower();
 		  double A = offAtt(move, source);
 		  double D = defAtt(move, target);
@@ -55,7 +54,7 @@ public class Damage {
 	 * @return the damage that target should receive.
 	 */
 	public double highestPossibleDamage(Attack atk, Monster source, Monster target){
-		Move move = mset.getMove(atk);
+		Move move = MoveSet.getMove(atk);
 		  double power = (double)move.getPower();
 		  double A = offAtt(move, source);
 		  double D = defAtt(move, target);
@@ -73,7 +72,7 @@ public class Damage {
 	 * @return the damage that target should receive.
 	 */
 	public double lowestPossibleDamage(Attack atk, Monster source, Monster target){
-		Move move = mset.getMove(atk);
+		Move move = MoveSet.getMove(atk);
 		  double power = (double)move.getPower();
 		  double A = offAtt(move, source);
 		  double D = defAtt(move, target);

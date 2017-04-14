@@ -5,7 +5,6 @@ import java.util.Map;
 import general.Attack;
 import general.Element;
 import general.MoveCategory;
-import general.Status;
 
 
 public class MoveSet {
@@ -149,7 +148,7 @@ public class MoveSet {
   
   
 
-  public Move getMove(Attack name){
+  public static Move getMove(Attack name){
     if(moves.containsKey(name)) {
       return moves.get(name);
     }

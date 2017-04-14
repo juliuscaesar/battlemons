@@ -1,8 +1,5 @@
 package trainers;
 
-import com.sun.org.apache.xerces.internal.util.Status;
-
-import general.Attack;
 import monsters.Monster;
 import moves.Move;
 

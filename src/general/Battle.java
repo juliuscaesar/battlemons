@@ -1,8 +1,8 @@
 package general;
 
-import java.util.HashMap;
 import java.util.Random;
 
+import monsters.MonsterSet;
 import trainers.Trainer;
 
 public class Battle {
@@ -135,7 +135,9 @@ public class Battle {
     }
 
     private void generateNewEnemyMonsters() {
-        // TODO We need monsters for this (probably just iteration of
-        // Monsters.at(rng.nextInt()) or something
+    	p2.clearMonsters();
+    	for(int i = 0; i < 6; i++){
+    		p2.addMonster(MonsterSet.getRandomMonster());
+    	}
     }
 }
