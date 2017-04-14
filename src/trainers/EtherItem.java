@@ -1,5 +1,6 @@
 package trainers;
 
+import general.Attack;
 import monsters.Monster;
 import moves.Move;
 
@@ -18,6 +19,18 @@ public class EtherItem implements ItemEffect{
 	public void useItemOnMove(Monster battlemon, Move move) {
 		
 		move.addPowerPoints(boostAmount);
+	}
+
+	@Override
+	public boolean canUseItem(Monster battlemon) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canUseItemOnMove(Monster battlemon, Attack attack) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

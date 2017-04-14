@@ -1,5 +1,6 @@
 package trainers;
 
+import general.Attack;
 import general.Status;
 import monsters.Monster;
 import moves.Move;
@@ -12,7 +13,7 @@ public class IceHealItem implements ItemEffect{
 	public void useItem(Monster battlemon) {
 
 		if (battlemon.getStatus().equals(Status.Freeze))
-			battlemon.addStatus(Status.Normal);
+			battlemon.setStatus(Status.Normal);
 		
 	}
 
@@ -20,6 +21,18 @@ public class IceHealItem implements ItemEffect{
 	public void useItemOnMove(Monster battlemon, Move move) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean canUseItem(Monster battlemon) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canUseItemOnMove(Monster battlemon, Attack attack) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
