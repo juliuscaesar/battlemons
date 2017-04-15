@@ -116,6 +116,7 @@ public class MoveSet {
     moves.put(Attack.Mist, MistMove);
     moves.put(Attack.Nightshade, NightshadeMove);
     moves.put(Attack.Peck, PeckMove);
+    moves.put(Attack.PinMissile, PinMissileMove);
     moves.put(Attack.PoisonGas, PoisonGasMove);
     moves.put(Attack.PoisonSting, PoisonStingMove);
     moves.put(Attack.Psybeam, PsybeamMove);

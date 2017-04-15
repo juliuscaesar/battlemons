@@ -63,12 +63,13 @@ public class Trainer {
 	
 	public void DisplayListOfMonsters()
 	{
-		System.out.println("The monsters for " + this.name + " are ");
+		System.out.println("The monsters for " + this.name + " are: ");
 		
-		for (int i = 0; i < listMonsters().size(); i++)
+		for (int i = 0; i < listMonsters().size() - 1; i++)
 		{
 			System.out.print(listMonsters().get(i) + ", ");
 		}
+		System.out.print(listMonsters().get(listMonsters().size() - 1) + ".");
 	}
 
 	/**
@@ -80,7 +81,7 @@ public class Trainer {
 		if(m.isAlive()){
 			this.active = monsters.get(m.getID());
 		}
-		throw new IllegalArgumentException("Can't select dead Monsters.");
+		throw new IllegalArgumentException("Can't select a dead Monsters.");
 	}
 
     public void makeDecision(Battle battle) {
@@ -118,5 +119,15 @@ public class Trainer {
             // TODO AI STUFF
         }
     }
+    
+    public float percentOfAllMonsters() {
+    	float percent = 0;
+    	for(Monster m : monsters.values()){
+    		percent += m.getPercentHP();
+    	}
+    	return percent;
+    }
+    
+    
 
 }

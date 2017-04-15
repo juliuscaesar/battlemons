@@ -11,6 +11,7 @@ public class Battle {
     Trainer p2; // the base AI
     Random rng;
     TextOutput textOutput;
+    int defeated;
     
 
     public Battle(Trainer p1, Trainer p2) {
@@ -18,6 +19,7 @@ public class Battle {
         this.p2 = p2;
         this.rng = new Random(0); // TODO should this be unique per genetic
                                   // mutation? or always 0?
+        this.defeated = 0;
     }
 
     // returns fitness
@@ -69,7 +71,7 @@ public class Battle {
 
         }
 
-        return 0; // TODO fitness
+        return calculateFitness(); // TODO fitness
     }
 
     /**
@@ -167,5 +169,10 @@ public class Battle {
     	for(int i = 0; i < 6; i++){    		    		
     		p2.addMonster(MonsterSet.getRandomMonster());
     	}
+    }
+    
+    private float calculateFitness(){
+    	return this.defeated + this.p2.percentOfAllMonsters();
+    	
     }
 }

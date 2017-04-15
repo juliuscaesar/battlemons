@@ -25,9 +25,9 @@ public class Move{
       this.cat = cat;
       this.stats = Status.Normal;
 
-      if(acc < 1 || acc > 100) {
+      if(acc < 0 || acc > 100) {
         throw new IllegalArgumentException(
-            "Accuracy out of bounds. Valid values are only between 1 and 100");
+            "Accuracy out of bounds. Valid values are only between 1 and 100. Value: " + acc);
       }
     }
      
