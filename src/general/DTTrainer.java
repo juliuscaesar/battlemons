@@ -4,8 +4,16 @@ import java.util.List;
 import damage.Damage;
 import monsters.Monster;
 import moves.MoveSet;
+import trainers.Antidote;
+import trainers.AwakeningItem;
+import trainers.BurnHealItem;
+import trainers.EtherItem;
+import trainers.FreshwaterItem;
+import trainers.IceHealItem;
 import trainers.Item;
+import trainers.ItemEffect;
 import trainers.ItemEnum;
+import trainers.ParalyzHealItem;
 import trainers.Trainer;
 
 public class DTTrainer {
@@ -265,6 +273,136 @@ public class DTTrainer {
                 return currentMon.getHP() <= parameter;
             }
         }
+        
+        public class Condition_IsStatusNormal extends Condition
+        {
+        	public Condition_IsStatusNormal(Node true_child,
+                    Node false_child, float parameter) 
+        	{
+                super(true_child, false_child, parameter);
+                upper_bound = Double.MAX_VALUE;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+        	
+        	boolean check_condition(Battle battle, Trainer user)
+        	{
+        		Monster currentMon = user.getActiveMonster();
+        		return (currentMon.getStatus() == Status.Normal);
+        	}
+        }
+        
+        public class Condition_IsOpponentStatusNormal extends Condition
+        {
+        	public Condition_IsOpponentStatusNormal(Node true_child,
+                    Node false_child, float parameter) 
+        	{
+                super(true_child, false_child, parameter);
+                upper_bound = Double.MAX_VALUE;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+        	
+        	boolean check_condition(Battle battle, Trainer user)
+        	{
+        		Monster currentOpponentMon = battle.getOpponentsMonster(user);
+        		return (currentOpponentMon.getStatus() == Status.Normal);
+        	}
+        }
+        
+        
+        public class Condition_IsStatusNotNormal extends Condition
+        {
+        	public Condition_IsStatusNotNormal(Node true_child,
+                    Node false_child, float parameter) 
+        	{
+                super(true_child, false_child, parameter);
+                upper_bound = Double.MAX_VALUE;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+        	
+        	boolean check_condition(Battle battle, Trainer user)
+        	{
+        		Monster currentMon = user.getActiveMonster();
+        		return (currentMon.getStatus() != Status.Normal);
+        	}
+        }
+        
+        public class Condition_IsOpponentStatusNotNormal extends Condition
+        {
+        	public Condition_IsOpponentStatusNotNormal(Node true_child,
+                    Node false_child, float parameter) 
+        	{
+                super(true_child, false_child, parameter);
+                upper_bound = Double.MAX_VALUE;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+        	
+        	boolean check_condition(Battle battle, Trainer user)
+        	{
+        		Monster currentOpponentMon = battle.getOpponentsMonster(user);
+        		return (currentOpponentMon.getStatus() != Status.Normal);
+        	}
+        }       
+        
+        public class Condition_CanStatusHealItself extends Condition
+        {
+        	public Condition_CanStatusHealItself(Node true_child,
+                    Node false_child, float parameter) 
+        	{
+                super(true_child, false_child, parameter);
+                upper_bound = Double.MAX_VALUE;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+        	        	
+        	
+        	boolean check_condition(Battle battle, Trainer user)
+        	{
+        		Monster currentMon = user.getActiveMonster();
+        		List<Item> itemsOnUser = user.listItems();
+        		
+        		
+        		for (Item item : itemsOnUser)
+        		{
+        			if (currentMon.getStatus().equals(Status.Poison) 
+        					&& item.getItemEnum().equals(ItemEnum.Antidote))
+        			{
+        				return true;
+        			}
+        			
+        			if (currentMon.getStatus().equals(Status.Burn) 
+        					&& item.getItemEnum().equals(ItemEnum.BurnHeal))
+        			{
+        				return true;
+        			}
+        			
+        			if (currentMon.getStatus().equals(Status.Freeze) 
+        					&& item.getItemEnum().equals(ItemEnum.IceHeal))
+        			{
+        				return true;
+        			}
+        			
+        			if (currentMon.getStatus().equals(Status.Paralysis) 
+        					&& item.getItemEnum().equals(ItemEnum.ParalyzHeal))
+        			{
+        				return true;
+        			}
+        			
+        			if (currentMon.getStatus().equals(Status.Poison) 
+        					&& item.getItemEnum().equals(ItemEnum.Antidote))
+        			{
+        				return true;
+        			}        			
+        			
+        		}
+        		
+        		return false;        		
+        	}
+        	
+        }
 
         /******** implemented behaviors ***********/
 
@@ -370,6 +508,7 @@ public class DTTrainer {
                 return new Decision.ChangeMonster(highestDmgMon);
             }
         }
+        
         
         /**
          * Pick a move that will raise the Battlemon's stats
@@ -477,6 +616,125 @@ public class DTTrainer {
                 if (lowestAttack == null) return null;
                 return new Decision.UseMove(MoveSet.getMove(lowestAttack));
             }
+        }
+        
+        public class Behavior_HealHP extends Behavior
+        {
+        	Decision execute(Battle battle, Trainer user)
+        	{
+        		Monster activeMonsterOfUser = user.getActiveMonster();
+        		FreshwaterItem replenishHP = new FreshwaterItem();
+        		
+        		return new Decision.UseHealHPItem(replenishHP, activeMonsterOfUser);
+        	}
+        }
+        
+
+        public class Behavior_HealStatus extends Behavior
+        {
+        	Decision execute(Battle battle, Trainer user)
+        	{        		
+        		Monster activeMonsterOfUser = user.getActiveMonster();
+        		IceHealItem cureFreeze = new IceHealItem();
+        		AwakeningItem cureSleep = new AwakeningItem();
+        		BurnHealItem cureBurn = new BurnHealItem();
+        		ParalyzHealItem cureParalysis = new ParalyzHealItem();
+        		Antidote curePoison = new Antidote();
+        		
+        		if (activeMonsterOfUser.getStatus().equals(Status.Freeze))
+        		{
+        			return new Decision.UseIceHealItem(cureFreeze, activeMonsterOfUser);
+        		}
+        		
+        		if (activeMonsterOfUser.getStatus().equals(Status.Sleep))
+        		{
+        			return new Decision.UseSleepHealItem(cureSleep, activeMonsterOfUser);
+        		}
+        		
+        		if (activeMonsterOfUser.getStatus().equals(Status.Burn))
+        		{
+        			return new Decision.UseBurnHealItem(cureBurn, activeMonsterOfUser);
+        		}
+        		
+        		if (activeMonsterOfUser.getStatus().equals(Status.Paralysis))
+        		{
+        			return new Decision.UseParalyzHealItem(cureParalysis, activeMonsterOfUser);
+        		}
+        		
+        		if (activeMonsterOfUser.getStatus().equals(Status.Poison))
+        		{
+        			return new Decision.UsePoisonHealItem(curePoison, activeMonsterOfUser);
+        		}
+        		
+        		return null;
+        	}
+        }
+        
+        public class Behavior_HealPP extends Behavior {
+        	Decision execute(Battle battle, Trainer user) {
+        		
+            	int lowestPP = 0;
+            	EtherItem replenishPP = new EtherItem();
+                Monster monster = user.getActiveMonster();
+
+                Attack lowestPPAttack = null;
+                
+                for (Attack attack : monster.listMoves()) { 
+                	int powerpoints = MoveSet.getMove(attack).getPP();                	
+                	if (powerpoints < lowestPP) {
+                		lowestPP = powerpoints;
+                		lowestPPAttack = attack; 
+                	}
+                }          
+                
+                
+                if (lowestPPAttack == null) return null;
+                
+                
+                return new Decision.UseMove(MoveSet.getMove(lowestPPAttack));
+            }
+        }
+        
+        public class Behavior_InflictStatusEffect extends Behavior
+        {
+        	Decision execute(Battle battle, Trainer user)
+        	{
+        		
+        		Monster monster = user.getActiveMonster();
+        		
+        		for (Attack attack : monster.listMoves())
+        		{
+        			if (MoveSet.getMove(attack).isStatusMove())
+        			{
+        				return new Decision.UseAttack(attack);
+        			}
+        			
+        			
+        		}
+				return null;       		
+        	
+        	}
+        }
+        
+        public class Behavior_ChangeToMonsterWithHighSurvivability extends Behavior
+        {
+        	Decision execute(Battle battle, Trainer user)
+        	{
+        		Monster opponentMon = battle.getOpponentsMonster(user);
+        		Monster monWithHighestSurvivabilityScore = user.listMonsters().get(0);
+        		List<Monster> monstersOnUser = user.listMonsters();
+        		
+        		 for (int i = 1; i < monstersOnUser.size(); i++)
+        		 {
+        			 if (monWithHighestSurvivabilityScore.GetSurvivabilityScoreOfMonAgainstOpponent(opponentMon) 
+        					 < monstersOnUser.get(i).GetSurvivabilityScoreOfMonAgainstOpponent(opponentMon))
+        			 {
+        				 monWithHighestSurvivabilityScore = monstersOnUser.get(i);
+        			 }
+        		 }
+        		 
+        		 return new Decision.ChangeMonster(monWithHighestSurvivabilityScore);
+        	}
         }
     }
     /**

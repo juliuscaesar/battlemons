@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 
 import java.util.Random;
 
+import damage.Damage;
 import general.Attack;
 import general.Element;
 import general.Status;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import moves.Move;
+import moves.MoveSet;
 
 /**
  * Monster Class.
@@ -39,6 +41,7 @@ public final class Monster {
   private final Attributes att;
   private int hp;
   private final int maxHP;
+  private int survivabilityScore;
 
   Monster(MonsterID name, int hp, int atk, int spAtk, int def, int spDef, int spd, Element... elements) {
     this.name = name;
@@ -106,6 +109,8 @@ public final class Monster {
 	  }
 	  return false;
   }
+  
+
 
   /************************************************
    *
@@ -140,6 +145,8 @@ public final class Monster {
 	  }
 	  return list;
   }
+  
+ 
 
   public int getSpeed(){
 	  return att.getSpd(this.status);
@@ -456,5 +463,35 @@ public final class Monster {
 	  }
 	  return true;
 	  
+  }
+  
+  public boolean hasStatusMoves()
+ 	{		
+ 		
+ 		 for (Attack attack : this.listMoves())
+ 		 {
+ 			 if (MoveSet.getMove(attack).isStatusMove())
+ 			 {
+ 				 return true;
+ 			 }
+ 		 }
+ 		 
+ 		 return false;
+ 	}
+  
+  public int GetSurvivabilityScoreOfMonAgainstOpponent(Monster opponent)
+  {
+	  int maxDamageThatCanBeIncurred = 0;
+	  
+	  Damage damageToMon = new Damage();
+	  
+	  for (Attack attack : opponent.listMoves())
+	  {
+		  maxDamageThatCanBeIncurred = maxDamageThatCanBeIncurred + damageToMon.highestPossibleDamage(attack, opponent, this);
+	  }
+	  
+	  this.survivabilityScore = 100 - maxDamageThatCanBeIncurred;
+	  
+	  return survivabilityScore;
   }
 }

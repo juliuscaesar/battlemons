@@ -4,6 +4,7 @@ import general.Attack;
 import monsters.Monster;
 import moves.Move;
 
+
 // if battlemon is poisoned, set its status back to normal
 
 public class Antidote implements ItemEffect{

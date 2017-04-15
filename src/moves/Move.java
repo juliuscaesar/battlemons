@@ -111,5 +111,18 @@ public class Move{
     	}
     	return false;
     }
+    
+    public Status getMoveCategory()
+    {
+    	return this.getMoveCategory();
+    }
+    
+    public boolean isStatusMove()
+    {
+    	if (this.getStatus() == Status.Normal)
+    		return false;
+    	
+    	return true;
+    }
   }
 

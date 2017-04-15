@@ -2,8 +2,7 @@ package general;
 
 import trainers.Trainer;
 import general.Decision;
-import general.Decision.UseItem;
-import general.Decision.UseMove;
+
 
 public class TextOutput {
 	
@@ -11,8 +10,7 @@ public class TextOutput {
 	// a false value means minimal data would be printed to the console
 	private boolean verboseSwitch = false; 
 	
-	UseMove useMove;
-	UseItem useItem;
+	
 	
 	// this method will be executed every time a trainer makes a move
 	public void printStuffToConsole(Trainer user, Trainer opponent)
@@ -67,8 +65,5 @@ public class TextOutput {
 		}
 	}
 	
-	public void printVerboseBattleData(Trainer user, Trainer opponent)
-	{
-		
-	}
+	
 }
