@@ -6,15 +6,37 @@ import monsters.Monster;
 import monsters.MonsterSet;
 import trainers.Trainer;
 
+/**
+ * Class representing a single instance of a battle. Battles consist of two
+ * trainers - two AIs - that battle indefinitely until the "player" AI loses.
+ * The "player" loses when they run out of alive Monsters.
+ * 
+ * At the end of the battle, a fitness value representing the AI's performance
+ * is returned.
+ *
+ */
 public class Battle {
 
-    Trainer p1; // "our" AI
-    Trainer p2; // the base AI
-    Random rng;
-    TextOutput textOutput;
-    int defeated;
-    
+    // "our" AI
+    Trainer p1;
+    // the enemy AI
+    Trainer p2;
 
+    // A random number generator for team selection
+    Random rng;
+    // Text output for debugging.
+    TextOutput textOutput;
+
+    int defeated; // FIXME this does nothing right now
+
+    /**
+     * Constructor.
+     * 
+     * @param p1
+     *            The "player" AI
+     * @param p2
+     *            The "enemy" AI
+     */
     public Battle(Trainer p1, Trainer p2) {
         this.p1 = p1;
         this.p2 = p2;
@@ -23,114 +45,147 @@ public class Battle {
         this.defeated = 0;
     }
 
-    // returns fitness
+    /**
+     * Runs a simulation of this battle. The battle will run indefinitely, until
+     * the player AI loses.
+     * 
+     * @return A fitness value, representing the performance of p1's AI.
+     */
     public float runBattle() {
 
+        // Run until broken out of
         while (true) {
+
+            // Make the AI decisions HERE. Neither AI will know what the other
+            // has chosen until these decisions are executed
             p1.makeDecision(this);
             p2.makeDecision(this);
 
+            // Determine move order
             Trainer order[];
 
-            // Determine move order
-
-            // player 1 goes first automatically - not using a move
+            // Player 1 isn't using a move, but Player 2 is - Player 1 goes
+            // first
             if (!(p1.getDecision() instanceof Decision.UseMove)
                     && p2.getDecision() instanceof Decision.UseMove) {
                 order = new Trainer[] { p1, p2 };
             }
-            // player 2 goes first automatically - not using a move
+            // Player 2 isn't using a move, but Player 1 is - Player 2 goes
+            // first
             else if (!(p2.getDecision() instanceof Decision.UseMove)
                     && p1.getDecision() instanceof Decision.UseMove) {
                 order = new Trainer[] { p2, p1 };
             }
-            // neither player is using a move - just do whatever
+            // Neither player is using a move - just go sequentially, it's
+            // entirely arbitrary
             else if (!(p1.getDecision() instanceof Decision.UseMove)
                     && !(p2.getDecision() instanceof Decision.UseMove)) {
                 order = new Trainer[] { p1, p2 };
             }
-            // both players are using moves - follow speed order
+            // Both players are using moves - so whichever monster has the
+            // highest speed moves first
             else {
+
+                // Player 1's monster has the higher speed - they go first
                 if (p1.getActiveMonster().getSpeed() > p2.getActiveMonster()
                         .getSpeed()) {
                     order = new Trainer[] { p1, p2 };
-                } else if (p2.getActiveMonster().getSpeed() > p1
+                }
+                // Player 2's monster has the higher speed - they go second
+                else if (p2.getActiveMonster().getSpeed() > p1
                         .getActiveMonster().getSpeed()) {
                     order = new Trainer[] { p2, p1 };
-                } else { // It's a tie - flip a coin
-                    if (rng.nextBoolean()) {
-                        order = new Trainer[] { p1, p2 };
-                    } else {
-                        order = new Trainer[] { p2, p1 };
-                    }
+                }
+                // It's a tie - flip a coin!
+                else {
+                    order = rng.nextBoolean() ? new Trainer[] { p1, p2 }
+                            : new Trainer[] { p2, p1 };
                 }
             }
 
-            // Do the battle turns
+            // Do the battle turns! If either of them return a false, the battle
+            // is over, and we need to break
             if (!takeTurn(order[0], order[1])) break;
             if (!takeTurn(order[1], order[0])) break;
-
         }
 
         return calculateFitness(); // TODO fitness
     }
 
     /**
-     * Take Turn method.
+     * Method for one trainer to take their turn, and execute their AI. Covers
+     * application of status effects
      * 
      * @param user
+     *            The trainer taking their turn.
      * @param opponent
+     *            The trainer NOT taking their turn.
      * @return
      */
     boolean takeTurn(Trainer user, Trainer opponent) {
 
-        // Check status effects
+        // Do non-move stuff first!
+        if (!(user.getDecision() instanceof Decision.UseMove)) {
+            user.getDecision().executeDecision(this, user);
+            // TODO text output?
+            // TODO return here? not sure about this...
+            return true;
+        }
+
+        // Advance status effects
         user.getActiveMonster().updateStats();
-        if (user.getActiveMonster().canMove()) {
+
+        // If the user can't move, just skip their turn
+        if (!user.getActiveMonster().canMove()) {
             return true;
         }
 
         // display some initial information to console
-       user.DisplayListOfMonsters();
-       opponent.DisplayListOfMonsters();
-        
+        user.DisplayListOfMonsters();
+        opponent.DisplayListOfMonsters();
+
         // Do the thing!
-        user.getDecision().executeDecision(this, user);        
+        user.getDecision().executeDecision(this, user);
+
         // produce output as text
         textOutput.printStuffToConsole(user, opponent);
 
         // Check monsters to see who died
-        if (!checkMonster(user)) 
-        {
-        	System.out.println("No monsters left for " + user);
-        	return false;
-        	
+        if (!checkMonster(user)) {
+            System.out.println("No monsters left for " + user);
+            return false;
         }
-        
-        if (!checkMonster(opponent)) 
-        {
-        	System.out.println("No monsters left for " + opponent);
-        	return false;
-        	
+        if (!checkMonster(opponent)) {
+            System.out.println("No monsters left for " + opponent);
+            return false;
+
         }
-        
+
+        // Apply damage from status effects, if there is any
         user.getActiveMonster().applyStatusDamage();
-        System.out.println("The current status of the user's monster is" + user.getActiveMonster().getStatus());
+        System.out.println("The current status of the user's monster is"
+                + user.getActiveMonster().getStatus());
 
         // Check user's monster again to see if they died from status effects
-        if (!checkMonster(user)) 
-        {
-        	System.out.println("No monsters left for " + user);
-        	return false;
-        	
+        if (!checkMonster(user)) {
+            System.out.println("No monsters left for " + user);
+            return false;
         }
 
         return true;
     }
 
-    // Checks whether or not the given trainer's monster is alive, and finds a
-    // new one if possible. If the monster is still alive, or a new one is
-    // swapped to, this returns true; otherwise, it returns false.
+    /**
+     * Checks whether or not the given trainer's monster is alive, and finds a
+     * new one if possible. If there are no new monsters, and this is the Enemy
+     * AI (p2), then a new team is generated - if this is the PLAYER AI (p1),
+     * then the function returns false, and the battle ends.
+     * 
+     * @param t
+     *            The trainer whose team we're checking.
+     * @return True if the battle is to continue; false if the battle is to end.
+     *         The battle only ends if p1's team has died.
+     */
     boolean checkMonster(Trainer t) {
 
         // Check if the current monster is alive
@@ -138,44 +193,57 @@ public class Battle {
 
             // Check for any alive monsters
             if (t.hasAliveMonster()) {
-
                 // If we've found some, choose the best one
                 t.chooseNewMonster();
-
-            } else { // If we don't have any...
+            }
+            // If we don't have any...
+            else {
 
                 // If this is the "enemy" AI, just make up some more monsters
                 if (t.equals(p2)) {
-
                     generateNewEnemyMonsters();
                     t.chooseNewMonster();
-
-                } else { // If this is "good" AI, it's game over
-
+                }
+                // If this is "good" AI, it's game over
+                else {
                     return false;
-
                 }
             }
         }
-
         // If the monster's still alive, or we found a new one, NBD
         return true;
     }
 
+    /**
+     * Returns the active monster for user's opponent.
+     * 
+     * @param user
+     *            The current Trainer.
+     * @return user's opponent's monster.
+     */
     Monster getOpponentsMonster(Trainer user) {
         return p1 == user ? p2.getActiveMonster() : p1.getActiveMonster();
     }
 
+    /**
+     * Generates a new team of monsters for p2. Monsters are chosen at random,
+     * using this.rng.
+     */
     private void generateNewEnemyMonsters() {
-
         p2.clearMonsters();
         for (int i = 0; i < 6; i++) {
+            // TODO this rng needs to be moved to a static space
             p2.addMonster(MonsterSet.getRandomMonster());
         }
     }
-    
-    private float calculateFitness(){
-    	return this.defeated + this.p2.percentOfAllMonsters();
-    	
+
+    /**
+     * Calculates the fitness for p1, based on the number of monsters beaten in
+     * total - and the remaining HP of the monsters that haven't been defeated
+     * yet.
+     */
+    private float calculateFitness() {
+        return this.defeated + this.p2.percentOfAllMonsters();
+
     }
 }
