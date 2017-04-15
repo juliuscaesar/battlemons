@@ -13,12 +13,12 @@ import general.MonsterID;
 import monsters.Monster;
 
 public class Trainer {
-	private Map<MonsterID, Monster> monsters; // List of this Trainer's Monsters.
+	public Map<MonsterID, Monster> monsters; // List of this Trainer's Monsters.
 	private List<MonsterID> order; // List in order of this Trainer's Monsters.
-	private Monster active; // The First Pokemon, The one in-battle.
-	private String name; // Trainer's Name.
-	private List<Item> items; // List of this Trainer's items.
-	private Decision decision; // The decision made by the AI for this player.
+	public Monster active; // The First Pokemon, The one in-battle.
+	public String name; // Trainer's Name.
+	public List<Item> items; // List of this Trainer's items.
+	public Decision decision; // The decision made by the AI for this player.
 	private DTTrainer trainerAI;
 
 	public Trainer(String name, List<Monster> monsters, List<Item> itens){
@@ -59,6 +59,16 @@ public class Trainer {
 			list.add(monsters.get(m));
 		}
 		return list;
+	}
+	
+	public void DisplayListOfMonsters()
+	{
+		System.out.println("The monsters for " + this.name + " are ");
+		
+		for (int i = 0; i < listMonsters().size(); i++)
+		{
+			System.out.print(listMonsters().get(i) + ", ");
+		}
 	}
 
 	/**
