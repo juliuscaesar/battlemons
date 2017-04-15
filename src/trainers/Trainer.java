@@ -60,6 +60,10 @@ public class Trainer {
 		}
 		return list;
 	}
+	
+	public List<Item> listItems(){
+        return items;
+    }
 
 	/**
 	 * Change the Monster in-battle.

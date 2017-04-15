@@ -77,10 +77,12 @@ public class DT<T> {
         // Node executed on if this condition is false.
         Node false_child;
         // Parameter used in some conditional comparisons
-        float parameter;
+        double parameter;
+        double upper_bound = Double.MAX_VALUE;
+        double lower_bound = Double.MIN_VALUE;
         // Indication of whether or not the parameter variable is used; if not,
         // then the parameter should not be mutated or modified
-        boolean uses_parameter;
+        boolean uses_parameter = false;
 
         // Dead constructor.
         Condition() {
@@ -88,22 +90,23 @@ public class DT<T> {
             false_child = null;
             parameter = 0;
         }
-        
+
         // Constructor used for direct instantion (for testing).
-        Condition(Node _true_child, Node _false_child, float _parameter) {
-            true_child = _true_child;
-            false_child = _false_child;
-            parameter = _parameter;
+        Condition(Node true_child, Node false_child, double parameter) {
+            this.true_child = true_child;
+            this.false_child = false_child;
+            this.parameter = parameter;
         }
 
         // Constructor used when reading in trees. "br" should already be
         // opened.
-        Condition(BufferedReader br, String class_prefix) throws IOException {
-            true_child = parse_string(br, class_prefix);
-            // skip "else:" line
-            br.readLine();
-            false_child = parse_string(br, class_prefix);
-        }
+        // Condition(BufferedReader br, String class_prefix) throws IOException
+        // {
+        // true_child = parse_string(br, class_prefix);
+        // // skip "else:" line
+        // br.readLine();
+        // false_child = parse_string(br, class_prefix);
+        // }
 
         // Convert this node back into a string representation.
         String toString(String prefix) {
@@ -138,31 +141,31 @@ public class DT<T> {
      * successive nested Condition and Behavior constructors, and instances of
      * parse_string() to build the tree out.
      */
-    DT(String filename) {
-
-        String class_prefix = this.getClass().getName() + "$";
-        
-        // Try to open this file.
-        FileReader fr;
-        try {
-            fr = new FileReader(filename);
-        } catch (FileNotFoundException e1) {
-            System.out.println("File not found for filename: " + filename);
-            tree_head = null;
-            return;
-        }
-
-        // Set up our reader.
-        BufferedReader br = new BufferedReader(fr);
-        try {
-            // Build the actual tree.
-            tree_head = parse_string(br, class_prefix);
-        } catch (IOException e) {
-            System.out.println("IOException");
-            tree_head = null;
-            return;
-        }
-    }
+    // DT(String filename) {
+    //
+    // String class_prefix = this.getClass().getName() + "$";
+    //
+    // // Try to open this file.
+    // FileReader fr;
+    // try {
+    // fr = new FileReader(filename);
+    // } catch (FileNotFoundException e1) {
+    // System.out.println("File not found for filename: " + filename);
+    // tree_head = null;
+    // return;
+    // }
+    //
+    // // Set up our reader.
+    // BufferedReader br = new BufferedReader(fr);
+    // try {
+    // // Build the actual tree.
+    // tree_head = parse_string(br, class_prefix);
+    // } catch (IOException e) {
+    // System.out.println("IOException");
+    // tree_head = null;
+    // return;
+    // }
+    // }
 
     /**
      * Parses the line that br is currently pointed at to determine if it
@@ -176,98 +179,99 @@ public class DT<T> {
      *         potentially, successive lines) in br.
      */
     @SuppressWarnings("unchecked")
-    Node parse_string(BufferedReader br, String class_prefix) throws IOException {
-
-        // Read in the new line and trim whitespace
-        String to_parse = br.readLine();
-        to_parse = to_parse.trim();
-        String simple_name;
-
-        // The return value
-        Node ret = null;
-
-        // If this is an else-case, parse successive lines as a Condition
-        if (to_parse.substring(0, 3).equalsIgnoreCase("if ")) {
-
-            // Knock off if clause and closing ":"
-            to_parse = to_parse.substring(3, to_parse.length() - 1);
-            simple_name = to_parse;
-
-            // Append enclosing class prefix and Condition_ to transform into
-            // canonical name of desired class
-            to_parse = class_prefix + "Condition_" + to_parse;
-
-            // Set up
-            Class<?> condition_class = null;
-            Constructor<?> ctor = null;
-
-            // Try to interpret the string in the file as a
-            // Condition class, and create a new object from that
-            try {
-                // Reflect condition string into a class name
-                condition_class = Class.forName(to_parse);
-                System.out.println(condition_class.getConstructors());
-                // Create and execute constructors
-                // FIXME idk why this works, but getConstructor() doesn't
-                ctor = condition_class.getConstructors()[0];
-
-                // Remember to pass in br!!
-                ret = (Condition) ctor.newInstance(new Object[] { this, br , class_prefix});
-
-            } catch (ClassNotFoundException e) {
-                System.err.println("Error: condition name \"" + to_parse
-                        + "\" does not refer " + "to a known class.");
-                br.close();
-                return null;
-            } catch (Exception e) {
-                System.err.println("Error: " + e.toString() + " "
-                        + e.getMessage());
-                br.close();
-                return null;
-            }
-
-        } else { // Parse for behaviors
-
-            simple_name = to_parse;
-
-            // Append enclosing class prefix and Behavior_ to transform into
-            // canonical name of desired class
-            to_parse = class_prefix + "Behavior_" + to_parse;
-
-            // Set up
-            Class<?> behavior_class = null;
-            Constructor<?> ctor = null;
-
-            // Try to interpret the string in the file as a
-            // Behavior class, and create a new object from that
-            try {
-                // Reflect condition string into a class name
-                behavior_class = Class.forName(to_parse);
-                System.out.println(behavior_class.getConstructors().length);
-                // Create and execute constructors
-                // FIXME idk why this works, but getConstructor() doesn't
-                ctor = behavior_class.getConstructors()[0];
-                ret = (Behavior) ctor.newInstance(new Object[] { this });
-
-            } catch (ClassNotFoundException e) {
-                System.err.println("Error: behavior name \"" + to_parse
-                        + "\" does not refer " + "to a known class.");
-                br.close();
-                return null;
-            } catch (Exception e) {
-                System.err.println("Error: " + e.toString() + " "
-                        + e.getMessage());
-                br.close();
-                return null;
-            }
-
-        }
-
-        // Save the read-in name of this Node
-        if (ret != null) ret.name = simple_name;
-        return ret;
-    }
-
+    // Node parse_string(BufferedReader br, String class_prefix)
+    // throws IOException {
+    //
+    // // Read in the new line and trim whitespace
+    // String to_parse = br.readLine();
+    // to_parse = to_parse.trim();
+    // String simple_name;
+    //
+    // // The return value
+    // Node ret = null;
+    //
+    // // If this is an else-case, parse successive lines as a Condition
+    // if (to_parse.substring(0, 3).equalsIgnoreCase("if ")) {
+    //
+    // // Knock off if clause and closing ":"
+    // to_parse = to_parse.substring(3, to_parse.length() - 1);
+    // simple_name = to_parse;
+    //
+    // // Append enclosing class prefix and Condition_ to transform into
+    // // canonical name of desired class
+    // to_parse = class_prefix + "Condition_" + to_parse;
+    //
+    // // Set up
+    // Class<?> condition_class = null;
+    // Constructor<?> ctor = null;
+    //
+    // // Try to interpret the string in the file as a
+    // // Condition class, and create a new object from that
+    // try {
+    // // Reflect condition string into a class name
+    // condition_class = Class.forName(to_parse);
+    // System.out.println(condition_class.getConstructors());
+    // // Create and execute constructors
+    // // FIXME idk why this works, but getConstructor() doesn't
+    // ctor = condition_class.getConstructors()[0];
+    //
+    // // Remember to pass in br!!
+    // ret = (Condition) ctor.newInstance(new Object[] { this, br,
+    // class_prefix });
+    //
+    // } catch (ClassNotFoundException e) {
+    // System.err.println("Error: condition name \"" + to_parse
+    // + "\" does not refer " + "to a known class.");
+    // br.close();
+    // return null;
+    // } catch (Exception e) {
+    // System.err.println("Error: " + e.toString() + " "
+    // + e.getMessage());
+    // br.close();
+    // return null;
+    // }
+    //
+    // } else { // Parse for behaviors
+    //
+    // simple_name = to_parse;
+    //
+    // // Append enclosing class prefix and Behavior_ to transform into
+    // // canonical name of desired class
+    // to_parse = class_prefix + "Behavior_" + to_parse;
+    //
+    // // Set up
+    // Class<?> behavior_class = null;
+    // Constructor<?> ctor = null;
+    //
+    // // Try to interpret the string in the file as a
+    // // Behavior class, and create a new object from that
+    // try {
+    // // Reflect condition string into a class name
+    // behavior_class = Class.forName(to_parse);
+    // System.out.println(behavior_class.getConstructors().length);
+    // // Create and execute constructors
+    // // FIXME idk why this works, but getConstructor() doesn't
+    // ctor = behavior_class.getConstructors()[0];
+    // ret = (Behavior) ctor.newInstance(new Object[] { this });
+    //
+    // } catch (ClassNotFoundException e) {
+    // System.err.println("Error: behavior name \"" + to_parse
+    // + "\" does not refer " + "to a known class.");
+    // br.close();
+    // return null;
+    // } catch (Exception e) {
+    // System.err.println("Error: " + e.toString() + " "
+    // + e.getMessage());
+    // br.close();
+    // return null;
+    // }
+    //
+    // }
+    //
+    // // Save the read-in name of this Node
+    // if (ret != null) ret.name = simple_name;
+    // return ret;
+    // }
     /**
      * Follow this tree until the desired behavior is returned.
      */

@@ -2,6 +2,7 @@ package general;
 
 import java.util.Random;
 
+import monsters.Monster;
 import monsters.MonsterSet;
 import trainers.Trainer;
 
@@ -81,8 +82,8 @@ public class Battle {
 
         // Check status effects
         user.getActiveMonster().updateStats();
-        if(user.getActiveMonster().canMove()){
-        	return true;
+        if (user.getActiveMonster().canMove()) {
+            return true;
         }
 
         // Do the thing!
@@ -134,10 +135,14 @@ public class Battle {
         return true;
     }
 
+    Monster getOpponentsMonster(Trainer user) {
+        return p1 == user ? p2.getActiveMonster() : p1.getActiveMonster();
+    }
+
     private void generateNewEnemyMonsters() {
-    	p2.clearMonsters();
-    	for(int i = 0; i < 6; i++){
-    		p2.addMonster(MonsterSet.getRandomMonster());
-    	}
+        p2.clearMonsters();
+        for (int i = 0; i < 6; i++) {
+            p2.addMonster(MonsterSet.getRandomMonster());
+        }
     }
 }

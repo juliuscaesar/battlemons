@@ -5,34 +5,38 @@ import trainers.Trainer;
 import monsters.Monster;
 import moves.Move;
 
-public abstract class Decision {
+public abstract interface Decision {
     
     abstract void executeDecision(Battle b, Trainer user);
 
-    class ChangeMonster extends Decision {
+    public class ChangeMonster implements Decision {
         
         Monster new_monster;
         
-        void executeDecision(Battle b, Trainer user) {
+        public ChangeMonster(Monster new_monster) {
+            this.new_monster = new_monster;
+        }
+        
+        public void executeDecision(Battle b, Trainer user) {
             user.changeActive(new_monster);
         }
         
     }
     
-    class UseItem extends Decision {
+    public class UseItem implements Decision {
         
         Item item_to_use;
         
-        void executeDecision(Battle b, Trainer user) {
+        public void executeDecision(Battle b, Trainer user) {
             // TODO
         }
     }
     
-    class UseMove extends Decision {
+    public class UseMove implements Decision {
         
         Move move_to_use; 
         
-        void executeDecision(Battle b, Trainer user) {
+        public void executeDecision(Battle b, Trainer user) {
             // TODO
             //user.getActiveMonster().
         }
