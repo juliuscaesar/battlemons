@@ -19,7 +19,7 @@ public class Damage {
 	/**
 	 * Default Constructor for the Damage Class.
 	 */
-	Damage(){
+	public Damage(){
 		csd = new CalcSpecialDmg();
 		new MoveSet();
 		r = new Random();

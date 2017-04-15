@@ -61,6 +61,10 @@ public class Trainer {
 		return list;
 	}
 	
+	public List<Item> listItems(){
+        return items;
+    }
+	
 	public void DisplayListOfMonsters()
 	{
 		System.out.println("The monsters for " + this.name + " are: ");

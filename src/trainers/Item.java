@@ -24,6 +24,10 @@ public class Item {
 		return false;
 	}
 	
+	public ItemEnum getItemEnum() {
+	    return item;
+	}
+	
 	public boolean useOnMove(Monster m, Attack attack){
 		Move mov = MoveSet.getMove(attack);
 		if(this.effect.canUseItemOnMove(m, attack)){
