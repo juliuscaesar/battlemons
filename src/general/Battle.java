@@ -11,6 +11,8 @@ public class Battle {
     Trainer p1; // "our" AI
     Trainer p2; // the base AI
     Random rng;
+    TextOutput textOutput;
+    
 
     public Battle(Trainer p1, Trainer p2) {
         this.p1 = p1;
@@ -86,17 +88,40 @@ public class Battle {
             return true;
         }
 
+        // display some initial information to console
+       user.DisplayListOfMonsters();
+       opponent.DisplayListOfMonsters();
+        
         // Do the thing!
-        user.getDecision().executeDecision(this, user);
+        user.getDecision().executeDecision(this, user);        
+        // produce output as text
+        textOutput.printStuffToConsole(user, opponent);
 
         // Check monsters to see who died
-        if (!checkMonster(user)) return false;
-        if (!checkMonster(opponent)) return false;
-
+        if (!checkMonster(user)) 
+        {
+        	System.out.println("No monsters left for " + user);
+        	return false;
+        	
+        }
+        
+        if (!checkMonster(opponent)) 
+        {
+        	System.out.println("No monsters left for " + opponent);
+        	return false;
+        	
+        }
+        
         user.getActiveMonster().applyStatusDamage();
+        System.out.println("The current status of the user's monster is" + user.getActiveMonster().getStatus());
 
         // Check user's monster again to see if they died from status effects
-        if (!checkMonster(user)) return false;
+        if (!checkMonster(user)) 
+        {
+        	System.out.println("No monsters left for " + user);
+        	return false;
+        	
+        }
 
         return true;
     }
@@ -140,6 +165,7 @@ public class Battle {
     }
 
     private void generateNewEnemyMonsters() {
+
         p2.clearMonsters();
         for (int i = 0; i < 6; i++) {
             p2.addMonster(MonsterSet.getRandomMonster());
