@@ -87,6 +87,9 @@ public class Move{
     
     public boolean addPowerPoints(int amount)
     {
+    	if(amount <= 0){
+    		return false;
+    	}
     	if(this.pp >= this.maxPP){
     		return false;
     	}
@@ -96,4 +99,13 @@ public class Move{
     	}
     	return true;
     }
+    
+    public boolean use(){
+    	if(this.pp > 0){
+    		this.pp--;
+    		return true;
+    	}
+    	return false;
+    }
   }
+

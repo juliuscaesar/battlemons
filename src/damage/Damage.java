@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import general.Attack;
+import general.Element;
 import general.MoveCategory;
 
 import moves.Move;
@@ -13,16 +14,26 @@ import moves.MoveSet;
 
 
 public class Damage {
-	private CalcSpecialDmg csd;
 	private Random r;
 	
 	/**
 	 * Default Constructor for the Damage Class.
 	 */
 	public Damage(){
-		csd = new CalcSpecialDmg();
 		new MoveSet();
 		r = new Random();
+	}
+	
+	private static void msg(Double... d){
+		StringBuilder sb = new StringBuilder();
+		for(Double value : d){
+			String s = value.toString();
+			if(s.length() > 5){
+				s = s.substring(0, 5);
+			}
+			sb.append(s+ "\t");
+		}
+		System.out.println(sb.toString());
 	}
 	
 	/**
@@ -34,13 +45,14 @@ public class Damage {
 	 * @param target is Monster receiving the attack.
 	 * @return the damage that target should receive.
 	 */
-	public double getDamage(Attack atk, Monster source, Monster target){
+	public int getDamage(Attack atk, Monster source, Monster target){
 		  Move move = MoveSet.getMove(atk);
 		  double power = (double)move.getPower();
 		  double A = offAtt(move, source);
 		  double D = defAtt(move, target);
 		  double modifier = getModifier(move, source, target);
-		  return getDmg(power, A/D, modifier);
+		  msg(power,A,D,modifier);
+		  return (int)getDmg(power, A/D, modifier);
 		  
 	}
 	
@@ -53,13 +65,13 @@ public class Damage {
 	 * @param target is Monster receiving the attack.
 	 * @return the damage that target should receive.
 	 */
-	public double highestPossibleDamage(Attack atk, Monster source, Monster target){
+	public int highestPossibleDamage(Attack atk, Monster source, Monster target){
 		Move move = MoveSet.getMove(atk);
 		  double power = (double)move.getPower();
 		  double A = offAtt(move, source);
 		  double D = defAtt(move, target);
 		  double modifier = getModifier_noRng(1.0,move, source, target);
-		  return getDmg(power, A/D, modifier);
+		  return (int)getDmg(power, A/D, modifier);
 	}
 	
 	/**
@@ -71,13 +83,13 @@ public class Damage {
 	 * @param target is Monster receiving the attack.
 	 * @return the damage that target should receive.
 	 */
-	public double lowestPossibleDamage(Attack atk, Monster source, Monster target){
+	public int lowestPossibleDamage(Attack atk, Monster source, Monster target){
 		Move move = MoveSet.getMove(atk);
 		  double power = (double)move.getPower();
 		  double A = offAtt(move, source);
 		  double D = defAtt(move, target);
 		  double modifier = getModifier_noRng(0.85,move, source, target);
-		  return getDmg(power, A/D, modifier);
+		  return (int)getDmg(power, A/D, modifier);
 	}
 	
 	/**
@@ -105,11 +117,11 @@ public class Damage {
 	}
 	
 	private double getDmg(double power, double AD, double modifier){
-		return((((22.0 * power * AD)/50) + 2) * modifier);
+		return ((((22.0 * power * AD)/50) + 2) * modifier);
 	}
 	
 	private double getModifier(Move move, Monster source, Monster target){
-		double multiplier = csd.getMultiplier(move.getElem(), target.getElem());
+		double multiplier = Element.getMatchupValue(move.getElem(), target.getElem());
 		double rng = 0.85 + (0.15) * r.nextDouble();
 		double finalMulti = multiplier * rng;
 		if(move.getElem() == source.getElem()){
@@ -119,7 +131,7 @@ public class Damage {
 	}
 	
 	private double getModifier_noRng(double value, Move move, Monster source, Monster target){
-		double multiplier = csd.getMultiplier(move.getElem(), target.getElem());
+		double multiplier = Element.getMatchupValue(move.getElem(), target.getElem());
 		double finalMulti = multiplier * value;
 		if(move.getElem() == source.getElem()){
 			finalMulti *= 1.5;

@@ -209,7 +209,7 @@ public class Attributes {
 		else{
 			multi = debuff[dodgeStage];
 		}
-		return (int)(100.0 * multi);
+		return (int)((double)dft_acc * multi);
 	}
 	
 	int getAcc(){
@@ -220,7 +220,7 @@ public class Attributes {
 		else{
 			multi = debuff[accStage];
 		}
-		return (int)(100.0 * multi);
+		return (int)((double)dft_acc * multi);
 	}
 	
 	int getCriticalChance(){

@@ -99,6 +99,13 @@ public final class Monster {
 	  this.hp -= dmg;
 	  checkAlive();
   }
+  
+  public boolean useMove(Attack atk){
+	  if(moves.containsKey(atk)){
+		  return moves.get(atk).use();
+	  }
+	  return false;
+  }
 
   /************************************************
    *
