@@ -76,17 +76,24 @@ public class DT<T> {
         Node true_child;
         // Node executed on if this condition is false.
         Node false_child;
+        // Parameter used in some conditional comparisons
+        float parameter;
+        // Indication of whether or not the parameter variable is used; if not,
+        // then the parameter should not be mutated or modified
+        boolean uses_parameter;
 
         // Dead constructor.
         Condition() {
             true_child = null;
             false_child = null;
+            parameter = 0;
         }
         
         // Constructor used for direct instantion (for testing).
-        Condition(Node _true_child, Node _false_child) {
+        Condition(Node _true_child, Node _false_child, float _parameter) {
             true_child = _true_child;
             false_child = _false_child;
+            parameter = _parameter;
         }
 
         // Constructor used when reading in trees. "br" should already be
