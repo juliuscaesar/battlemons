@@ -193,13 +193,11 @@ public class Attributes {
 			multi = debuff[spdStage];
 		}
 		double spd = (double)dft_speed * multi;
-		switch(stat){
-			case Paralysis: {
-				return (int)(spd / 4);
-			}
-			default: {
-				return (int)spd;
-			}
+		if(stat == Status.Paralysis){
+			return (int)(spd /4);
+		}
+		else{
+			return (int)spd;
 		}
 	}
 	

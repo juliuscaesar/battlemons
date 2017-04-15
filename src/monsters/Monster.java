@@ -60,6 +60,17 @@ public final class Monster {
     this.alive = true;
   }
 
+  Monster(Monster other){
+	  this.name = other.name;
+	    this.status = Status.Normal;
+	    this.hp = other.getHP();
+	    this.maxHP = other.getHP();
+	    this.canMove = true;
+	    att = new Attributes(other.getAtk(), other.getSpAtk(), other.getSpDef(), other.getDef(), other.getSpeed());
+	    this.e1 = other.getElem();
+	    this.alive = true;
+  }
+  
   public static void addMoves(Move m1, Move m2, Move m3, Move m4){
 	  moves.put(m1.toAttack(), m1);
 	  moves.put(m2.toAttack(), m2);
@@ -161,7 +172,7 @@ public final class Monster {
   public int getSpDef(){
 	  return this.att.getSpDef();
   }
-
+  
   public Element getElem(){
 	  return this.e1;
   }
@@ -186,7 +197,7 @@ public final class Monster {
     if (this.status == stat) {
       return;
     }
-    this.statusStart = 0;
+    this.statusStart = -1;
     this.status = stat;
     this.applyStatus();
     getStatusDuration();
@@ -259,7 +270,7 @@ public final class Monster {
 		   * 12.5% chance of lasting 5 rounds
 		   */
 		  Random rng = new Random();
-		  int minimum = 2;
+		  int minimum = 1;
 		  int percent = Math.abs(rng.nextInt(1000));
 		  if(percent < 375){
 			  this.statusDuration = minimum;
@@ -273,6 +284,7 @@ public final class Monster {
 		  else{
 			  this.statusDuration = minimum + 3;
 		  }
+		 // System.out.println("Rounds: " + this.statusDuration);
 		  return;
 	  }
 	  case Sleep: {
@@ -280,7 +292,7 @@ public final class Monster {
 		   * Lasts a random value of 1 to 7 rounds.
 		   */
 		  Random rng = new Random();
-		  this.statusDuration = Math.abs(rng.nextInt(7)) + 1;
+		  this.statusDuration = Math.abs(rng.nextInt(6)) + 1;
 		  return;
 	  }
 	  case Freeze: {
@@ -291,6 +303,9 @@ public final class Monster {
 		  Random rng = new Random();
 		  while(Math.abs(rng.nextInt(100)) >= 20){
 			  rounds++;
+			  if(rounds == 7){
+				 break;
+			  }
 		  }
 		  this.statusDuration = rounds;
 		  return;
@@ -313,16 +328,18 @@ public final class Monster {
    /**
    * Will check if the status should be over.
    */
-  public void updateStats(){
+  public boolean updateStats(){
     if(this.status == Status.Normal){
-      return;
+    	return true;
     }
-    if(this.statusStart >= this.statusDuration) {
-      resetStatus();
-    }else{
+    if(this.statusStart < this.statusDuration) {
     	applyStatus();
+    }else{
+    	resetStatus();
+    	return true;
     }
     this.statusStart++;
+    return false;
   }
 
   /************************************************
@@ -342,6 +359,9 @@ public final class Monster {
   }
 
   public boolean increasePP(Attack atk, int amount){
+	  if(amount <= 0){
+		  return false;
+	  }
 	  if(moves.containsKey(atk)){
 		  return moves.get(atk).addPowerPoints(amount);
 	  }
@@ -353,9 +373,16 @@ public final class Monster {
    *
    * @param restore is the absolute value of HP restored.
    */
-  public void revive(int restore) {
+  public boolean revive(int restore) {
+	  if(restore <= 0){
+		  return false;
+	  }
+	  if(isAlive()){
+		  return false;
+	  }
 	  this.alive = true;
 	  this.hp = restore;
+	  return true;
   }
 
   /**
@@ -363,9 +390,16 @@ public final class Monster {
    *
    * @param percent is the percent of HP restored.
    */
-  public void revive(double percent) {
+  public boolean revive(double percent) {
+	  if(percent <= 0){
+		  return false;
+	  }
+	  if(isAlive()){
+		  return false;
+	  }
 	  this.alive = true;
 	  this.hp = (int)((double)maxHP * percent);
+	  return true;
   }
 
   /**
@@ -373,17 +407,21 @@ public final class Monster {
    *
    * @param value is the value restored.
    */
-  public void restoreHP(int value) {
+  public boolean restoreHP(int value) {
+	  if(value <= 0){
+		  return false;
+	  }
 	  if(!alive) {
-		  throw new IllegalArgumentException("Can't heal dead Monsters.");
+		  return false;
 	  }
 	  if(hp == maxHP) {
-		  throw new IllegalArgumentException("Max HP Already.");
+		  return false;
 	  }
 	  hp += value;
 	  if(hp > maxHP){
 		  hp = maxHP;
 	  }
+	  return true;
   }
 
   /**
@@ -391,16 +429,25 @@ public final class Monster {
    *
    * @param percent is the percent restored.
    */
-  public void restoreHP(double percent) {
+  public boolean restoreHP(double percent) {
+	  if(percent <= 0){
+		  return false;
+	  }
 	  if(!alive) {
-		  throw new IllegalArgumentException("Can't heal dead Monsters.");
+		  return false;
 	  }
-	  if(hp == maxHP) {
-		  throw new IllegalArgumentException("Max HP Already.");
+	  if(Math.abs(hp - maxHP) <= 0) {
+		  return false;
 	  }
-	  hp = (int)((double)maxHP * percent);
+	  int value = (int)((double)maxHP * percent);
+	  if(value <= hp){
+		  return false;
+	  }
+	  hp = value;
 	  if(hp > maxHP){
 		  hp = maxHP;
 	  }
+	  return true;
+	  
   }
 }
