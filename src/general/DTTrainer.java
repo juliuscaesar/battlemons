@@ -2,6 +2,7 @@ package general;
 
 import damage.Damage;
 import monsters.Monster;
+import moves.MoveSet;
 import trainers.Item;
 import trainers.ItemEnum;
 import trainers.Trainer;
@@ -82,6 +83,112 @@ public class DTTrainer {
                 }
                 return false;
             }
+        }
+
+        public class Condition_OpponentCanKillMonster extends Condition {
+
+            // Constructor
+            public Condition_OpponentCanKillMonster(Node true_child,
+                    Node false_child, float parameter) {
+                super(true_child, false_child, parameter);
+                uses_parameter = false;
+            }
+
+            boolean check_condition(Battle battle, Trainer user) {
+                Monster opponent = battle.getOpponentsMonster(user);
+                Damage d = new Damage();
+                for (Attack a : opponent.listMoves()) {
+                    double possibleDamage = d.highestPossibleDamage(a,
+                            opponent, user.getActiveMonster());
+                    if (possibleDamage > user.getActiveMonster().getHP()) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        public class Condition_OtherMonsterCanSurviveOpponentAttack extends
+                Condition {
+
+            // Constructor
+            public Condition_OtherMonsterCanSurviveOpponentAttack(
+                    Node true_child, Node false_child, float parameter) {
+                super(true_child, false_child, parameter);
+                uses_parameter = false;
+            }
+
+            boolean check_condition(Battle battle, Trainer user) {
+                Monster opponent = battle.getOpponentsMonster(user);
+                Damage d = new Damage();
+
+                // Check for a monster that can survive the opponent
+                for (Monster m : user.listMonsters()) {
+
+                    if (!m.isAlive()) continue;
+
+                    // Track the most damage the opponent can deal
+                    double highestDamage = 0;
+
+                    // Find the attack with the highest damage
+                    for (Attack a : opponent.listMoves()) {
+                        double possibleDamage = d.highestPossibleDamage(a,
+                                opponent, m);
+                        if (possibleDamage > highestDamage) {
+                            highestDamage = possibleDamage;
+                        }
+                    }
+
+                    // If the highest damage possible is less health than this
+                    // monster has, it's viable!
+                    if (highestDamage < m.getHP()) return true;
+                }
+
+                // If no viable monsters were found...
+                return false;
+            }
+        }
+
+        public class Condition_BestAttackHasLowPP extends Condition {
+
+            // Constructor
+            public Condition_BestAttackHasLowPP(Node true_child,
+                    Node false_child, float parameter) {
+                super(true_child, false_child, parameter);
+                uses_parameter = true;
+                upper_bound = 1.0;
+                lower_bound = 0.0;
+            }
+
+            boolean check_condition(Battle battle, Trainer user) {
+                Damage d = new Damage();
+                Attack strongestMove = d.getStrongestMove(user
+                        .getActiveMonster().listMoves(), user
+                        .getActiveMonster(), battle.getOpponentsMonster(user));
+                float percentPP = MoveSet.getMove(strongestMove).getPP()
+                        / MoveSet.getMove(strongestMove).getMaxPP();
+                return percentPP < parameter;
+            }
+        }
+
+        public class Condition_IfSomeMoveHasNoPP extends Condition {
+
+            // Constructor
+            public Condition_IfSomeMoveHasNoPP(Node true_child,
+                    Node false_child, float parameter) {
+                super(true_child, false_child, parameter);
+                uses_parameter = false;
+            }
+
+            boolean check_condition(Battle battle, Trainer user) {
+                for (Attack a : user.getActiveMonster().listMoves()) {
+                    if (MoveSet.getMove(a).getPP() == 0) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
         }
 
         /******** implemented behaviors ***********/
@@ -174,6 +281,7 @@ public class DTTrainer {
                 Monster opponent = battle.getOpponentsMonster(user);
                 Damage d = new Damage();
                 for (Monster m : user.listMonsters()) {
+                    if (!m.isAlive()) continue;
                     for (Attack a : m.listMoves()) {
                         double potentialDmg = d.highestPossibleDamage(a, m,
                                 opponent);
