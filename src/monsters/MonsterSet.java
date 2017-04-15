@@ -155,13 +155,13 @@ public class MonsterSet {
 	  Random rng = new Random();
 	  int randomIndex = Math.abs(rng.nextInt(monsters.size()));
 	  List<Monster> list = new ArrayList<Monster>(monsters.values());
-	  return list.get(randomIndex);
+	  return new Monster(list.get(randomIndex));
   }
   
   public Monster getRngMonster(){
 	  Random rng = new Random();
 	  int randomIndex = Math.abs(rng.nextInt(monsters.size()));
 	  List<Monster> list = new ArrayList<Monster>(monsters.values());
-	  return list.get(randomIndex);
+	  return new Monster(list.get(randomIndex));
   }
 }
