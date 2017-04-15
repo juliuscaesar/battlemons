@@ -78,6 +78,12 @@ public class Move{
     public int getPower(){
     	return damage;
     }
+    public int getPP() {
+        return pp;
+    }
+    public int getMaxPP() {
+        return maxPP;
+    }
     
     public boolean addPowerPoints(int amount)
     {
