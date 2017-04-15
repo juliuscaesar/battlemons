@@ -139,7 +139,7 @@ public class MonsterSet {
    */
   public Monster getMonster(MonsterID name) {
     if(monsters.containsKey(name)) {
-      return monsters.get(name);
+      return new Monster(monsters.get(name));
     }
     throw new IllegalArgumentException("Monster: [" + name.name() + "] not found.");
   }
