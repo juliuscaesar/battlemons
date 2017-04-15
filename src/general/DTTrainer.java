@@ -1,16 +1,7 @@
 package general;
 
-import general.DT.Node;
-import general.Decision.ChangeMonster;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import damage.Damage;
 import monsters.Monster;
-import moves.Move;
 import trainers.Item;
 import trainers.ItemEnum;
 import trainers.Trainer;
