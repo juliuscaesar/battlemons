@@ -58,11 +58,13 @@ public class TestMonsters{
 	
 	@Test
 	public void test__addStatus__1(){
+		for(int i = 0; i < 10000; i++){
 		Monster m = set.getRngMonster();
 		assertEquals(m.getStatus(), Status.Normal);
+		}
 	}
 	
-	@Test
+	//@Test
 	public void test__addStatus__2(){
 		Monster m = set.getRngMonster();
 		assertEquals(m.getStatus(), Status.Normal);
@@ -70,7 +72,7 @@ public class TestMonsters{
 		assertEquals(m.getStatus(), Status.Paralysis);
 	}
 	
-	@Test
+	//@Test
 	public void test__addStatus__3(){
 		Monster m = set.getRngMonster();
 		assertEquals(m.getStatus(), Status.Normal);
@@ -78,7 +80,7 @@ public class TestMonsters{
 		assertEquals(m.getStatus(), Status.Sleep);
 	}
 	
-	@Test
+	//@Test
 	public void test__addStatus__4(){
 		Monster m = set.getRngMonster();
 		assertEquals(m.getStatus(), Status.Normal);
@@ -86,7 +88,7 @@ public class TestMonsters{
 		assertEquals(m.getStatus(), Status.Poison);
 	}
 	
-	@Test
+	//@Test
 	public void test__addStatus__5(){
 		Monster m = set.getRngMonster();
 		assertEquals(m.getStatus(), Status.Normal);
@@ -94,7 +96,7 @@ public class TestMonsters{
 		assertEquals(m.getStatus(), Status.Burn);
 	}
 	
-	@Test
+	//@Test
 	public void test__addStatus__6(){
 		Monster m = set.getRngMonster();
 		assertEquals(m.getStatus(), Status.Normal);
@@ -110,6 +112,17 @@ public class TestMonsters{
 	}
 	
 	@Test
+	public void test__addStatus__7(){
+		for(MonsterID id : MonsterID.values()){
+			Monster one = MonsterSet.makeMonster(id);
+			assertEquals(one.getStatus(), Status.Normal);
+			one.setStatus(Status.Burn);
+			Monster two = MonsterSet.makeMonster(id);
+			assertEquals(two.getStatus(), Status.Normal);
+		}
+	}
+	
+	//@Test
 	public void test__resetStatus(){
 		for(MonsterID id : MonsterID.values()){
 			Monster m = set.getMonster(id);//MonsterSet.getRandomMonster();
@@ -117,12 +130,15 @@ public class TestMonsters{
 			assertEquals(m.getStatus(), Status.Normal);
 			m.setStatus(Status.Freeze);
 			assertEquals(m.getStatus(), Status.Freeze);
+			
+			//Check if after 10 rounds, the user still have that status.
 			for(int i = 0; i < 10; i++){
 				m.updateStats();
 			}
 			assertEquals(m.getStatus(), Status.Normal);		
 		}
 	}
+	
 	
 	
 	
