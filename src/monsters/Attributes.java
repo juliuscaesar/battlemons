@@ -215,10 +215,10 @@ public class Attributes {
 	int getAcc(){
 		double multi = 1;
 		if(accStage < 0){
-			multi = buff[accStage];
+			multi = debuff[accStage];
 		}
 		else{
-			multi = debuff[accStage];
+			multi = buff[accStage];
 		}
 		return (int)((double)dft_acc * multi);
 	}
