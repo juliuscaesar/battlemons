@@ -85,6 +85,10 @@ public class Move{
         return maxPP;
     }
     
+    public int getAcc() {
+    	return acc;
+    }
+    
     public boolean addPowerPoints(int amount)
     {
     	if(this.pp >= this.maxPP){

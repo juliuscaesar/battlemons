@@ -36,6 +36,10 @@ public abstract interface Decision {
         
         Move move_to_use; 
         
+        public UseMove(Move move) {
+        	this.move_to_use = move;
+        }
+        
         public void executeDecision(Battle b, Trainer user) {
             // TODO
             //user.getActiveMonster().

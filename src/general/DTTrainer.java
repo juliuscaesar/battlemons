@@ -1,5 +1,6 @@
 package general;
 
+import java.util.List;
 import damage.Damage;
 import monsters.Monster;
 import moves.MoveSet;
@@ -190,6 +191,74 @@ public class DTTrainer {
             }
 
         }
+        
+        public class Condition_OpponentHealthLowerThanPercent extends Condition {
+
+            // Constructor
+            public Condition_OpponentHealthLowerThanPercent(Node true_child,
+                    Node false_child, float parameter) {
+                super(true_child, false_child, parameter);
+                upper_bound = 1.0;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+
+            boolean check_condition(Battle battle, Trainer user) {
+                Monster currentMon = user.getActiveMonster();
+                return currentMon.getPercentHP() <= parameter;
+            }
+        }
+        
+        public class Condition_OpponentHealthLowerThanValue extends Condition {
+
+            // Constructor
+            public Condition_OpponentHealthLowerThanValue(Node true_child,
+                    Node false_child, float parameter) {
+                super(true_child, false_child, parameter);
+                upper_bound = Double.MAX_VALUE;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+
+            boolean check_condition(Battle battle, Trainer user) {
+                Monster currentMon = user.getActiveMonster();
+                return currentMon.getHP() <= parameter;
+            }
+        }
+        
+        public class Condition_StatStageLowerThanValue extends Condition {
+
+            // Constructor
+            public Condition_StatStageLowerThanValue(Node true_child,
+                    Node false_child, float parameter) {
+                super(true_child, false_child, parameter);
+                upper_bound = Double.MAX_VALUE;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+
+            boolean check_condition(Battle battle, Trainer user) {
+                Monster currentMon = user.getActiveMonster();
+                return currentMon.getHP() <= parameter;
+            }
+        }
+        
+        public class Condition_StatStageGreaterThanValue extends Condition {
+
+            // Constructor
+            public Condition_StatStageGreaterThanValue(Node true_child,
+                    Node false_child, float parameter) {
+                super(true_child, false_child, parameter);
+                upper_bound = Double.MAX_VALUE;
+                lower_bound = 0.0;
+                uses_parameter = true;
+            }
+
+            boolean check_condition(Battle battle, Trainer user) {
+                Monster currentMon = user.getActiveMonster();
+                return currentMon.getHP() <= parameter;
+            }
+        }
 
         /******** implemented behaviors ***********/
 
@@ -295,9 +364,115 @@ public class DTTrainer {
                 return new Decision.ChangeMonster(highestDmgMon);
             }
         }
+        
+        /**
+         * Pick a move that will raise the Battlemon's stats
+         */
+        //public class Behavior_RaiseStats extends Behavior {
+        //    Decision execute(Battle battle, Trainer user) {
+        //       List<Attack> moves = user.getActiveMonster().listMoves();
+        //        // finds the first move that will raise stats
+        //        for (Attack m : moves) {
+        //        	
+        //        }
+        //        return Decision.UseMove();
+        //    }
+        //}
+        
+        //public class Behavior_DropStats extends Behavior {
+        //    Decision execute(Battle battle, Trainer user) {
+        //       List<Attack> moves = user.getActiveMonster().listMoves();
+        //       
+        //       for (Attack m : moves) {
+        //    	   if (MoveSet.getMove(m).getStatus()
+        //       }
+        //    }
+        //}
+        
+        /**
+         * Select and use the attack that will inflict the least damage
+         */
+        public class Behavior_UseLowestDamageMove extends Behavior {
+            Decision execute(Battle battle, Trainer user) {
+            	double lowestDmg = 0;
+                Monster monster = user.getActiveMonster();
+                Monster opponent = battle.getOpponentsMonster(user);
+                Damage d = new Damage();
+                Attack lowestAttack = null;
+                
+                for (Attack attack : monster.listMoves()) {
+                	double damage = d.lowestPossibleDamage(attack, monster, opponent);
+                	if (damage < lowestDmg) {
+                		lowestDmg = damage;
+                		lowestAttack = attack;
+                	}
+                }
+                if (lowestAttack == null) return null;
+                return new Decision.UseMove(MoveSet.getMove(lowestAttack));
+            }
+        }
+        
+        /**
+         * Select and use the attack that will inflict the most damage
+         */
+        public class Behavior_UseHighestDamageMove extends Behavior {
+        	Decision execute(Battle battle, Trainer user) {
+            	double highestDmg = 0;
+                Monster monster = user.getActiveMonster();
+                Monster opponent = battle.getOpponentsMonster(user);
+                Damage d = new Damage();
+                Attack highestAttack = null;
+                
+                for (Attack attack : monster.listMoves()) {
+                	double damage = d.highestPossibleDamage(attack, monster, opponent);
+                	if (damage > highestDmg) {
+                		highestDmg = damage;
+                		highestAttack = attack;
+                	}
+                }
+                if (highestAttack == null) return null;
+                return new Decision.UseMove(MoveSet.getMove(highestAttack));
+            }
+        }
+        
+        public class Behavior_UseHighestAccuracyMove extends Behavior {
+        	Decision execute(Battle battle, Trainer user) {
+            	int highestAcc = 0;
+                Monster monster = user.getActiveMonster();
 
+                Attack highestAttack = null;
+                
+                for (Attack attack : monster.listMoves()) {
+                	int accuracy = MoveSet.getMove(attack).getAcc();
+                	if (accuracy > highestAcc) {
+                		highestAcc = accuracy;
+                		highestAttack = attack;
+                	}
+                }
+                if (highestAttack == null) return null;
+                return new Decision.UseMove(MoveSet.getMove(highestAttack));
+            }
+        }
+        
+        public class Behavior_UseLowestAccuracyMove extends Behavior {
+        	Decision execute(Battle battle, Trainer user) {
+            	int lowestAcc = 0;
+                Monster monster = user.getActiveMonster();
+
+                Attack lowestAttack = null;
+                
+                for (Attack attack : monster.listMoves()) {
+                	int accuracy = MoveSet.getMove(attack).getAcc();
+                	if (accuracy < lowestAcc) {
+                		lowestAcc = accuracy;
+                		lowestAttack = attack;
+                	}
+                }
+                if (lowestAttack == null) return null;
+                return new Decision.UseMove(MoveSet.getMove(lowestAttack));
+            }
+        }
     }
-
     /**
      * Controller interface to get a move from the DT
      */
