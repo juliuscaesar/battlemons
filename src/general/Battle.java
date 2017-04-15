@@ -62,46 +62,7 @@ public class Battle {
             p2.makeDecision(this);
 
             // Determine move order
-            Trainer order[];
-
-            // Player 1 isn't using a move, but Player 2 is - Player 1 goes
-            // first
-            if (!(p1.getDecision() instanceof Decision.UseMove)
-                    && p2.getDecision() instanceof Decision.UseMove) {
-                order = new Trainer[] { p1, p2 };
-            }
-            // Player 2 isn't using a move, but Player 1 is - Player 2 goes
-            // first
-            else if (!(p2.getDecision() instanceof Decision.UseMove)
-                    && p1.getDecision() instanceof Decision.UseMove) {
-                order = new Trainer[] { p2, p1 };
-            }
-            // Neither player is using a move - just go sequentially, it's
-            // entirely arbitrary
-            else if (!(p1.getDecision() instanceof Decision.UseMove)
-                    && !(p2.getDecision() instanceof Decision.UseMove)) {
-                order = new Trainer[] { p1, p2 };
-            }
-            // Both players are using moves - so whichever monster has the
-            // highest speed moves first
-            else {
-
-                // Player 1's monster has the higher speed - they go first
-                if (p1.getActiveMonster().getSpeed() > p2.getActiveMonster()
-                        .getSpeed()) {
-                    order = new Trainer[] { p1, p2 };
-                }
-                // Player 2's monster has the higher speed - they go second
-                else if (p2.getActiveMonster().getSpeed() > p1
-                        .getActiveMonster().getSpeed()) {
-                    order = new Trainer[] { p2, p1 };
-                }
-                // It's a tie - flip a coin!
-                else {
-                    order = rng.nextBoolean() ? new Trainer[] { p1, p2 }
-                            : new Trainer[] { p2, p1 };
-                }
-            }
+            Trainer order[] = getTurnOrder();
 
             // Do the battle turns! If either of them return a false, the battle
             // is over, and we need to break
@@ -110,6 +71,55 @@ public class Battle {
         }
 
         return calculateFitness(); // TODO fitness
+    }
+
+    /**
+     * Determines what order the Trainers will take their turns in, based on the
+     * Decisions taken and the stats of their active monsters.
+     * 
+     * @return A two-element array, with one reference to p1 and one reference
+     *         to p2, in the order that their turns will be taken.
+     */
+    private Trainer[] getTurnOrder() {
+
+        // Player 1 isn't using a move, but Player 2 is - Player 1 goes
+        // first
+        if (!(p1.getDecision() instanceof Decision.UseMove)
+                && p2.getDecision() instanceof Decision.UseMove) {
+            return new Trainer[] { p1, p2 };
+        }
+        // Player 2 isn't using a move, but Player 1 is - Player 2 goes
+        // first
+        else if (!(p2.getDecision() instanceof Decision.UseMove)
+                && p1.getDecision() instanceof Decision.UseMove) {
+            return new Trainer[] { p2, p1 };
+        }
+        // Neither player is using a move - just go sequentially, it's
+        // entirely arbitrary
+        else if (!(p1.getDecision() instanceof Decision.UseMove)
+                && !(p2.getDecision() instanceof Decision.UseMove)) {
+            return new Trainer[] { p1, p2 };
+        }
+        // Both players are using moves - so whichever monster has the
+        // highest speed moves first
+        else {
+
+            // Player 1's monster has the higher speed - they go first
+            if (p1.getActiveMonster().getSpeed() > p2.getActiveMonster()
+                    .getSpeed()) {
+                return new Trainer[] { p1, p2 };
+            }
+            // Player 2's monster has the higher speed - they go second
+            else if (p2.getActiveMonster().getSpeed() > p1.getActiveMonster()
+                    .getSpeed()) {
+                return new Trainer[] { p2, p1 };
+            }
+            // It's a tie - flip a coin!
+            else {
+                return rng.nextBoolean() ? new Trainer[] { p1, p2 }
+                        : new Trainer[] { p2, p1 };
+            }
+        }
     }
 
     /**
