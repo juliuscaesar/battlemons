@@ -281,6 +281,7 @@ public final class Monster {
 		   */
 		  Random rng = new Random();
 		  this.statusDuration = Math.abs(rng.nextInt(7)) + 1;
+		  return;
 	  }
 	  case Freeze: {
 		  /*

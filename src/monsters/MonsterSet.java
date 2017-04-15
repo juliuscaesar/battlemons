@@ -16,37 +16,36 @@ public class MonsterSet {
 
 
     // Monsters name, int hp, int atk, int spAtk, int def, int spDef, int spd, Element... elements)
-	  static Monster Emberfly = new Monster(MonsterID.Emberfly, 120, 100, 75, 110, 75, 90, Element.Fire);
-    static Monster Flamber = new Monster(MonsterID.Flamber, 110, 80, 115, 85, 85, 60, Element.Fire);
-    static Monster Oceolot = new Monster(MonsterID.Oceolot, 130, 80, 120, 95, 110, 110, Element.Water);
-    static Monster Feesh = new Monster(MonsterID.Feesh, 120, 80, 75, 88, 89, 101, Element.Water);
-    static Monster Parrit = new Monster(MonsterID.Parrit, 110, 80, 75, 65, 75, 55, Element.Flying);
-    static Monster Hummbee = new Monster(MonsterID.Hummbee, 140, 80, 75, 65, 75, 55, Element.Flying);
-    static Monster Shockeel = new Monster(MonsterID.Shockeel, 100, 80, 115, 65, 75, 140, Element.Electric);
-    static Monster Bulblight = new Monster(MonsterID.Bulblight, 95, 80, 75, 65, 75, 55, Element.Electric);
-    static Monster Enchantu = new Monster(MonsterID.Enchantu, 120, 80, 75, 65, 75, 55, Element.Psychic);
-    static Monster Hopper = new Monster(MonsterID.Hopper, 110, 80, 75, 65, 75, 55, Element.Psychic);
-    static Monster Armordillo = new Monster(MonsterID.Armordillo, 135, 120, 75, 110, 75, 95, Element.Ground);
-    static Monster Munkrock = new Monster(MonsterID.Munkrock, 99, 98, 75, 65, 75, 55, Element.Ground);
-    static Monster Ursidae = new Monster(MonsterID.Ursidae, 120, 80, 75, 65, 75, 110, Element.Normal);
-    static Monster Meowser = new Monster(MonsterID.Meowser, 105, 80, 75, 110, 95, 55, Element.Normal);
-    static Monster Glacipup = new Monster(MonsterID.Glacipup, 135, 65, 115, 105, 154, 113, Element.Ice);
-    static Monster Yeeti = new Monster(MonsterID.Yeeti, 110, 80, 130, 95, 130, 95, Element.Ice);
-    static Monster Punchroo = new Monster(MonsterID.Punchroo, 120, 160, 75, 65, 75, 120, Element.Fighting);
-    static Monster Carrotay = new Monster(MonsterID.Carrotay, 100, 100, 75, 135, 75, 110, Element.Fighting);
-    static Monster Grandant = new Monster(MonsterID.Grandant, 120, 80, 75, 65, 75, 95, Element.Bug);
-    static Monster Skorpen = new Monster(MonsterID.Skorpen, 120, 95, 75, 90, 70, 85, Element.Bug);
-    static Monster Supalm = new Monster(MonsterID.Supalm, 140, 140, 80, 65, 75, 93, Element.Grass);
-    static Monster Crysanthum = new Monster(MonsterID.Crysanthum, 110, 75, 115, 65, 115, 110, Element.Grass);
-    static Monster Boomtu = new Monster(MonsterID.Boomtu, 120, 80, 135, 65, 150, 110, Element.Ghost);
-    static Monster Haunting = new Monster(MonsterID.Haunting, 135, 95, 105, 95, 75, 85, Element.Ghost);
-    static Monster Nadifly = new Monster(MonsterID.Nadifly, 115, 80, 75, 65, 75, 99, Element.Poison);
-    static Monster Adnocana = new Monster(MonsterID.Adnocana, 120, 110, 75, 99, 104, 105, Element.Poison);
-
-
-  static {
+	static {
     monsters = new HashMap<>();
 
+    Monster Emberfly = new Monster(MonsterID.Emberfly, 120, 100, 75, 110, 75, 90, Element.Fire);
+    Monster Flamber = new Monster(MonsterID.Flamber, 110, 80, 115, 85, 85, 60, Element.Fire);
+    Monster Oceolot = new Monster(MonsterID.Oceolot, 130, 80, 120, 95, 110, 110, Element.Water);
+    Monster Feesh = new Monster(MonsterID.Feesh, 120, 80, 75, 88, 89, 101, Element.Water);
+    Monster Parrit = new Monster(MonsterID.Parrit, 110, 80, 75, 65, 75, 55, Element.Flying);
+    Monster Hummbee = new Monster(MonsterID.Hummbee, 140, 80, 75, 65, 75, 55, Element.Flying);
+    Monster Shockeel = new Monster(MonsterID.Shockeel, 100, 80, 115, 65, 75, 140, Element.Electric);
+    Monster Bulblight = new Monster(MonsterID.Bulblight, 95, 80, 75, 65, 75, 55, Element.Electric);
+    Monster Enchantu = new Monster(MonsterID.Enchantu, 120, 80, 75, 65, 75, 55, Element.Psychic);
+    Monster Hopper = new Monster(MonsterID.Hopper, 110, 80, 75, 65, 75, 55, Element.Psychic);
+    Monster Armordillo = new Monster(MonsterID.Armordillo, 135, 120, 75, 110, 75, 95, Element.Ground);
+    Monster Munkrock = new Monster(MonsterID.Munkrock, 99, 98, 75, 65, 75, 55, Element.Ground);
+    Monster Ursidae = new Monster(MonsterID.Ursidae, 120, 80, 75, 65, 75, 110, Element.Normal);
+    Monster Meowser = new Monster(MonsterID.Meowser, 105, 80, 75, 110, 95, 55, Element.Normal);
+    Monster Glacipup = new Monster(MonsterID.Glacipup, 135, 65, 115, 105, 154, 113, Element.Ice);
+    Monster Yeeti = new Monster(MonsterID.Yeeti, 110, 80, 130, 95, 130, 95, Element.Ice);
+    Monster Punchroo = new Monster(MonsterID.Punchroo, 120, 160, 75, 65, 75, 120, Element.Fighting);
+    Monster Carrotay = new Monster(MonsterID.Carrotay, 100, 100, 75, 135, 75, 110, Element.Fighting);
+    Monster Grandant = new Monster(MonsterID.Grandant, 120, 80, 75, 65, 75, 95, Element.Bug);
+    Monster Skorpen = new Monster(MonsterID.Skorpen, 120, 95, 75, 90, 70, 85, Element.Bug);
+    Monster Supalm = new Monster(MonsterID.Supalm, 140, 140, 80, 65, 75, 93, Element.Grass);
+    Monster Crysanthum = new Monster(MonsterID.Crysanthum, 110, 75, 115, 65, 115, 110, Element.Grass);
+    Monster Boomtu = new Monster(MonsterID.Boomtu, 120, 80, 135, 65, 150, 110, Element.Ghost);
+    Monster Haunting = new Monster(MonsterID.Haunting, 135, 95, 105, 95, 75, 85, Element.Ghost);
+    Monster Nadifly = new Monster(MonsterID.Nadifly, 115, 80, 75, 65, 75, 99, Element.Poison);
+    Monster Adnocana = new Monster(MonsterID.Adnocana, 120, 110, 75, 99, 104, 105, Element.Poison);
+    
     /**
      * Assigns 4 moves to each Battlemon
      */
@@ -145,7 +144,21 @@ public class MonsterSet {
     throw new IllegalArgumentException("Monster: [" + name.name() + "] not found.");
   }
   
+  public static Monster makeMonster(MonsterID name) {
+	    if(monsters.containsKey(name)) {
+	      return monsters.get(name);
+	    }
+	    throw new IllegalArgumentException("Monster: [" + name.name() + "] not found.");
+	  }
+  
   public static Monster getRandomMonster(){
+	  Random rng = new Random();
+	  int randomIndex = Math.abs(rng.nextInt(monsters.size()));
+	  List<Monster> list = new ArrayList<Monster>(monsters.values());
+	  return list.get(randomIndex);
+  }
+  
+  public Monster getRngMonster(){
 	  Random rng = new Random();
 	  int randomIndex = Math.abs(rng.nextInt(monsters.size()));
 	  List<Monster> list = new ArrayList<Monster>(monsters.values());
