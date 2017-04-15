@@ -192,6 +192,9 @@ public class DTTrainer {
 
         }
         
+        /**
+         * Check if the opponent's health is lower than x%
+         */
         public class Condition_OpponentHealthLowerThanPercent extends Condition {
 
             // Constructor
@@ -204,11 +207,14 @@ public class DTTrainer {
             }
 
             boolean check_condition(Battle battle, Trainer user) {
-                Monster currentMon = user.getActiveMonster();
+                Monster currentMon = battle.p2.getActiveMonster();
                 return currentMon.getPercentHP() <= parameter;
             }
         }
         
+        /**
+         * Check if the opponent's health is lower than x
+         */
         public class Condition_OpponentHealthLowerThanValue extends Condition {
 
             // Constructor
@@ -221,7 +227,7 @@ public class DTTrainer {
             }
 
             boolean check_condition(Battle battle, Trainer user) {
-                Monster currentMon = user.getActiveMonster();
+                Monster currentMon = battle.p2.getActiveMonster();
                 return currentMon.getHP() <= parameter;
             }
         }
