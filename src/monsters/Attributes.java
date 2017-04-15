@@ -193,13 +193,11 @@ public class Attributes {
 			multi = debuff[spdStage];
 		}
 		double spd = (double)dft_speed * multi;
-		switch(stat){
-			case Paralysis: {
-				return (int)(spd / 4);
-			}
-			default: {
-				return (int)spd;
-			}
+		if(stat == Status.Paralysis){
+			return (int)(spd /4);
+		}
+		else{
+			return (int)spd;
 		}
 	}
 	
@@ -211,18 +209,18 @@ public class Attributes {
 		else{
 			multi = debuff[dodgeStage];
 		}
-		return (int)(100.0 * multi);
+		return (int)((double)dft_acc * multi);
 	}
 	
 	int getAcc(){
 		double multi = 1;
 		if(accStage < 0){
-			multi = buff[accStage];
-		}
-		else{
 			multi = debuff[accStage];
 		}
-		return (int)(100.0 * multi);
+		else{
+			multi = buff[accStage];
+		}
+		return (int)((double)dft_acc * multi);
 	}
 	
 	int getCriticalChance(){
