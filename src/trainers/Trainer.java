@@ -88,7 +88,9 @@ public class Trainer {
 		if(m.isAlive()){
 			this.active = monsters.get(m.getID());
 		}
-		throw new IllegalArgumentException("Can't select a dead Monsters.");
+		else {
+			throw new IllegalArgumentException("Can't select a dead Monsters.");
+		}
 	}
 
     public Decision makeDecision(Battle battle) {

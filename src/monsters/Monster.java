@@ -100,7 +100,7 @@ public final class Monster {
    */
   public void receiveAttack(int dmg){
 	  this.hp -= dmg;
-	  checkAlive();
+	  this.checkAlive();
   }
   
   public boolean useMove(Attack atk){

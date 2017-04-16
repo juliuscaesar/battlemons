@@ -27,7 +27,7 @@ public class Battle {
 	// Text output for debugging.
 	TextOutput textOutput;
 
-	int defeated; // FIXME this does nothing right now
+	public int defeated; // FIXME this does nothing right now
 
 	/**
 	 * Constructor.
@@ -55,7 +55,12 @@ public class Battle {
 
 		// Run until broken out of
 		int x = 0;
-		while (x < 5) {
+		while (true) {
+			if (this.defeated == 6) {
+				System.out.println("Beat all 6");
+				break;
+			}
+			
 			System.out.println("----- BEGIN TURN -----");
 			System.out.println(p1.name + "\'s active Battlemon: " + 
 			p1.getActiveMonster().getID() + " (" + p1.getActiveMonster().getHP() + "/" + 
