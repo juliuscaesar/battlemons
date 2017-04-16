@@ -18,9 +18,9 @@ import trainers.Trainer;
 public class Battle {
 
     // "our" AI
-    Trainer p1;
+    public Trainer p1;
     // the enemy AI
-    Trainer p2;
+    public Trainer p2;
 
     // A random number generator for team selection
     Random rng;
