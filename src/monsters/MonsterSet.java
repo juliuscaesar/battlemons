@@ -8,6 +8,7 @@ import java.util.Random;
 import general.MonsterID;
 import general.Attack;
 import general.Element;
+import moves.Move;
 import moves.MoveSet;
 
 @SuppressWarnings("static-access")
@@ -163,5 +164,16 @@ public class MonsterSet {
 	  int randomIndex = Math.abs(rng.nextInt(monsters.size()));
 	  List<Monster> list = new ArrayList<Monster>(monsters.values());
 	  return new Monster(list.get(randomIndex));
+  }
+  
+  public Map<Attack, Move> getMoves(MonsterID id){
+	  if(!monsters.containsKey(id)){
+		  Map<Attack, Move> moves = new HashMap<>();
+		  for(Attack atk : monsters.get(id).listMoves()){
+			  moves.put(atk, MoveSet.getMove(atk));
+		  }
+		  return moves;
+	  }
+	  return null;
   }
 }

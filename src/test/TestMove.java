@@ -51,6 +51,7 @@ public class TestMove {
 		}
 	}
 	
+	@Test
 	public void test_move_4(){
 		for(Attack atk : Attack.values()){
 			Move move = MoveSet.getMove(atk);
@@ -59,6 +60,4 @@ public class TestMove {
 			assertNotEquals(move.getPP(), other.getPP());
 		}
 	}
-	
-	
 }
