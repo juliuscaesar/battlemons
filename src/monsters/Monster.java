@@ -42,7 +42,7 @@ public final class Monster {
   private final int maxHP;
   private int survivabilityScore;
   
-  private static Map<Attack, Move> staticMoves = new HashMap<Attack,Move>();
+  private Map<Attack, Move> staticMoves = new HashMap<Attack,Move>();
 
   Monster(MonsterID name, int hp, int atk, int spAtk, int def, int spDef, int spd, Element... elements) {
     this.name = name;
@@ -73,17 +73,17 @@ public final class Monster {
 	    this.canMove = true;
 	    att = new Attributes(other.getAtk(), other.getSpAtk(), other.getSpDef(), other.getDef(), other.getSpeed());
 	    this.e1 = other.getElem();
-	    this.moves = new HashMap<>(staticMoves);
+	    this.moves = other.moves;
 	    this.alive = true;
   }
   
-  public static void addMoves(Move m1, Move m2, Move m3, Move m4){
+  public void addMoves(Move m1, Move m2, Move m3, Move m4){
 	  Map<Attack, Move> temp = new HashMap<>();
 	  temp.put(m1.toAttack(), m1);
 	  temp.put(m2.toAttack(), m2);
 	  temp.put(m3.toAttack(), m3);
 	  temp.put(m4.toAttack(), m4);
-	  staticMoves = new HashMap<>(temp);
+	  moves = new HashMap<>(temp);
   }
 
   /**
@@ -148,6 +148,10 @@ public final class Monster {
 		  list.add(e.getKey());
 	  }
 	  return list;
+  }
+  
+  public Map<Attack, Move> getMoves(){
+	  return this.moves;
   }
   
  

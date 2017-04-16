@@ -347,11 +347,12 @@ public class TestMonsters{
 	public void test_move_5(){
 		for(MonsterID id : MonsterID.values()){
 			Monster m = set.getMonster(id);//MonsterSet.getRandomMonster();
-			System.out.println(id.toString());
-			for(Attack atk : m.listMoves()){
-				System.out.println("\t" + atk.toString());
+			//System.out.println(id.toString());
+			for(Move move : m.getMoves().values()){
+				assertEquals(move.getPP(), move.getMaxPP());
+				assertEquals(move.use(), true);
+				assertNotEquals(move.getPP(), move.getMaxPP());				
 			}
-			System.out.println("----------------");
 		}
 	}
 	
