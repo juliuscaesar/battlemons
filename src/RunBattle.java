@@ -1,6 +1,7 @@
 import general.Battle;
 import trainers.Trainer;
 import monsters.Monster;
+import monsters.MonsterSet;
 import trainers.Item;
 import java.util.*;
 
@@ -14,8 +15,23 @@ import java.util.*;
      /**
       * Create empty teams and item lists for now
       */
-     List<Monster> trainer1team = new ArrayList<Monster>();
-     List<Monster> trainer2team = new ArrayList<Monster>();
+     List<Monster> trainer1team = 
+    		 new ArrayList<Monster>(
+    				 Arrays.asList(MonsterSet.getRandomMonster(),
+    				 MonsterSet.getRandomMonster(), 
+    				 MonsterSet.getRandomMonster(), 
+    				 MonsterSet.getRandomMonster(),
+    				 MonsterSet.getRandomMonster(), 
+    				 MonsterSet.getRandomMonster()));
+     List<Monster> trainer2team = 
+    		 new ArrayList<Monster>(
+    				 Arrays.asList(MonsterSet.getRandomMonster(),
+    				 MonsterSet.getRandomMonster(), 
+    				 MonsterSet.getRandomMonster(), 
+    				 MonsterSet.getRandomMonster(), 
+    				 MonsterSet.getRandomMonster(), 
+    				 MonsterSet.getRandomMonster()));
+     
 
      List<Item> trainer1items = new ArrayList<Item>();
      List<Item> trainer2items = new ArrayList<Item>();
