@@ -47,7 +47,7 @@ public final class Monster {
     private int statusStart; // The Round where the Monster got this Status.
     private int statusDuration; // The Duration for this Status.
     private Element e1; // Monster's Element 1.
-    private Map<Attack, Move> moves = new HashMap<Attack, Move>(); // Map of
+    private Map<Attack, Move> moves; // Map of
                                                                    // Moves for
                                                                    // this
                                                                    // Monster.
@@ -165,11 +165,12 @@ public final class Monster {
      * @param dmg
      *            is the value that should be decreased from the Monster's HP.
      */
-    public void receiveAttack(int dmg){
-		this.hp -= dmg;
-		System.out.println("  It dealt " + dmg + " points of damage.");
-		checkAlive();
-	}
+    public void receiveAttack(int dmg) {
+        this.hp -= dmg;
+        System.out.println("  " + this.name + " took " + dmg
+                + " points of damage (" + hp + "/" + maxHP + ").");
+        checkAlive();
+    }
 
     public boolean useMove(Attack atk) {
         if (moves.isEmpty()) {
@@ -349,10 +350,14 @@ public final class Monster {
     public void applyStatusDamage() {
         switch (this.status) {
         case Burn: {
+            System.out.println(name.toString() + " took burn damage. ("
+                    + this.hp + "/" + this.maxHP + ")");
             this.hp = this.maxHP / 16;
             return;
         }
         case Poison: {
+            System.out.println(name.toString() + " took poison damage. ("
+                    + this.hp + "/" + this.maxHP + ")");
             this.hp = this.maxHP / 16;
             return;
         }
@@ -458,6 +463,13 @@ public final class Monster {
         }
     }
 
+    public boolean canIncreasePP(Attack atk){
+    	if(moves.containsKey(atk)){
+    		return moves.get(atk).getPP() < moves.get(atk).getMaxPP();
+    	}
+    	return false;
+    }
+    
     public boolean increasePP(Attack atk, int amount) {
         if (amount <= 0) {
             return false;
@@ -504,6 +516,16 @@ public final class Monster {
         return true;
     }
 
+    public boolean canRestoreHP(){
+    	if (!alive) {
+            return false;
+        }
+        if (hp == maxHP) {
+            return false;
+        }
+        return true;
+    }
+    
     /**
      * Restore the Monster's HP by an absolute value.
      *
@@ -514,17 +536,14 @@ public final class Monster {
         if (value <= 0) {
             return false;
         }
-        if (!alive) {
-            return false;
+        if(canRestoreHP()){
+	        hp += value;
+	        if (hp > maxHP) {
+	            hp = maxHP;
+	        }
+	        return true;
         }
-        if (hp == maxHP) {
-            return false;
-        }
-        hp += value;
-        if (hp > maxHP) {
-            hp = maxHP;
-        }
-        return true;
+        return false;
     }
 
     /**

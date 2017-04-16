@@ -1,12 +1,17 @@
 package trainers;
 
 import general.Attack;
+import general.Status;
 import monsters.Monster;
 import moves.Move;
 
 
-// if battlemon is poisoned, set its status back to normal
-
+/**
+ * Antidote Class.
+ * 
+ * If a Monster has its Status set to Poison, it will cure that Status.
+ *
+ */
 public class Antidote implements ItemEffect{
 		
 	@Override
@@ -27,8 +32,7 @@ public class Antidote implements ItemEffect{
 
 	@Override
 	public boolean canUseItem(Monster battlemon) {
-		// TODO Auto-generated method stub
-		return false;
+		return (battlemon.getStatus() == Status.Poison);
 	}
 
 	@Override

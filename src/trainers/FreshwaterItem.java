@@ -4,10 +4,11 @@ import general.Attack;
 import monsters.Monster;
 import moves.Move;
 
-/*
- * Restores 50 HP 
- * */
-
+/**
+ * FreshWaterItem class.
+ * 
+ * The Fresh Water Item when used on a Monster, will recover 50 HP.
+ */
 public class FreshwaterItem implements ItemEffect{
 
 	int amountToRestore = 50;
@@ -15,10 +16,7 @@ public class FreshwaterItem implements ItemEffect{
 
 	@Override
 	public void useItem(Monster battlemon) {		
-		
 		battlemon.restoreHP(amountToRestore);
-			
-		
 	}
 
 
@@ -31,8 +29,7 @@ public class FreshwaterItem implements ItemEffect{
 
 	@Override
 	public boolean canUseItem(Monster battlemon) {
-		// TODO Auto-generated method stub
-		return false;
+		return battlemon.canRestoreHP();
 	}
 
 

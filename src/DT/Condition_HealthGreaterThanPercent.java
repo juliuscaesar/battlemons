@@ -9,7 +9,7 @@ import trainers.Trainer;
 public class Condition_HealthGreaterThanPercent extends Condition {
 
     // Constructor
-    public Condition_HealthGreaterThanPercent(float parameter) {
+    public Condition_HealthGreaterThanPercent(double parameter) {
         super(parameter);
         upper_bound = 1.0;
         lower_bound = 0.0;

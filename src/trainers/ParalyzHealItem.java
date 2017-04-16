@@ -5,8 +5,13 @@ import general.Status;
 import monsters.Monster;
 import moves.Move;
 
-// if pokemon is in paralysis state, set its status to normal
 
+/**
+ * BurnHealItem Class.
+ * 
+ * If a Monster has its Status set to Burn, it will cure that Status.
+ *
+ */
 public class ParalyzHealItem implements ItemEffect{
 	
 	@Override
@@ -24,8 +29,7 @@ public class ParalyzHealItem implements ItemEffect{
 
 	@Override
 	public boolean canUseItem(Monster battlemon) {
-		// TODO Auto-generated method stub
-		return false;
+		return (battlemon.getStatus() == Status.Paralysis);
 	}
 
 	@Override

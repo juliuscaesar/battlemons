@@ -29,8 +29,7 @@ public class EtherItem implements ItemEffect{
 
 	@Override
 	public boolean canUseItemOnMove(Monster battlemon, Attack attack) {
-		// TODO Auto-generated method stub
-		return false;
+		return battlemon.canIncreasePP(attack);
 	}
 
 }

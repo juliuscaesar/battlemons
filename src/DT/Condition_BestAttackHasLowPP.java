@@ -15,8 +15,8 @@ import trainers.ItemEnum;
 public class Condition_BestAttackHasLowPP extends Condition {
 
     // Constructor
-    public Condition_BestAttackHasLowPP() {
-        super();
+    public Condition_BestAttackHasLowPP(double parameter) {
+        super(parameter);
         uses_parameter = true;
         upper_bound = 1.0;
         lower_bound = 0.0;

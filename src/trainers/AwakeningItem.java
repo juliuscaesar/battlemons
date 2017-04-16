@@ -5,8 +5,13 @@ import general.Status;
 import monsters.Monster;
 import moves.Move;
 
-// if pokemon is in sleep state, set its status to normal
 
+/**
+ * AwakeningItem Class.
+ * 
+ * If a Monster has its Status set to Sleep, it will cure that Status.
+ *
+ */
 public class AwakeningItem implements ItemEffect{
 	
 	@Override
@@ -25,8 +30,7 @@ public class AwakeningItem implements ItemEffect{
 
 	@Override
 	public boolean canUseItem(Monster battlemon) {
-		// TODO Auto-generated method stub
-		return false;
+		return (battlemon.getStatus() == Status.Sleep);
 	}
 
 	@Override

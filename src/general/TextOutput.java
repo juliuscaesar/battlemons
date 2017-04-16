@@ -18,16 +18,12 @@ public class TextOutput {
 		if (!verboseSwitch)
 		{
 			// display the active monster of the user
-			System.out.println("The active monster for the " + user.name +
-					" is " + user.getActiveMonster());
+			System.out.println("The active monster for " + user.name +
+					" is " + user.getActiveMonster().getID());
 			
 			// display the active monster of the opponent 
-			System.out.println("The active monster for the " + opponent.name +
-					" is " + opponent.getActiveMonster());
-			
-			// display the decision chosen by AI for the user
-			System.out.println(user.getActiveMonster() + 
-					" used " + user.getDecision());			
+			System.out.println("The active monster for " + opponent.name +
+					" is " + opponent.getActiveMonster().getID());		
 		
 		}
 		
