@@ -56,10 +56,6 @@ public class Battle {
         // Run until broken out of
         int x = 0;
         while (true) {
-            if (this.defeated == 6) {
-                System.out.println("Beat all 6");
-                break;
-            }
 
             System.out.println("----- BEGIN TURN -----");
             System.out.println(p1.name + "\'s active Battlemon: "
