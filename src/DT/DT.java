@@ -24,7 +24,7 @@ public class DT {
          * IF health > 20 True: use strongest attack False: check heal item
          */
         this.nodeMap.put(0, new DecisionNode(0,
-                new Condition_HealthGreaterThanPercent(.2f), null, 3, 1));
+                new Condition_HealthGreaterThanPercent(.2), null, 3, 1));
 
         /**
          * IF have heal item True: use it False: check if opponent can kill
