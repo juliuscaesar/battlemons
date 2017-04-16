@@ -1,21 +1,16 @@
-package ItemTests;
+package test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import general.Status;
 import monsters.Monster;
 import monsters.MonsterSet;
 import moves.Move;
 import moves.MoveSet;
-import trainers.Antidote;
-import trainers.AwakeningItem;
-import trainers.BurnHealItem;
 import trainers.EtherItem;
-import trainers.IceHealItem;
 
-public class EtherItemTest {
+public class TestEtherItem {
 
 	EtherItem etherItem = new EtherItem();
 	Monster monster = MonsterSet.getRandomMonster();

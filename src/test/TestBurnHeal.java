@@ -1,4 +1,4 @@
-package ItemTests;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -7,10 +7,9 @@ import org.junit.Test;
 import general.Status;
 import monsters.Monster;
 import monsters.MonsterSet;
-import trainers.Antidote;
 import trainers.BurnHealItem;
 
-public class BurnHealTest {
+public class TestBurnHeal {
 
 	BurnHealItem burnHealer = new BurnHealItem();
 	Monster monster = MonsterSet.getRandomMonster();

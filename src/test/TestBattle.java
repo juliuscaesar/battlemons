@@ -11,12 +11,9 @@ import trainers.Trainer;
 import general.MonsterID;
 import monsters.Monster;
 import monsters.MonsterSet;
-import moves.Move;
 import general.Attack;
 import general.Battle;
 import general.Decision;
-import general.Decision.UseMove;
-import general.Element;
 import moves.MoveSet;
 import damage.Damage;
 

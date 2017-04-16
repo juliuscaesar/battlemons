@@ -1,4 +1,4 @@
-package ItemTests;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -8,30 +8,26 @@ import general.Status;
 import monsters.Monster;
 import monsters.MonsterSet;
 import trainers.Antidote;
-import trainers.AwakeningItem;
-import trainers.BurnHealItem;
-import trainers.IceHealItem;
-import trainers.ParalyzHealItem;
 
-public class ParalyzHealItemTest {
+public class TestAntidote {
 
-	ParalyzHealItem paralyzHealItem = new ParalyzHealItem();
+	Antidote antidote = new Antidote();
 	Monster monster = MonsterSet.getRandomMonster();
 	
 	@Test
 	public void test1() {
 		
-		monster.setStatus(Status.Paralysis);
+		monster.setStatus(Status.Poison);
 		
-		paralyzHealItem.useItem(monster);
+		antidote.useItem(monster);
 		
 		assertEquals(Status.Normal, monster.getStatus());
 	}
 	
 	public void test2()
 	{
-		monster.setStatus(Status.Poison);
-		paralyzHealItem.useItem(monster);		
+		monster.setStatus(Status.Burn);
+		antidote.useItem(monster);		
 		assertEquals(Status.Normal, monster.getStatus());
 	}
 

@@ -1,4 +1,4 @@
-package ItemTests;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -7,22 +7,19 @@ import org.junit.Test;
 import general.Status;
 import monsters.Monster;
 import monsters.MonsterSet;
-import trainers.Antidote;
 import trainers.AwakeningItem;
-import trainers.BurnHealItem;
-import trainers.IceHealItem;
 
-public class IceHealItemTest {
+public class TestAwakeningItem {
 
-	IceHealItem iceHealItem = new IceHealItem();
+	AwakeningItem awakeItem = new AwakeningItem();
 	Monster monster = MonsterSet.getRandomMonster();
 	
 	@Test
 	public void test1() {
 		
-		monster.setStatus(Status.Freeze);
+		monster.setStatus(Status.Sleep);
 		
-		iceHealItem.useItem(monster);
+		awakeItem.useItem(monster);
 		
 		assertEquals(Status.Normal, monster.getStatus());
 	}
@@ -30,7 +27,7 @@ public class IceHealItemTest {
 	public void test2()
 	{
 		monster.setStatus(Status.Poison);
-		iceHealItem.useItem(monster);		
+		awakeItem.useItem(monster);		
 		assertEquals(Status.Normal, monster.getStatus());
 	}
 
