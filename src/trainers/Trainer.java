@@ -69,13 +69,14 @@ public class Trainer {
 	
 	public void DisplayListOfMonsters()
 	{
-		System.out.println("The monsters for " + this.name + " are: ");
+		System.out.print(this.name + "\'s team: ");
 		
-		for (int i = 0; i < listMonsters().size() - 1; i++)
+		for (int i = 0; i < (listMonsters().size()); i++)
 		{
-			System.out.print(listMonsters().get(i) + ", ");
+			System.out.print(listMonsters().get(i).getID() + ", ");
 		}
-		System.out.print(listMonsters().get(listMonsters().size() - 1) + ".");
+		
+		System.out.println("");
 	}
 
 	/**
