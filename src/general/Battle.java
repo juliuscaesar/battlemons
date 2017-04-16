@@ -159,8 +159,6 @@ public class Battle {
 
             user.getDecision().executeDecision(this, user);
             textOutput.printStuffToConsole(user, opponent);
-            // TODO return here? not sure about this...
-            return true;
 
         } else { // Player is using a move
 
