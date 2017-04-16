@@ -229,15 +229,19 @@ public class Battle {
             // Check for any alive monsters
             if (t.hasAliveMonster()) {
                 // If we've found some, choose the best one
-                t.chooseNewMonster();
+                t.chooseNewMonster(this);
             }
             // If we don't have any...
             else {
 
                 // If this is the "enemy" AI, just make up some more monsters
                 if (t.equals(p2)) {
+                    System.out.println("\nenemy ai's mon is dead, no more mon on team");
                     generateNewEnemyMonsters();
-                    t.chooseNewMonster();
+                    t.chooseNewMonster(this);
+
+                    System.out.println("New active mon:");
+                    System.out.println(t.getActiveMonster());
                 }
                 // If this is "good" AI, it's game over
                 else {
@@ -265,11 +269,20 @@ public class Battle {
      * using this.rng.
      */
     private void generateNewEnemyMonsters() {
+        System.out.println("Clearing enemy team...");
+        System.out.println("Current team:");
+        System.out.println(p2.listMonsters());
         p2.clearMonsters();
+        System.out.println(p2.listMonsters().size());
+        
         for (int i = 0; i < 6; i++) {
             // TODO this rng needs to be moved to a static space
             p2.addMonster(MonsterSet.getRandomMonster());
         }
+        
+
+        System.out.println("New team:");
+        System.out.println(p2.listMonsters());
     }
 
     /**

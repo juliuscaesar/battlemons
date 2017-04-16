@@ -177,12 +177,6 @@ public abstract interface Decision {
 					d.getDamage(move_to_use.toAttack(), user.getActiveMonster(), b.p2.getActiveMonster()));
 			System.out.println(user.name + "\'s " + user.getActiveMonster().getID() + " used " + move_to_use.toAttack());
 			user.getActiveMonster().useMove(move_to_use.toAttack());
-			
-			if (b.p2.getActiveMonster().getHP() == 0) {
-				b.defeated++;
-				System.out.println(b.p2.getActiveMonster().getID() + " fainted!");
-				new Behavior_SwitchToMonsterWithBestAttack().execute(b, user).executeDecision(b, user);;
-			}
 		}
 
 	}
