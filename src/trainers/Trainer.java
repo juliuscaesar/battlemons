@@ -15,10 +15,26 @@ import general.MonsterID;
 import monsters.Monster;
 import moves.MoveSet;
 
+/**
+ * Trainer Class.
+ * 
+ * A Trainer is someone that have a List of Monsters, a List of Items, and can make 3 types of decision: { Attack, Use Item, Switch Monster }.
+ * The Trainer has a Active Monster, that is currently in battle. The Active Monster is the only Monster that the Trainer can use to Attack
+ * or that can be Attacked.
+ * 
+ * A Trainer can only take one decision per turn. So, on each turn the trainer can either attack with this active monster, switch its active monster
+ * or use an item on any of his monsters.
+ * 
+ * Upon taking fatal damage, a Trainer's active monster's alive state is changed to [Dead] and the active Monster is forcefully changed to another
+ * monster owned by the Trainer.
+ * A Trainer can not switch to a [Dead] Monster.
+ * A Trainer will lose a Battle if all this Monsters are [Dead].
+ * 
+ */
 public class Trainer {
     public Map<MonsterID, Monster> monsters; // List of this Trainer's Monsters.
     private List<MonsterID> order; // List in order of this Trainer's Monsters.
-    public Monster active; // The First Pokemon, The one in-battle.
+    public Monster active; // The First Monster, The one in-battle.
     public String name; // Trainer's Name.
     public List<Item> items; // List of this Trainer's items.
     public Decision decision; // The decision made by the AI for this player.
