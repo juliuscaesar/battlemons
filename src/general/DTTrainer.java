@@ -23,7 +23,7 @@ import trainers.Trainer;
  */
 public class DTTrainer {
 
-    DTTrainerInterface decision_tree;
+    public static DTTrainerInterface decision_tree;
 
     // Decision tree implementation that returns specific Decisions; Condition
     // (branch) and Behavior (leaf) implementations are enclosed
