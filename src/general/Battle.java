@@ -155,7 +155,7 @@ public class Battle {
     public boolean takeTurn(Trainer user, Trainer opponent) {
 
         System.out.println("\nTrainer " + user.name + " is taking their turn!");
-        
+
         // Advance status effects
         user.getActiveMonster().updateStats();
 
@@ -178,29 +178,23 @@ public class Battle {
 
                 // Check monsters to see who died
                 if (!checkMonster(user)) {
-                    System.out.println("No monsters left for " + user);
                     return false;
                 }
                 if (!checkMonster(opponent)) {
-                    System.out.println("No monsters left for " + opponent);
                     return false;
                 }
 
             } else { // The user can't move
-                System.out.println("The " + user.name
-                        + " chooses to skip this turn");
+                System.out.println(user.name + "'s monster can't move!");
             }
         }
 
         // Apply damage from status effects, if there is any
         user.getActiveMonster().applyStatusDamage();
-        System.out.println("The current status of the user's monster is"
-                + user.getActiveMonster().getStatus());
 
         // Check user's monster again to see if they died from status
         // effects
         if (!checkMonster(user)) {
-            System.out.println("No monsters left for " + user);
             return false;
         }
 
@@ -223,6 +217,9 @@ public class Battle {
         // Check if the current monster is alive
         if (!t.getActiveMonster().isAlive()) { // If not, try to find a new one
 
+            System.out.println(t.name + "'s "
+                    + t.getActiveMonster().getID().toString() + " fainted.");
+
             // Check for any alive monsters
             if (t.hasAliveMonster()) {
                 // If we've found some, choose the best one
@@ -234,15 +231,13 @@ public class Battle {
                 // If this is the "enemy" AI, just make up some more monsters
                 if (t.equals(p2)) {
                     System.out
-                            .println("\nenemy ai's mon is dead, no more mon on team");
+                            .println("Player 2 has no more monsters; creating a new team...");
                     generateNewEnemyMonsters();
                     t.chooseNewMonster(this);
-
-                    System.out.println("New active mon:");
-                    System.out.println(t.getActiveMonster());
                 }
                 // If this is "good" AI, it's game over
                 else {
+                    System.out.println("Player 1 has no more monsters...");
                     return false;
                 }
             }
@@ -267,19 +262,14 @@ public class Battle {
      * using this.rng.
      */
     private void generateNewEnemyMonsters() {
-        System.out.println("Clearing enemy team...");
-        System.out.println("Current team:");
-        System.out.println(p2.listMonsters());
         p2.clearMonsters();
-        System.out.println(p2.listMonsters().size());
 
         for (int i = 0; i < 6; i++) {
             // TODO this rng needs to be moved to a static space
             p2.addMonster(MonsterSet.getRandomMonster());
         }
 
-        System.out.println("New team:");
-        System.out.println(p2.listMonsters());
+        p2.DisplayListOfMonsters();
     }
 
     /**

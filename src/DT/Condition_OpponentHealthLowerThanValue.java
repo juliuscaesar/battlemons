@@ -14,7 +14,7 @@ import trainers.ItemEnum;
 public class Condition_OpponentHealthLowerThanValue extends Condition {
 
     // Constructor
-    public Condition_OpponentHealthLowerThanValue(float parameter) {
+    public Condition_OpponentHealthLowerThanValue(double parameter) {
         super(parameter);
         upper_bound = Double.MAX_VALUE;
         lower_bound = 0.0;

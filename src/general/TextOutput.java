@@ -23,11 +23,7 @@ public class TextOutput {
 			
 			// display the active monster of the opponent 
 			System.out.println("The active monster for the " + opponent.name +
-					" is " + opponent.getActiveMonster());
-			
-			// display the decision chosen by AI for the user
-			System.out.println(user.getActiveMonster() + 
-					" used " + user.getDecision());			
+					" is " + opponent.getActiveMonster());		
 		
 		}
 		

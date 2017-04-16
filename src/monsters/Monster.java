@@ -165,11 +165,12 @@ public final class Monster {
      * @param dmg
      *            is the value that should be decreased from the Monster's HP.
      */
-    public void receiveAttack(int dmg){
-		this.hp -= dmg;
-		System.out.println("  It dealt " + dmg + " points of damage.");
-		checkAlive();
-	}
+    public void receiveAttack(int dmg) {
+        this.hp -= dmg;
+        System.out.println("  " + this.name + " took " + dmg
+                + " points of damage (" + hp + "/" + maxHP + ").");
+        checkAlive();
+    }
 
     public boolean useMove(Attack atk) {
         if (moves.isEmpty()) {
@@ -349,10 +350,14 @@ public final class Monster {
     public void applyStatusDamage() {
         switch (this.status) {
         case Burn: {
+            System.out.println(name.toString() + " took burn damage. ("
+                    + this.hp + "/" + this.maxHP + ")");
             this.hp = this.maxHP / 16;
             return;
         }
         case Poison: {
+            System.out.println(name.toString() + " took poison damage. ("
+                    + this.hp + "/" + this.maxHP + ")");
             this.hp = this.maxHP / 16;
             return;
         }
