@@ -10,29 +10,13 @@ import moves.Move;
  * decision tree
  * 
  */
-public abstract interface GeneticAlgorithm {
-    /**
-     * abstract method that executes mutation
-     * @param b The battle
-     * @param user The user
-     */
-    abstract void executeMutation(Battle b, Trainer user);
-    
+public class GeneticAlgorithm {
     /**
      * Mutate the parameters of a node
      * 
      */
-    public class MutateParameters implements GeneticAlgorithm {
+    public static void MutateParameters() {
         
-        Monster new_monster;
-        
-        public MutateParameters(Monster new_monster) {
-            this.new_monster = new_monster;
-        }
-        
-        public void executeMutation(Battle b, Trainer user) {
-            user.changeActive(new_monster);
-        }
         
     }
     
@@ -40,31 +24,17 @@ public abstract interface GeneticAlgorithm {
      * Remove a node from the decision tree
      * 
      */
-    public class RemoveNode implements GeneticAlgorithm {
+    public static void RemoveNode() {
         
-        Item item_to_use;
         
-        public void executeMutation(Battle b, Trainer user) {
-            // TODO
-        }
     }
     
     /**
      * Adds a node to the decision tree
      * 
      */
-    public class AddNode implements GeneticAlgorithm {
+    public static void AddMove() {
         
-        Move move_to_use; 
-        
-        public AddNode(Move move) {
-        	this.move_to_use = move;
-        }
-        
-        public void executeMutation(Battle b, Trainer user) {
-            // TODO
-            //user.getActiveMonster().
-        }
         
     }
     
@@ -72,18 +42,8 @@ public abstract interface GeneticAlgorithm {
      * Swaps nodes in a decision tree
      * 
      */
-    public class SwapNodes implements GeneticAlgorithm {
+    public static void SwapNode() {
         
-        Move move_to_use; 
-        
-        public SwapNodes(Move move) {
-        	this.move_to_use = move;
-        }
-        
-        public void executeMutation(Battle b, Trainer user) {
-            // TODO
-            //user.getActiveMonster().
-        }
         
     }
 }
