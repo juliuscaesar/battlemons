@@ -54,10 +54,11 @@ public class Battle {
 	public float runBattle() {
 
 		// Run until broken out of
-		int x = 0;
-		while (true) {
+		boolean x = true;
+		while (x) {
 			if (this.defeated == 6) {
 				System.out.println("Beat all 6");
+				x = false;
 				break;
 			}
 			
@@ -87,7 +88,6 @@ public class Battle {
 			// is over, and we need to break
 			if (!takeTurn(order[0], order[1])) break;
 			if (!takeTurn(order[1], order[0])) break;
-			x++;
 		}
 
 		return calculateFitness(); // TODO fitness
