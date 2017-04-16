@@ -151,7 +151,7 @@ public class Damage {
 				  return (double)m.getSpDef();
 			  }
 			  default: {
-				  return 0.0;
+				  return 1.0;
 			  }
 		  }
 	  }
