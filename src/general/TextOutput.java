@@ -27,7 +27,8 @@ public class TextOutput {
 			
 			// display the decision chosen by AI for the user
 			System.out.println(user.getActiveMonster() + 
-					" used " + user.getDecision());
+					" used " + user.getDecision());			
+		
 		}
 		
 		else 

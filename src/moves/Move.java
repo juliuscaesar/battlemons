@@ -124,5 +124,16 @@ public class Move{
     	
     	return true;
     }
+    
+    public void testSetPP(int pp)
+    {
+    	this.pp = pp;
+    }
+    
+    public void increasePP(int amount)
+    {
+    		this.pp = this.pp + amount;
+    
+    }
   }
 

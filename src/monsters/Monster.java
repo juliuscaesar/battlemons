@@ -494,4 +494,12 @@ public final class Monster {
 	  
 	  return survivabilityScore;
   }
+  
+  // only for testing purpose
+  public void testSetHP(int hp)
+  {
+	  this.hp = hp;
+  }
+  
+ 
 }
