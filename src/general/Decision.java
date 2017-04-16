@@ -183,16 +183,23 @@ public abstract interface Decision {
         }
 
         public void executeDecision(Battle b, Trainer user) {
+
             Hit h = new Hit();
             Damage d = new Damage();
             Attack attackToUse = move_to_use.toAttack();
             Monster userMon = user.getActiveMonster();
             Monster enemyMon = b.getOpponentsMonster(user);
-            h.hit(attackToUse, userMon, enemyMon,
-                    d.getDamage(attackToUse, userMon, enemyMon));
-            System.out.println(user.name + "\'s "
+
+            System.out.println("  " + user.name + "\'s "
                     + user.getActiveMonster().getID() + " used "
                     + move_to_use.toAttack());
+
+            if (h.hit(attackToUse, userMon, enemyMon,
+                    d.getDamage(attackToUse, userMon, enemyMon))) {
+                System.out.println("  But it missed!");
+            } else {
+                
+            }
             user.getActiveMonster().useMove(move_to_use.toAttack());
         }
 
