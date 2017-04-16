@@ -51,7 +51,7 @@ public class Move{
      * Add a status to a Move.
      * 
      * @param stat is the Status.
-     * @param chance is the chance to apply that Status when hitting a monster.
+     * @param chance is the chance to apply that Status when hitting a monster. Value between 1 and 100
      */
     public void addStatus(Status stat, int chance){
     	this.stats = stat;
@@ -65,8 +65,11 @@ public class Move{
      * @return the value of the raw damage of this move.
      */
     public double rawDmg(int offensiveAttribute){
-    	int value = (12 * this.damage * offensiveAttribute);
-    	return ((value + 2)/50);
+    	if(this.damage > 0){
+	    	int value = (12 * this.damage * offensiveAttribute);
+	    	return ((value + 2)/50);
+    	}
+    	return 0;
     }
     
     public Attack toAttack(){

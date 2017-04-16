@@ -150,7 +150,7 @@ public class MoveSet {
 
   public static Move getMove(Attack name){
     if(moves.containsKey(name)) {
-      return moves.get(name);
+      return new Move(moves.get(name));
     }
     throw new IllegalArgumentException("Move: [" + name.name() + "] not found."); 
   }
