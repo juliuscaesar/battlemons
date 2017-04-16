@@ -56,29 +56,32 @@ public class Battle {
         // Run until broken out of
         while (true) {
 
-            System.out.println("----- BEGIN TURN -----");
+            System.out.println("\n----- BEGIN TURN -----");
             System.out.println(p1.name + "\'s active Battlemon: "
                     + p1.getActiveMonster().getID() + " ("
                     + p1.getActiveMonster().getHP() + "/"
-                    + p1.getActiveMonster().getMaxHP() + ")");
+                    + p1.getActiveMonster().getMaxHP() + ") ("
+                    + p1.getActiveMonster() + ")");
             System.out.println(p2.name + "\'s active Battlemon: "
                     + p2.getActiveMonster().getID() + " ("
                     + p2.getActiveMonster().getHP() + "/"
-                    + p2.getActiveMonster().getMaxHP() + ")");
+                    + p2.getActiveMonster().getMaxHP() + ") ("
+                    + p2.getActiveMonster() + ")");
 
             // Make the AI decisions HERE. Neither AI will know what the other
             // has chosen until these decisions are executed
+            System.out.println("\n");
             Decision player1decision = p1.makeDecision(this);
             Decision player2decision = p2.makeDecision(this);
 
             if (player1decision != null && player2decision != null) {
-                System.out.println("Decisions have been made");
+                System.out.println("Decisions have been made.");
             }
 
             // Determine move order
             Trainer order[] = getTurnOrder();
 
-            System.out.println("Turn order: 1) " + order[0].name + " 2) "
+            System.out.println("\nTurn order: 1) " + order[0].name + ", 2) "
                     + order[1].name);
 
             // Do the battle turns! If either of them return a false, the battle
@@ -151,6 +154,8 @@ public class Battle {
      */
     public boolean takeTurn(Trainer user, Trainer opponent) {
 
+        System.out.println("\nTrainer " + user.name + " is taking their turn!");
+        
         // Advance status effects
         user.getActiveMonster().updateStats();
 
@@ -180,7 +185,7 @@ public class Battle {
                     System.out.println("No monsters left for " + opponent);
                     return false;
                 }
-                
+
             } else { // The user can't move
                 System.out.println("The " + user.name
                         + " chooses to skip this turn");
@@ -228,7 +233,8 @@ public class Battle {
 
                 // If this is the "enemy" AI, just make up some more monsters
                 if (t.equals(p2)) {
-                    System.out.println("\nenemy ai's mon is dead, no more mon on team");
+                    System.out
+                            .println("\nenemy ai's mon is dead, no more mon on team");
                     generateNewEnemyMonsters();
                     t.chooseNewMonster(this);
 
@@ -266,12 +272,11 @@ public class Battle {
         System.out.println(p2.listMonsters());
         p2.clearMonsters();
         System.out.println(p2.listMonsters().size());
-        
+
         for (int i = 0; i < 6; i++) {
             // TODO this rng needs to be moved to a static space
             p2.addMonster(MonsterSet.getRandomMonster());
         }
-        
 
         System.out.println("New team:");
         System.out.println(p2.listMonsters());
