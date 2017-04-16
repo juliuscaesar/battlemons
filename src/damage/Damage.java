@@ -12,7 +12,18 @@ import general.MoveCategory;
 import moves.Move;
 import moves.MoveSet;
 
-
+/**
+ * Damage Class.
+ * Class responsible for making all the damage calculations.
+ * It calculates the actual damage a Monster should receive, as well
+ * as possible variations such as the highest possible damage a move could
+ * make on a target monsters, as well as the lowest possible damage.
+ * For higher precision, all damage are calculate using double values, but when returning
+ * those values are converted to integer, thus, small variations due to rounding of numbers
+ * is to be expected.
+ *
+ * The class can also iterate through a Monster's attack and find the strongest attack.
+ */
 public class Damage {
 	private Random r;
 	
@@ -22,19 +33,6 @@ public class Damage {
 	public Damage(){
 		new MoveSet();
 		r = new Random();
-	}
-	
-	@SuppressWarnings("unused")
-	private static void msg(Double... d){
-		StringBuilder sb = new StringBuilder();
-		for(Double value : d){
-			String s = value.toString();
-			if(s.length() > 5){
-				s = s.substring(0, 5);
-			}
-			sb.append(s+ "\t");
-		}
-		System.out.println(sb.toString());
 	}
 	
 	/**
@@ -52,7 +50,6 @@ public class Damage {
 		  double A = offAtt(move, source);
 		  double D = defAtt(move, target);
 		  double modifier = getModifier(move, source, target);
-		  //msg(power,A,D,modifier);
 		  return (int)getDmg(power, A/D, modifier);
 		  
 	}
