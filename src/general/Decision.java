@@ -18,166 +18,161 @@ import moves.MoveSet;
 
 public abstract interface Decision {
 
-	abstract void executeDecision(Battle b, Trainer user);
+    abstract void executeDecision(Battle b, Trainer user);
 
-	public class ChangeMonster implements Decision {
+    public class ChangeMonster implements Decision {
 
-		Monster new_monster;
+        Monster new_monster;
 
-		public ChangeMonster(Monster new_monster) {
-			this.new_monster = new_monster;
-		}
+        public ChangeMonster(Monster new_monster) {
+            this.new_monster = new_monster;
+        }
 
-		public void executeDecision(Battle b, Trainer user) {
-			System.out.println(user.name + " sent out " + new_monster.getID());
-			user.changeActive(new_monster);
-		}
+        public void executeDecision(Battle b, Trainer user) {
+            System.out.println(user.name + " sent out " + new_monster.getID());
+            user.changeActive(new_monster);
+        }
 
-	}
+    }
 
-	public class UseIceHealItem implements Decision {
+    public class UseIceHealItem implements Decision {
 
-		IceHealItem item_to_use;
+        IceHealItem item_to_use;
 
-		public UseIceHealItem(IceHealItem cureFreeze, Monster monster)
-		{
-			this.item_to_use = cureFreeze;
+        public UseIceHealItem(IceHealItem cureFreeze, Monster monster) {
+            this.item_to_use = cureFreeze;
 
-		}
+        }
 
-		public void executeDecision(Battle b, Trainer user) {
-			item_to_use.useItem(user.getActiveMonster());
-		}
-	}
+        public void executeDecision(Battle b, Trainer user) {
+            item_to_use.useItem(user.getActiveMonster());
+        }
+    }
 
-	public class UsePoisonHealItem implements Decision {
+    public class UsePoisonHealItem implements Decision {
 
-		Antidote item_to_use;
+        Antidote item_to_use;
 
-		public UsePoisonHealItem(Antidote curePoison, Monster monster)
-		{
-			this.item_to_use = curePoison;
+        public UsePoisonHealItem(Antidote curePoison, Monster monster) {
+            this.item_to_use = curePoison;
 
-		}
+        }
 
-		public void executeDecision(Battle b, Trainer user) {
-			item_to_use.useItem(user.getActiveMonster());
-		}
-	}
+        public void executeDecision(Battle b, Trainer user) {
+            item_to_use.useItem(user.getActiveMonster());
+        }
+    }
 
-	public class UseSleepHealItem implements Decision {
+    public class UseSleepHealItem implements Decision {
 
-		AwakeningItem item_to_use;
+        AwakeningItem item_to_use;
 
-		public UseSleepHealItem(AwakeningItem cureSleep, Monster monster)
-		{
-			this.item_to_use = cureSleep;
+        public UseSleepHealItem(AwakeningItem cureSleep, Monster monster) {
+            this.item_to_use = cureSleep;
 
-		}
+        }
 
-		public void executeDecision(Battle b, Trainer user) {
-			item_to_use.useItem(user.getActiveMonster());
-		}
-	}
+        public void executeDecision(Battle b, Trainer user) {
+            item_to_use.useItem(user.getActiveMonster());
+        }
+    }
 
-	public class UseBurnHealItem implements Decision {
+    public class UseBurnHealItem implements Decision {
 
-		BurnHealItem item_to_use;
+        BurnHealItem item_to_use;
 
-		public UseBurnHealItem(BurnHealItem cureBurn, Monster monster)
-		{
-			this.item_to_use = cureBurn;
+        public UseBurnHealItem(BurnHealItem cureBurn, Monster monster) {
+            this.item_to_use = cureBurn;
 
-		}
+        }
 
-		public void executeDecision(Battle b, Trainer user) {
-			item_to_use.useItem(user.getActiveMonster());
-		}
-	}
+        public void executeDecision(Battle b, Trainer user) {
+            item_to_use.useItem(user.getActiveMonster());
+        }
+    }
 
-	public class UseParalyzHealItem implements Decision {
+    public class UseParalyzHealItem implements Decision {
 
-		ParalyzHealItem item_to_use;
+        ParalyzHealItem item_to_use;
 
-		public UseParalyzHealItem(ParalyzHealItem cureParalysis, Monster monster)
-		{
-			this.item_to_use = cureParalysis;
+        public UseParalyzHealItem(ParalyzHealItem cureParalysis, Monster monster) {
+            this.item_to_use = cureParalysis;
 
-		}
+        }
 
-		public void executeDecision(Battle b, Trainer user) {
-			item_to_use.useItem(user.getActiveMonster());
-		}
-	}
+        public void executeDecision(Battle b, Trainer user) {
+            item_to_use.useItem(user.getActiveMonster());
+        }
+    }
 
-	public class UseHealHPItem implements Decision {
+    public class UseHealHPItem implements Decision {
 
-		FreshwaterItem item_to_use;
+        FreshwaterItem item_to_use;
 
-		public UseHealHPItem(FreshwaterItem replenishHP, Monster monster)
-		{
-			this.item_to_use = replenishHP;
+        public UseHealHPItem(FreshwaterItem replenishHP, Monster monster) {
+            this.item_to_use = replenishHP;
 
-		}
+        }
 
-		public void executeDecision(Battle b, Trainer user) {
-			item_to_use.useItem(user.getActiveMonster());
-		}
-	}
+        public void executeDecision(Battle b, Trainer user) {
+            item_to_use.useItem(user.getActiveMonster());
+        }
+    }
 
-	public class UseHealPPItem implements Decision {
+    public class UseHealPPItem implements Decision {
 
-		EtherItem item_to_use;
-		Move move_to_replenish;
+        EtherItem item_to_use;
+        Move move_to_replenish;
 
-		public UseHealPPItem(EtherItem replenishPP, Move move)
-		{
-			this.item_to_use = replenishPP;
-			this.move_to_replenish = move;
-		}
+        public UseHealPPItem(EtherItem replenishPP, Move move) {
+            this.item_to_use = replenishPP;
+            this.move_to_replenish = move;
+        }
 
-		public void executeDecision(Battle b, Trainer user) 
-		{   	
-			item_to_use.useItemOnMove(user.getActiveMonster(), move_to_replenish);   	
-		}
-	}
+        public void executeDecision(Battle b, Trainer user) {
+            item_to_use.useItemOnMove(user.getActiveMonster(),
+                    move_to_replenish);
+        }
+    }
 
+    public class UseAttack implements Decision {
 
-	public class UseAttack implements Decision
-	{
+        Attack attack_to_use;
 
-		Attack attack_to_use;
+        public UseAttack(Attack attack) {
 
-		public UseAttack(Attack attack)
-		{
+            this.attack_to_use = attack;
+        }
 
-			this.attack_to_use = attack;
-		}
+        public void executeDecision(Battle b, Trainer user) {
+            user.getActiveMonster().useMove(attack_to_use);
+        }
+    }
 
-		public void executeDecision(Battle b, Trainer user) 
-		{
-			user.getActiveMonster().useMove(attack_to_use);
-		}
-	}
+    public class UseMove implements Decision {
 
-	public class UseMove implements Decision {
+        Move move_to_use;
 
-		Move move_to_use;
-		// Attack attack_to_use;
+        // Attack attack_to_use;
 
-		public UseMove(Move move) {
-			this.move_to_use = move;
+        public UseMove(Move move) {
+            this.move_to_use = move;
 
-		}
+        }
 
-		public void executeDecision(Battle b, Trainer user) {
-			Hit h = new Hit();
-			Damage d = new Damage();
-			h.hit(move_to_use.toAttack(), user.getActiveMonster(), b.p2.getActiveMonster(), 
-					d.getDamage(move_to_use.toAttack(), user.getActiveMonster(), b.p2.getActiveMonster()));
-			System.out.println(user.name + "\'s " + user.getActiveMonster().getID() + " used " + move_to_use.toAttack());
-			user.getActiveMonster().useMove(move_to_use.toAttack());
-		}
+        public void executeDecision(Battle b, Trainer user) {
+            Hit h = new Hit();
+            Damage d = new Damage();
+            Attack attackToUse = move_to_use.toAttack();
+            Monster userMon = user.getActiveMonster();
+            Monster enemyMon = b.getOpponentsMonster(user);
+            h.hit(attackToUse, userMon, enemyMon,
+                    d.getDamage(attackToUse, userMon, enemyMon));
+            System.out.println(user.name + "\'s "
+                    + user.getActiveMonster().getID() + " used "
+                    + move_to_use.toAttack());
+            user.getActiveMonster().useMove(move_to_use.toAttack());
+        }
 
-	}
+    }
 }
