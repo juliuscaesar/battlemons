@@ -20,6 +20,8 @@ public abstract interface Decision {
 
     abstract void executeDecision(Battle b, Trainer user);
 
+    abstract public String toString();
+
     public class ChangeMonster implements Decision {
 
         Monster new_monster;
@@ -31,6 +33,11 @@ public abstract interface Decision {
         public void executeDecision(Battle b, Trainer user) {
             System.out.println(user.name + " sent out " + new_monster.getID());
             user.changeActive(new_monster);
+        }
+
+        public String toString() {
+            return "Change Monster to " + new_monster + ": "
+                    + new_monster.getID().toString();
         }
 
     }
@@ -47,6 +54,11 @@ public abstract interface Decision {
         public void executeDecision(Battle b, Trainer user) {
             item_to_use.useItem(user.getActiveMonster());
         }
+
+        public String toString() {
+            return "Use Ice Heal";
+        }
+
     }
 
     public class UsePoisonHealItem implements Decision {
@@ -60,6 +72,10 @@ public abstract interface Decision {
 
         public void executeDecision(Battle b, Trainer user) {
             item_to_use.useItem(user.getActiveMonster());
+        }
+
+        public String toString() {
+            return "Use Antidote";
         }
     }
 
@@ -75,6 +91,10 @@ public abstract interface Decision {
         public void executeDecision(Battle b, Trainer user) {
             item_to_use.useItem(user.getActiveMonster());
         }
+
+        public String toString() {
+            return "Use Awakening";
+        }
     }
 
     public class UseBurnHealItem implements Decision {
@@ -88,6 +108,10 @@ public abstract interface Decision {
 
         public void executeDecision(Battle b, Trainer user) {
             item_to_use.useItem(user.getActiveMonster());
+        }
+
+        public String toString() {
+            return "Use Burn Heal";
         }
     }
 
@@ -103,6 +127,10 @@ public abstract interface Decision {
         public void executeDecision(Battle b, Trainer user) {
             item_to_use.useItem(user.getActiveMonster());
         }
+
+        public String toString() {
+            return "Use Paralyze Heal";
+        }
     }
 
     public class UseHealHPItem implements Decision {
@@ -116,6 +144,10 @@ public abstract interface Decision {
 
         public void executeDecision(Battle b, Trainer user) {
             item_to_use.useItem(user.getActiveMonster());
+        }
+
+        public String toString() {
+            return "Use Fresh Water";
         }
     }
 
@@ -132,6 +164,10 @@ public abstract interface Decision {
         public void executeDecision(Battle b, Trainer user) {
             item_to_use.useItemOnMove(user.getActiveMonster(),
                     move_to_replenish);
+        }
+
+        public String toString() {
+            return "Use Ether";
         }
     }
 
@@ -158,6 +194,10 @@ public abstract interface Decision {
                     + user.getActiveMonster().getID() + " used "
                     + move_to_use.toAttack());
             user.getActiveMonster().useMove(move_to_use.toAttack());
+        }
+
+        public String toString() {
+            return "Use move " + move_to_use.toAttack().toString();
         }
 
     }

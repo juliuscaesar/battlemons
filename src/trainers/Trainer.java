@@ -95,6 +95,8 @@ public class Trainer {
 
     public Decision makeDecision(Battle battle) {
         decision = trainerAI.makeDecision(battle, this, 0);
+        System.out.println("Trainer " + name + "'s decision is "
+                + decision.toString());
         return decision;
     }
 
