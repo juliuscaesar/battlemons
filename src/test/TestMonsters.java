@@ -1,6 +1,7 @@
 package test;
 
 import monsters.MonsterSet;
+import moves.Move;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +10,7 @@ import org.junit.Test;
 import monsters.Monster;
 
 import general.Status;
+import general.Attack;
 import general.MonsterID;
 
 public class TestMonsters{
@@ -340,6 +342,19 @@ public class TestMonsters{
 			assertEquals(m.getPercentHP(), hp, 0);
 		}
 	}
+	
+	@Test
+	public void test_move_5(){
+		for(MonsterID id : MonsterID.values()){
+			Monster m = set.getMonster(id);//MonsterSet.getRandomMonster();
+			System.out.println(id.toString());
+			for(Attack atk : m.listMoves()){
+				System.out.println("\t" + atk.toString());
+			}
+			System.out.println("----------------");
+		}
+	}
+	
 	
 	
 	

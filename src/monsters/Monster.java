@@ -34,14 +34,15 @@ public final class Monster {
   private int statusStart; // The Round where the Monster got this Status.
   private int statusDuration; // The Duration for this Status.
   private Element e1; // Monster's Element 1.
-  private static Map<Attack, Move> moves = new HashMap<Attack, Move>(); // Map of Moves for this Monster.
+  private Map<Attack, Move> moves = new HashMap<Attack, Move>(); // Map of Moves for this Monster.
   private boolean canMove; // True if the Monster can move, false if not.
   private boolean alive;
-
   private final Attributes att;
   private int hp;
   private final int maxHP;
   private int survivabilityScore;
+  
+  private static Map<Attack, Move> staticMoves = new HashMap<Attack,Move>();
 
   Monster(MonsterID name, int hp, int atk, int spAtk, int def, int spDef, int spd, Element... elements) {
     this.name = name;
@@ -60,6 +61,7 @@ public final class Monster {
       }
       i++;
     }
+    this.moves = new HashMap<>(staticMoves);
     this.alive = true;
   }
 
@@ -71,15 +73,17 @@ public final class Monster {
 	    this.canMove = true;
 	    att = new Attributes(other.getAtk(), other.getSpAtk(), other.getSpDef(), other.getDef(), other.getSpeed());
 	    this.e1 = other.getElem();
+	    this.moves = new HashMap<>(staticMoves);
 	    this.alive = true;
   }
   
   public static void addMoves(Move m1, Move m2, Move m3, Move m4){
-	  moves.put(m1.toAttack(), m1);
-	  moves.put(m2.toAttack(), m2);
-	  moves.put(m3.toAttack(), m3);
-	  
-	  moves.put(m4.toAttack(), m4);
+	  Map<Attack, Move> temp = new HashMap<>();
+	  temp.put(m1.toAttack(), m1);
+	  temp.put(m2.toAttack(), m2);
+	  temp.put(m3.toAttack(), m3);
+	  temp.put(m4.toAttack(), m4);
+	  staticMoves = new HashMap<>(temp);
   }
 
   /**
