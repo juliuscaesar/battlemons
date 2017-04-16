@@ -54,7 +54,6 @@ public class Battle {
     public float runBattle() {
 
         // Run until broken out of
-        int x = 0;
         while (true) {
 
             System.out.println("----- BEGIN TURN -----");
@@ -86,7 +85,6 @@ public class Battle {
             // is over, and we need to break
             if (!takeTurn(order[0], order[1])) break;
             if (!takeTurn(order[1], order[0])) break;
-            x++;
         }
 
         return calculateFitness(); // TODO fitness
