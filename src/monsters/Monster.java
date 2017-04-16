@@ -156,6 +156,10 @@ public final class Monster {
 	  return this.hp;
   }
   
+  public int getMaxHP() {
+	  return this.maxHP;
+  }
+  
   /**
    * Returns the percent value of the in a double number in the range of
    * 0.0000 to 1.0000.

@@ -91,8 +91,9 @@ public class Trainer {
 		throw new IllegalArgumentException("Can't select a dead Monsters.");
 	}
 
-    public void makeDecision(Battle battle) {
-        trainerAI.makeDecision(battle, this, 0);
+    public Decision makeDecision(Battle battle) {
+    	decision = trainerAI.makeDecision(battle, this, 0);
+        return decision;
     }
 
     public Monster getActiveMonster() {
