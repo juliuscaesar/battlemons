@@ -8,7 +8,7 @@ import general.Status;
 public class Move{
     final Attack name;
      int damage;
-     double acc;
+     int acc;
     int pp;
     int maxPP;
     final Element element;
@@ -16,7 +16,7 @@ public class Move{
     private Status stats;
     private int statChance;
     
-     public Move(Attack name, int dmg, double acc, int pp,  Element element, MoveCategory cat) {
+     public Move(Attack name, int dmg, int acc, int pp,  Element element, MoveCategory cat) {
       this.name = name;
       this.damage = dmg;
       this.acc = acc;
@@ -99,12 +99,8 @@ public class Move{
         return maxPP;
     }
     
-    public double getAcc(){
+    public int getAcc(){
     	return this.acc;
-    }
-    
-    public int getStatChance(){
-    	return this.getStatChance();
     }
     
     public boolean addPowerPoints(int amount)

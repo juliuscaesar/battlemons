@@ -50,7 +50,7 @@ public class Hit {
 			target.receiveAttack(dmg);
 			int valueStat = Math.abs(rnd.nextInt(100));
 			Move m = set.move(atk);
-			if(valueStat < m.getStatChance()){
+			if(valueStat < m.getStatusChance()){
 				target.setStatus(m.getStatus());
 			}
 		}		
