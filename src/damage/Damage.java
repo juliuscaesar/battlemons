@@ -20,7 +20,7 @@ import moves.MoveSet;
  * make on a target monsters, as well as the lowest possible damage.
  * For higher precision, all damage are calculate using double values, but when returning
  * those values are converted to integer, thus, small variations due to rounding of numbers
- * is to be expected.
+ * are to be expected.
  *
  * The class can also iterate through a Monster's attack and find the strongest attack.
  */
