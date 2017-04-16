@@ -162,7 +162,7 @@ public class Attributes {
 		return (int)((double)dft_spAtk * multi);
 	}
 	
-	int getSpDef(){
+	public int getSpDef(){
 		double multi = 1;
 		if(spDefStage > 0){
 			multi = buff[spDefStage];
@@ -173,7 +173,7 @@ public class Attributes {
 		return (int)((double)dft_spDef * multi);
 	}
 	
-	int getDef(){
+	public int getDef(){
 		double multi = 1;
 		if(defStage > 0){
 			multi = buff[defStage];
@@ -184,7 +184,7 @@ public class Attributes {
 		return (int)((double)dft_def * multi);
 	}
 	
-	int getSpd(Status stat){
+	public int getSpd(Status stat){
 		double multi = 1;
 		if(defStage > 0){
 			multi = buff[spdStage];
@@ -201,7 +201,7 @@ public class Attributes {
 		}
 	}
 	
-	int getDodge(){
+	public int getDodge(){
 		double multi = 1;
 		if(dodgeStage < 0){
 			multi = buff[dodgeStage];
@@ -212,18 +212,18 @@ public class Attributes {
 		return (int)((double)dft_acc * multi);
 	}
 	
-	int getAcc(){
+	public int getAcc(){
 		double multi = 1;
-		if(accStage < 0){
-			multi = debuff[accStage];
+		if(accStage > 0){
+			multi = buff[accStage];
 		}
 		else{
-			multi = buff[accStage];
+			multi = debuff[accStage];
 		}
 		return (int)((double)dft_acc * multi);
 	}
 	
-	int getCriticalChance(){
+	public int getCriticalChance(){
 		return 0;
 	}
 	

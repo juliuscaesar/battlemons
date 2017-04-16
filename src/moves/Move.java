@@ -8,7 +8,7 @@ import general.Status;
 public class Move{
     final Attack name;
      int damage;
-     int acc;
+     double acc;
     int pp;
     int maxPP;
     final Element element;
@@ -16,20 +16,34 @@ public class Move{
     private Status stats;
     private int statChance;
     
-     public Move(Attack name, int dmg, int acc, int pp,  Element element, MoveCategory cat) {
+     public Move(Attack name, int dmg, double acc, int pp,  Element element, MoveCategory cat) {
       this.name = name;
       this.damage = dmg;
       this.acc = acc;
       this.pp = pp;
+      this.maxPP = pp;
       this.element = element;
       this.cat = cat;
       this.stats = Status.Normal;
+      this.statChance = 0;
 
       if(acc < 0 || acc > 100) {
         throw new IllegalArgumentException(
             "Accuracy out of bounds. Valid values are only between 1 and 100. Value: " + acc);
       }
     }
+     
+     public Move(Move move){
+    	 this.name = move.name;
+    	 this.damage = move.damage;
+    	 this.acc = move.acc;
+    	 this.pp = move.pp;
+    	 this.element = move.element;
+    	 this.cat = move.cat;
+    	 this.stats = move.stats;
+    	 this.maxPP = move.maxPP;
+    	 this.statChance = move.statChance;
+     }
      
     
     
@@ -83,6 +97,14 @@ public class Move{
     }
     public int getMaxPP() {
         return maxPP;
+    }
+    
+    public double getAcc(){
+    	return this.acc;
+    }
+    
+    public int getStatChance(){
+    	return this.getStatChance();
     }
     
     public boolean addPowerPoints(int amount)

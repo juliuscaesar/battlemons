@@ -24,6 +24,7 @@ public class Damage {
 		r = new Random();
 	}
 	
+	@SuppressWarnings("unused")
 	private static void msg(Double... d){
 		StringBuilder sb = new StringBuilder();
 		for(Double value : d){
@@ -51,7 +52,7 @@ public class Damage {
 		  double A = offAtt(move, source);
 		  double D = defAtt(move, target);
 		  double modifier = getModifier(move, source, target);
-		  msg(power,A,D,modifier);
+		  //msg(power,A,D,modifier);
 		  return (int)getDmg(power, A/D, modifier);
 		  
 	}
