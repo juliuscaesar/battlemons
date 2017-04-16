@@ -41,11 +41,20 @@ abstract class Condition {
      * Update the parameter of this Condition
      */
     public void setParam(double newParam) {
-    	this.parameter = newParam;
+        this.parameter = newParam;
     }
 
     // The abstract function representing the actual boolean condition of
     // this node.
     abstract boolean check_condition(Battle battle, Trainer user);
+
+    public String toString() {
+        if (uses_parameter) {
+            return this.getClass().getSimpleName()
+                    .substring("Condition_".length())
+                    + " with parameter " + parameter;
+        }
+        return this.getClass().getSimpleName().substring("Condition_".length());
+    }
 
 }
