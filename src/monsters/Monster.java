@@ -167,8 +167,8 @@ public final class Monster {
      */
     public void receiveAttack(int dmg) {
         this.hp -= dmg;
-        System.out.println("  " + this.name + " took " + dmg + " points of damage (" + hp
-                + "/" + maxHP + ").");
+        System.out.println("  " + this.name + " took " + dmg
+                + " points of damage (" + hp + "/" + maxHP + ").");
         checkAlive();
     }
 
@@ -350,10 +350,14 @@ public final class Monster {
     public void applyStatusDamage() {
         switch (this.status) {
         case Burn: {
+            System.out.println(name.toString() + " took burn damage. ("
+                    + this.hp + "/" + this.maxHP + ")");
             this.hp = this.maxHP / 16;
             return;
         }
         case Poison: {
+            System.out.println(name.toString() + " took poison damage. ("
+                    + this.hp + "/" + this.maxHP + ")");
             this.hp = this.maxHP / 16;
             return;
         }

@@ -191,8 +191,6 @@ public class Battle {
 
         // Apply damage from status effects, if there is any
         user.getActiveMonster().applyStatusDamage();
-        System.out.println("The current status of the user's monster is"
-                + user.getActiveMonster().getStatus());
 
         // Check user's monster again to see if they died from status
         // effects
@@ -236,9 +234,6 @@ public class Battle {
                             .println("Player 2 has no more monsters; creating a new team...");
                     generateNewEnemyMonsters();
                     t.chooseNewMonster(this);
-
-                    System.out.println("New active mon:");
-                    System.out.println(t.getActiveMonster());
                 }
                 // If this is "good" AI, it's game over
                 else {
@@ -267,19 +262,14 @@ public class Battle {
      * using this.rng.
      */
     private void generateNewEnemyMonsters() {
-        System.out.println("Clearing enemy team...");
-        System.out.println("Current team:");
-        System.out.println(p2.listMonsters());
         p2.clearMonsters();
-        System.out.println(p2.listMonsters().size());
 
         for (int i = 0; i < 6; i++) {
             // TODO this rng needs to be moved to a static space
             p2.addMonster(MonsterSet.getRandomMonster());
         }
 
-        System.out.println("New team:");
-        System.out.println(p2.listMonsters());
+        p2.DisplayListOfMonsters();
     }
 
     /**
