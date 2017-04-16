@@ -60,23 +60,17 @@ public class Battle {
             System.out.println(p1.name + "\'s active Battlemon: "
                     + p1.getActiveMonster().getID() + " ("
                     + p1.getActiveMonster().getHP() + "/"
-                    + p1.getActiveMonster().getMaxHP() + ") ("
-                    + p1.getActiveMonster() + ")");
+                    + p1.getActiveMonster().getMaxHP() + ")");
             System.out.println(p2.name + "\'s active Battlemon: "
                     + p2.getActiveMonster().getID() + " ("
                     + p2.getActiveMonster().getHP() + "/"
-                    + p2.getActiveMonster().getMaxHP() + ") ("
-                    + p2.getActiveMonster() + ")");
+                    + p2.getActiveMonster().getMaxHP() + ")");
 
             // Make the AI decisions HERE. Neither AI will know what the other
             // has chosen until these decisions are executed
             System.out.println("\n");
             Decision player1decision = p1.makeDecision(this);
             Decision player2decision = p2.makeDecision(this);
-
-            if (player1decision != null && player2decision != null) {
-                System.out.println("Decisions have been made.");
-            }
 
             // Determine move order
             Trainer order[] = getTurnOrder();
