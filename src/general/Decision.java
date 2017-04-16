@@ -135,20 +135,6 @@ public abstract interface Decision {
         }
     }
 
-    public class UseAttack implements Decision {
-
-        Attack attack_to_use;
-
-        public UseAttack(Attack attack) {
-
-            this.attack_to_use = attack;
-        }
-
-        public void executeDecision(Battle b, Trainer user) {
-            user.getActiveMonster().useMove(attack_to_use);
-        }
-    }
-
     public class UseMove implements Decision {
 
         Move move_to_use;

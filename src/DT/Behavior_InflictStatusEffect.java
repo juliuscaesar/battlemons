@@ -26,7 +26,7 @@ public class Behavior_InflictStatusEffect extends Behavior {
 
         for (Attack attack : monster.listMoves()) {
             if (MoveSet.getMove(attack).isStatusMove()) {
-                return new Decision.UseAttack(attack);
+                return new Decision.UseMove(MoveSet.getMove(attack));
             }
 
         }
