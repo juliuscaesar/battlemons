@@ -13,7 +13,6 @@ import general.Status;
 import general.MonsterID;
 
 public class TestMonsters {
-    MonsterSet set = new MonsterSet();
 
     /*
      * public TestMonsters(){ this.used = MonsterSet.getRandomMonster(); }

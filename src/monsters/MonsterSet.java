@@ -10,7 +10,6 @@ import general.Attack;
 import general.Element;
 import moves.MoveSet;
 
-@SuppressWarnings("static-access")
 public class MonsterSet {
 	private static Map<MonsterID, Monster> monsters;
 
