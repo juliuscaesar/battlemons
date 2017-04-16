@@ -19,21 +19,19 @@ import damage.Damage;
 
 public class TestBattle {
 
-    MonsterSet set = new MonsterSet();
-    MoveSet moves = new MoveSet();
-    Monster a = set.getMonster(MonsterID.Adnocana);
-    Monster b = set.getMonster(MonsterID.Emberfly);
+    Monster a = MonsterSet.getMonster(MonsterID.Adnocana);
+    Monster b = MonsterSet.getMonster(MonsterID.Emberfly);
     Damage d = new Damage();
 
     Battle initBattle() {
         Trainer t1 = new Trainer("player", new ArrayList<Monster>() {
             {
-                add(set.getMonster(MonsterID.Adnocana));
+                add(MonsterSet.getMonster(MonsterID.Adnocana));
             }
         }, new ArrayList<Item>());
         Trainer t2 = new Trainer("enemy", new ArrayList<Monster>() {
             {
-                add(set.getMonster(MonsterID.Emberfly));
+                add(MonsterSet.getMonster(MonsterID.Emberfly));
             }
         }, new ArrayList<Item>());
         return new Battle(t1, t2);
@@ -82,16 +80,16 @@ public class TestBattle {
         // both are using moves;
         // p2 (Adnocana, 105) is faster than p1 (Emberfly, 90)
         battle.p1.clearMonsters();
-        battle.p1.addMonster(set.getMonster(MonsterID.Emberfly));
+        battle.p1.addMonster(MonsterSet.getMonster(MonsterID.Emberfly));
         battle.p2.clearMonsters();
-        battle.p2.addMonster(set.getMonster(MonsterID.Adnocana));
+        battle.p2.addMonster(MonsterSet.getMonster(MonsterID.Adnocana));
         assertArrayEquals(battle.getTurnOrder(), new Trainer[] { battle.p2,
                 battle.p1 });
 
         // both are using moves;
         // both monsters have same speed, result is up to rng
         battle.p2.clearMonsters();
-        battle.p2.addMonster(set.getMonster(MonsterID.Emberfly));
+        battle.p2.addMonster(MonsterSet.getMonster(MonsterID.Emberfly));
         battle.getTurnOrder();
         battle.getTurnOrder();
         battle.getTurnOrder();
