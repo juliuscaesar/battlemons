@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import DT.DT;
 import general.Attack;
 import general.Battle;
-import general.DTTrainer;
 import general.Decision;
 import general.MonsterID;
 import monsters.Monster;
@@ -21,7 +21,7 @@ public class Trainer {
 	public String name; // Trainer's Name.
 	public List<Item> items; // List of this Trainer's items.
 	public Decision decision; // The decision made by the AI for this player.
-	private DTTrainer trainerAI;
+	private DT trainerAI = new DT();
 
 	public Trainer(String name, List<Monster> monsters, List<Item> itens){
 		this.name = name;
@@ -69,13 +69,14 @@ public class Trainer {
 	
 	public void DisplayListOfMonsters()
 	{
-		System.out.println("The monsters for " + this.name + " are: ");
+		System.out.print(this.name + "\'s team: ");
 		
-		for (int i = 0; i < listMonsters().size() - 1; i++)
+		for (int i = 0; i < (listMonsters().size()); i++)
 		{
-			System.out.print(listMonsters().get(i) + ", ");
+			System.out.print(listMonsters().get(i).getID() + ", ");
 		}
-		System.out.print(listMonsters().get(listMonsters().size() - 1) + ".");
+		
+		System.out.println("");
 	}
 
 	/**
@@ -87,11 +88,14 @@ public class Trainer {
 		if(m.isAlive()){
 			this.active = monsters.get(m.getID());
 		}
-		throw new IllegalArgumentException("Can't select a dead Monsters.");
+		else {
+			throw new IllegalArgumentException("Can't select a dead Monsters.");
+		}
 	}
 
-    public void makeDecision(Battle battle) {
-        decision = trainerAI.makeDecision(battle, this, 0);
+    public Decision makeDecision(Battle battle) {
+    	decision = trainerAI.makeDecision(battle, this, 0);
+        return decision;
     }
 
     public Monster getActiveMonster() {
