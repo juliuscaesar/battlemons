@@ -1,4 +1,4 @@
-package test.testMonsters;
+package test;
 
 import monsters.MonsterSet;
 

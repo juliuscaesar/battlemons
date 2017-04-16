@@ -99,13 +99,8 @@ public class Move{
         return maxPP;
     }
     
-<<<<<<< HEAD
     public int getAcc(){
     	return this.acc;
-=======
-    public int getAcc() {
-    	return acc;
->>>>>>> branch 'master' of https://AlexandreMPDias@bitbucket.org/rabbitgirl/battlemons.git
     }
     
     public boolean addPowerPoints(int amount)
