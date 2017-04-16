@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import DT.DT;
 import general.Attack;
 import general.Battle;
-import general.DTTrainer;
 import general.Decision;
 import general.MonsterID;
 import monsters.Monster;
@@ -21,7 +21,7 @@ public class Trainer {
 	public String name; // Trainer's Name.
 	public List<Item> items; // List of this Trainer's items.
 	public Decision decision; // The decision made by the AI for this player.
-	private DTTrainer trainerAI;
+	private DT trainerAI = new DT();
 
 	public Trainer(String name, List<Monster> monsters, List<Item> itens){
 		this.name = name;
@@ -91,7 +91,7 @@ public class Trainer {
 	}
 
     public void makeDecision(Battle battle) {
-        decision = trainerAI.makeDecision(battle, this, 0);
+        trainerAI.makeDecision(battle, this, 0);
     }
 
     public Monster getActiveMonster() {

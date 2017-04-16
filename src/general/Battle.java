@@ -232,7 +232,7 @@ public class Battle {
      *            The current Trainer.
      * @return user's opponent's monster.
      */
-    Monster getOpponentsMonster(Trainer user) {
+    public Monster getOpponentsMonster(Trainer user) {
         return p1 == user ? p2.getActiveMonster() : p1.getActiveMonster();
     }
 
