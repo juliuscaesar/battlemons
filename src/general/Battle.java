@@ -56,11 +56,6 @@ public class Battle {
 		// Run until broken out of
 		boolean x = true;
 		while (x) {
-			if (this.defeated == 6) {
-				System.out.println("Beat all 6");
-				x = false;
-				break;
-			}
 			
 			System.out.println("----- BEGIN TURN -----");
 			System.out.println(p1.name + "\'s active Battlemon: " + 
@@ -88,6 +83,12 @@ public class Battle {
 			// is over, and we need to break
 			if (!takeTurn(order[0], order[1])) break;
 			if (!takeTurn(order[1], order[0])) break;
+			
+			if (this.defeated == 6) {
+				System.out.println("Beat all 6");
+				x = false;
+				break;
+			}
 		}
 
 		return calculateFitness(); // TODO fitness
