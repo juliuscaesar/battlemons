@@ -137,28 +137,14 @@ public class MonsterSet {
 	/**
 	 * Return the Monster associated with the given MonsterID
 	 */
-	public Monster getMonster(MonsterID name) {
+	public static Monster getMonster(MonsterID name) {
 		if(monsters.containsKey(name)) {
 			return new Monster(monsters.get(name));
 		}
 		throw new IllegalArgumentException("Monster: [" + name.name() + "] not found.");
 	}
 
-	public static Monster makeMonster(MonsterID name) {
-		if(monsters.containsKey(name)) {
-			return monsters.get(name);
-		}
-		throw new IllegalArgumentException("Monster: [" + name.name() + "] not found.");
-	}
-
 	public static Monster getRandomMonster(){
-		Random rng = new Random();
-		int randomIndex = Math.abs(rng.nextInt(monsters.size()));
-		List<Monster> list = new ArrayList<Monster>(monsters.values());
-		return new Monster(list.get(randomIndex));
-	}
-
-	public Monster getRngMonster(){
 		Random rng = new Random();
 		int randomIndex = Math.abs(rng.nextInt(monsters.size()));
 		List<Monster> list = new ArrayList<Monster>(monsters.values());
