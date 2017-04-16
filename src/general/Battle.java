@@ -134,10 +134,14 @@ public class Battle {
      */
     public boolean takeTurn(Trainer user, Trainer opponent) {
 
+    	// display some initial information to console
+        user.DisplayListOfMonsters();
+        opponent.DisplayListOfMonsters();
+    	
         // Do non-move stuff first!
         if (!(user.getDecision() instanceof Decision.UseMove)) {
             user.getDecision().executeDecision(this, user);
-            // TODO text output?
+            textOutput.printStuffToConsole(user, opponent);
             // TODO return here? not sure about this...
             return true;
         }
@@ -147,12 +151,9 @@ public class Battle {
 
         // If the user can't move, just skip their turn
         if (!user.getActiveMonster().canMove()) {
+        	System.out.println("The " + user.name + " chooses to skip this turn");
             return true;
-        }
-
-        // display some initial information to console
-        user.DisplayListOfMonsters();
-        opponent.DisplayListOfMonsters();
+        }        
 
         // Do the thing!
         user.getDecision().executeDecision(this, user);

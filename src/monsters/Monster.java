@@ -479,6 +479,11 @@ public final class Monster {
  		 return false;
  	}
   
+  // when in battle against an opponent monster,
+  // calculate the survivability of user's monster
+  // by adding up the max damage each move of the opponent
+  //can cause to the user's monster and subtracting it
+  // from an arbitrary value of 100
   public int GetSurvivabilityScoreOfMonAgainstOpponent(Monster opponent)
   {
 	  int maxDamageThatCanBeIncurred = 0;
@@ -497,8 +502,7 @@ public final class Monster {
 
   //for testing only
 public void testSetHP(int i) {
-	this.hp = i;
-	
+	this.hp = i;	
 }
  
 }
