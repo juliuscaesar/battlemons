@@ -131,6 +131,9 @@ public class Trainer {
             new Behavior_SwitchToMonsterWithBestAttack().execute(b, this)
                     .executeDecision(b, this);
         }
+
+        System.out.println(name + " sent out " + active.getID().toString()
+                + ".");
     }
 
     public float percentOfAllMonsters() {

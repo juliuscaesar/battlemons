@@ -192,13 +192,11 @@ public abstract interface Decision {
 
             System.out.println("  " + user.name + "\'s "
                     + user.getActiveMonster().getID() + " used "
-                    + move_to_use.toAttack());
+                    + move_to_use.toAttack() + "!");
 
-            if (h.hit(attackToUse, userMon, enemyMon,
+            if (!h.hit(attackToUse, userMon, enemyMon,
                     d.getDamage(attackToUse, userMon, enemyMon))) {
                 System.out.println("  But it missed!");
-            } else {
-                
             }
             user.getActiveMonster().useMove(move_to_use.toAttack());
         }
