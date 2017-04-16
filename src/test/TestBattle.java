@@ -19,7 +19,6 @@ import damage.Damage;
 
 public class TestBattle {
 
-    MoveSet moves = new MoveSet();
     Monster a = MonsterSet.getMonster(MonsterID.Adnocana);
     Monster b = MonsterSet.getMonster(MonsterID.Emberfly);
     Damage d = new Damage();
