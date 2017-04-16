@@ -19,18 +19,28 @@ import moves.MoveSet;
 
 /**
  * Monster Class.
- * A Monster consists of:
- * - Name (Attack)
- * - Attributes
- * - Its Current Status.
- * - Element1
- * - Element2
- * - List of Moves
+ * A valid Monster should have:
+ * 	- 1 or 2 Elements (Note: current project only support one element)
+ * 	- 6 Attributes ( Hit Points, Attack, Special Attack, Defense, Special Defense, Speed)
+ * 	- 1 to 4 Moves.
+ * 
+ * A Monster is subjected to be inflicted with the one of the following Status: { Poison, Burn, Freeze, Paralysis, Sleep },
+ * and each will have a different effect on the Monster.
+ * Status can inflict damage on a Monster per turn, alter its status and prevent it from attacking.
+ * 
+ * A Monster is subjected to have to an item being used on item, items are as follow: { Antidote, Awakening, Burn Heal, Ether,
+ * Fresh Water, Ice Heal, Paralyze Heal }.
+ * Items in general work only as buffs for the Monster. In general they can: heal a Status, revive a Monster, restore their Health ( Hit Points ),
+ * restore the PP values for a move.
+ * 
+ * A Monster's move has their own Element, and that Element should inflict multipliers to the damage when landing a hit on another Monster.
+ * A Monster's should also be unable to move if { they can't move, they are not alive, that move wanted to use has no more PP }.
+ * 
  */
 public final class Monster {
 
 	private MonsterID name; // The Monster's Name.
-	private Status status; // The Monter's Abnormal Status.
+	private Status status; // The Monter's Current Abnormal Status.
 	private int statusStart; // The Round where the Monster got this Status.
 	private int statusDuration; // The Duration for this Status.
 	private Element e1; // Monster's Element 1.
@@ -42,8 +52,21 @@ public final class Monster {
 	private final int maxHP;
 	private int survivabilityScore;
 
-	private Map<Attack, Move> staticMoves = new HashMap<Attack,Move>();
-
+	/**
+	 * Constructor for a Monster.
+	 * This method should be called only by the MonsterSet function.
+	 * But by not doing that, the only trouble you can run into is created a over/under powered monster.
+	 * Note, a Monster's construction is not complete until you call the { Monster.addMoves } method.
+	 * 
+	 * @param name is the MonsterID Enum for this Monster's name.
+	 * @param hp is this Monster's Max Hit Point / Health
+	 * @param atk is this Monster's default Attack Value.
+	 * @param spAtk is this Monster's default Special Attack Value.
+	 * @param def is this Monster's default Defense Value.
+	 * @param spDef is this Monster's default Special Defense Value.
+	 * @param spd is this Monster's default Speed Value.
+	 * @param elements is this Monster's Elements. If can be an array of 1 to 2 Elements. //Currently our project only supports Monsters with 1 element.
+	 */
 	Monster(MonsterID name, int hp, int atk, int spAtk, int def, int spDef, int spd, Element... elements) {
 		this.name = name;
 		this.status = Status.Normal;
@@ -61,10 +84,14 @@ public final class Monster {
 			}
 			i++;
 		}
-		this.moves = new HashMap<>(staticMoves);
+		this.moves = new HashMap<>();
 		this.alive = true;
 	}
 
+	/**
+	 * Copy constructor for the monster class;
+	 * @param other is another Monster.
+	 */
 	Monster(Monster other){
 		this.name = other.name;
 		this.status = Status.Normal;
@@ -77,6 +104,14 @@ public final class Monster {
 		this.alive = true;
 	}
 
+	/**
+	 * Add four moves to the list of moves.
+	 * [Important] This method must be called after constructing a Monster, otherwise a Monster won't be able to attack at all.
+	 * @param m1 is the first move.
+	 * @param m2 is the second move.
+	 * @param m3 is the third move.
+	 * @param m4 is the fourth move.
+	 */
 	public void addMoves(Move m1, Move m2, Move m3, Move m4){
 		Map<Attack, Move> temp = new HashMap<>();
 		temp.put(m1.toAttack(), m1);
@@ -108,6 +143,9 @@ public final class Monster {
 	}
 
 	public boolean useMove(Attack atk){
+		if(moves.isEmpty()){
+			throw new IllegalArgumentException("You need to add moves to a Monster before sending it to battle.");
+		}
 		if(moves.containsKey(atk)){
 			return moves.get(atk).use();
 		}
@@ -147,6 +185,9 @@ public final class Monster {
 	 * @return a list with AttackEnums for this Monster Moves.
 	 */
 	public List<Attack> listMoves(){
+		if(moves.isEmpty()){
+			throw new IllegalArgumentException("You need to add moves to a Monster before sending it to battle.");
+		}
 		List<Attack> list = new ArrayList<>();
 		for(Entry<Attack, Move> e : moves.entrySet()){
 			list.add(e.getKey());
@@ -155,6 +196,9 @@ public final class Monster {
 	}
 
 	public Map<Attack, Move> getMoves(){
+		if(moves.isEmpty()){
+			throw new IllegalArgumentException("You need to add moves to a Monster before sending it to battle.");
+		}
 		return this.moves;
 	}
 
@@ -216,6 +260,16 @@ public final class Monster {
 
 	/**
 	 * Add the Status to a Monster.
+	 * 
+	 * Status usage on this Project.
+	 * To make a Status effectively work. It should be used a combination of all 3 public Status Method inside the Monster class.
+	 * { setStatus, applyStatusDamage, updateStatus }
+	 * updateStatus should be called in the beginning of the Turn.
+	 * applyDamageStatus should be called in the end of the Turn.
+	 * 
+	 * Not calling updateStatus will make the Status go on forever.
+	 * 
+	 * Not calling applyDamageStatus will make Status that should inflict damage on Monster, deal no damage at all.
 	 *
 	 * @param stat the status.
 	 */
@@ -477,6 +531,11 @@ public final class Monster {
 
 	}
 
+	/**
+	 * This method will iterate through all the Monster's moves and check if any of them can inflict a status on a opponent upon landing a hit.
+	 * 
+	 * @return true if this Monster has any Status Move.
+	 */
 	public boolean hasStatusMoves()
 	{		
 
@@ -491,11 +550,15 @@ public final class Monster {
 		return false;
 	}
 
-	// when in battle against an opponent monster,
-	// calculate the survivability of user's monster
-	// by adding up the max damage each move of the opponent
-	//can cause to the user's monster and subtracting it
-	// from an arbitrary value of 100
+	/**
+	 * This method will calculate the Survivability, which is the likelyhood that the Monster will survive the next round against an opponent monster.
+	 * This Survivability is calculated by checking if the highest possible damage for every of the enemy's moves, is enough to kill this Monster
+	 * in the next round.
+	 * The Survivability Score is an integer number between 0 and 100.
+	 * 
+	 * @param opponent
+	 * @return
+	 */
 	public int GetSurvivabilityScoreOfMonAgainstOpponent(Monster opponent)
 	{
 		int maxDamageThatCanBeIncurred = 0;
@@ -512,7 +575,10 @@ public final class Monster {
 		return survivabilityScore;
 	}
 
-	//for testing only
+	/**
+	 * This method is used for testing only, and should under no circumstances be used outside scope of a test.
+	 * @param i
+	 */
 	public void testSetHP(int i) {
 		this.hp = i;	
 	}
