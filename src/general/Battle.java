@@ -18,9 +18,9 @@ import trainers.Trainer;
 public class Battle {
 
     // "our" AI
-    Trainer p1;
+    public Trainer p1;
     // the enemy AI
-    Trainer p2;
+    public Trainer p2;
 
     // A random number generator for team selection
     Random rng;
@@ -80,7 +80,7 @@ public class Battle {
      * @return A two-element array, with one reference to p1 and one reference
      *         to p2, in the order that their turns will be taken.
      */
-    private Trainer[] getTurnOrder() {
+    public Trainer[] getTurnOrder() {
 
         // Player 1 isn't using a move, but Player 2 is - Player 1 goes
         // first
@@ -132,7 +132,7 @@ public class Battle {
      *            The trainer NOT taking their turn.
      * @return
      */
-    boolean takeTurn(Trainer user, Trainer opponent) {
+    public boolean takeTurn(Trainer user, Trainer opponent) {
 
         // Do non-move stuff first!
         if (!(user.getDecision() instanceof Decision.UseMove)) {

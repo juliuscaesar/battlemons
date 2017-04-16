@@ -5,7 +5,7 @@ import trainers.Item;
 import java.util.*;
 
 /**
- * Runs a Battle
+ * Runs a Battle and prints the resulting fitness float
  */
  public class RunBattle {
 

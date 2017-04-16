@@ -99,8 +99,13 @@ public class Move{
         return maxPP;
     }
     
+<<<<<<< HEAD
     public int getAcc(){
     	return this.acc;
+=======
+    public int getAcc() {
+    	return acc;
+>>>>>>> branch 'master' of https://AlexandreMPDias@bitbucket.org/rabbitgirl/battlemons.git
     }
     
     public boolean addPowerPoints(int amount)
@@ -124,6 +129,30 @@ public class Move{
     		return true;
     	}
     	return false;
+    }
+    
+    public Status getMoveCategory()
+    {
+    	return this.getMoveCategory();
+    }
+    
+    public boolean isStatusMove()
+    {
+    	if (this.getStatus() == Status.Normal)
+    		return false;
+    	
+    	return true;
+    }
+    
+    public void testSetPP(int pp)
+    {
+    	this.pp = pp;
+    }
+    
+    public void increasePP(int amount)
+    {
+    		this.pp = this.pp + amount;
+    
     }
   }
 

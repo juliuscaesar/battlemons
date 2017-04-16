@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import general.Attack;
 import general.Battle;
 import general.DTTrainer;
 import general.Decision;
 import general.MonsterID;
 import monsters.Monster;
+import moves.MoveSet;
 
 public class Trainer {
 	public Map<MonsterID, Monster> monsters; // List of this Trainer's Monsters.
@@ -131,6 +133,8 @@ public class Trainer {
     	}
     	return percent;
     }
+    
+   
     
     
 
