@@ -7,14 +7,13 @@ import org.junit.Test;
 import general.Battle;
 import general.Status;
 import monsters.Monster;
-import monsters.MonsterSet;
 import trainers.AwakeningItem;
 
 public class TestAwakeningItem {
 
 	AwakeningItem awakeItem = new AwakeningItem();
-	Battle b = Battle.testBattle();
-	Monster monster = b.p1.getActiveMonster();
+    Battle b = Battle.testBattle();
+    Monster monster = b.p1.getActiveMonster();
 	
 	@Test
 	public void test1() {

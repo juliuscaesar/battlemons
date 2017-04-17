@@ -23,6 +23,7 @@ import DT.Condition_OpponentHealthLowerThanValue;
 import DT.Condition_OtherMonsterCanSurviveOpponentAttack;
 import DT.Condition_UserHasHealItem;
 import general.Battle;
+import general.MonsterID;
 import monsters.Monster;
 import monsters.MonsterSet;
 import trainers.Item;
@@ -30,8 +31,7 @@ import trainers.ItemEnum;
 import trainers.Trainer;
 
 public class TestConditions {
-	
-
+    
     Battle b = Battle.testBattle();
 
 	@Test

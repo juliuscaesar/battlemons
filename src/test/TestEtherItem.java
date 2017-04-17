@@ -5,6 +5,7 @@ import general.Battle;
 
 import org.junit.Test;
 
+import general.MonsterID;
 import monsters.Monster;
 import monsters.MonsterSet;
 import moves.Move;
