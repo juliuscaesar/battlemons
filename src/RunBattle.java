@@ -1,4 +1,5 @@
 import general.Battle;
+import general.BattleVariables;
 import trainers.Trainer;
 import monsters.Monster;
 import monsters.MonsterSet;
@@ -9,6 +10,8 @@ import java.util.*;
  * Runs a Battle and prints the resulting fitness float
  */
 public class RunBattle {
+	
+	
 
 	public static void main(String[] args) {
 
@@ -44,14 +47,18 @@ public class RunBattle {
 		 * Create this battle instance
 		 */
 		Battle b = new Battle(trainer1, trainer2);
-
-		System.out.println("----- BEGINNING THE BATTLE -----");
-		// display some initial information to console
-		trainer1.DisplayListOfMonsters();
-		trainer2.DisplayListOfMonsters();
+		
+		if (BattleVariables.printBattleSummary && !BattleVariables.justFitness) {
+			System.out.println("----- BEGINNING THE BATTLE -----");
+			// display some initial information to console
+			trainer1.DisplayListOfMonsters();
+			trainer2.DisplayListOfMonsters();
+		}
 		// Run the battle and receive the fitness float
 		float fitness = b.runBattle();
-
-		System.out.println("Fitness:" + fitness);
+		
+		if (BattleVariables.printBattleSummary) {
+			System.out.println("Fitness: " + fitness);
+		}
 	}
 }

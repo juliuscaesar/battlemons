@@ -8,27 +8,15 @@ public class TextOutput {
 	
 	// False denotes 'OFF'
 	// a false value means minimal data would be printed to the console
-	private boolean verboseSwitch = false; 
+	private boolean verboseSwitch = BattleVariables.printEachTurn;
 	
 	
 	
 	// this method will be executed every time a trainer makes a move
 	public void printStuffToConsole(Trainer user, Trainer opponent)
-	{				
-		if (!verboseSwitch)
-		{
-			// display the active monster of the user
-			System.out.println("The active monster for " + user.name +
-					" is " + user.getActiveMonster().getID());
-			
-			// display the active monster of the opponent 
-			System.out.println("The active monster for " + opponent.name +
-					" is " + opponent.getActiveMonster().getID());		
+	{
 		
-		}
-		
-		else 
-		{
+		if (verboseSwitch) {
 			// display the active monster of the user
 			System.out.println("The active monster for the " + user.name +
 								" is " + user.getActiveMonster());

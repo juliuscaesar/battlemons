@@ -2,6 +2,7 @@ package DT;
 
 import java.util.HashMap;
 import general.Battle;
+import general.BattleVariables;
 import general.Decision;
 import trainers.Trainer;
 
@@ -9,7 +10,7 @@ public class DT {
 
     // A map of DecisionNode ids to the Decision nodes themselves.
     public HashMap<Integer, DecisionNode> nodeMap;
-    public final static boolean debugOut = true;
+    public final static boolean debugOut = BattleVariables.printEachTurn;
 
     // Constructor for decision tree.
     public DT() {
