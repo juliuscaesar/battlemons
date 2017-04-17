@@ -58,7 +58,7 @@ public enum Attack {
 	Surf,
 	Teleport,
 	Thunder,
-	thunderbolt,
+	Thunderbolt,
 	ThunderPunch,
 	ThunderShock,
 	ThunderWave,
