@@ -162,5 +162,6 @@ public class TestItems {
 			m.receiveAttack(50);
 			assertEquals(water.useOn(m),false);
 		}
+		System.out.println("Finished");
 	}
 }
