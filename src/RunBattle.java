@@ -61,11 +61,7 @@ public class RunBattle {
 			 * Mutate the decision tree first and create the trainer
 			 */
 			if (performedMutations < BattleVariables.maxMutationsPerCycle) {
-				//DT newDT = GeneticAlgorithm.mutateParameters(bestTrainerDT, 0, .4);
-				//GeneticAlgorithm.removeNode(bestTrainerDT, index)
-				newDT = GeneticAlgorithm.addNode(bestTrainerDT, bestTrainerDT.getRandomCondition());
-				//GeneticAlgorithm.swapNode(bestTrainerDT, bestTrainerDT.nodeMap(0), getRandomCondition());
-						
+				newDT = GeneticAlgorithm.mutate(bestTrainerDT);					
 				performedMutations++;
 			}
 			else {

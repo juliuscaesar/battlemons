@@ -17,10 +17,10 @@ public class DecisionNode {
     public int id;
 
     // condition of the node
-    public Condition condition;
+    public Condition condition = null;
 
     // behavior of the node
-    public Behavior behavior;
+    public Behavior behavior = null;
 
     // Resulting node if condition is true
     public int conditionTrue = -1;
