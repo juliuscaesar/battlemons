@@ -21,7 +21,7 @@ public class Condition_OpponentHealthLowerThanValue extends Condition {
         uses_parameter = true;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Monster currentMon = battle.p2.getActiveMonster();
         return currentMon.getHP() <= parameter;
     }

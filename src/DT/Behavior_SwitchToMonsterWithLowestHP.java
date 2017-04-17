@@ -22,7 +22,7 @@ import trainers.Trainer;
 //Switches the current active monster to the monster on the user's
 // team with the lowest HP.
 public class Behavior_SwitchToMonsterWithLowestHP extends Behavior {
-    Decision execute(Battle battle, Trainer user) {
+    public Decision execute(Battle battle, Trainer user) {
 
         // Track lowest HP value found and the associated monster
         int lowestHp = Integer.MAX_VALUE;

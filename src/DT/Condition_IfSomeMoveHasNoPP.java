@@ -19,7 +19,7 @@ public class Condition_IfSomeMoveHasNoPP extends Condition {
         uses_parameter = false;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         for (Attack a : user.getActiveMonster().listMoves()) {
             if (MoveSet.getMove(a).getPP() == 0) {
                 return true;

@@ -16,7 +16,7 @@ public class Condition_HealthGreaterThanPercent extends Condition {
         uses_parameter = true;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Monster currentMon = user.getActiveMonster();
         return currentMon.getPercentHP() > parameter;
     }

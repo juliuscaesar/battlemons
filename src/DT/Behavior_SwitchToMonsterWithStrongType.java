@@ -22,7 +22,7 @@ import trainers.Trainer;
 // Switches to any monster on the user's team whose type is strong
 // (defending) against the opponent's type (attacking).
 public class Behavior_SwitchToMonsterWithStrongType extends Behavior {
-    Decision execute(Battle battle, Trainer user) {
+    public Decision execute(Battle battle, Trainer user) {
 
         // Check opponent's type
         Monster opponent = battle.getOpponentsMonster(user);

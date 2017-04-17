@@ -23,7 +23,7 @@ import trainers.Trainer;
  * Select and use the attack that will inflict the most damage
  */
 public class Behavior_UseHighestDamageMove extends Behavior {
-    Decision execute(Battle battle, Trainer user) {
+    public Decision execute(Battle battle, Trainer user) {
         double highestDmg = 0;
         Monster monster = user.getActiveMonster();
         Monster opponent = battle.getOpponentsMonster(user);

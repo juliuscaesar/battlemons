@@ -20,7 +20,7 @@ import trainers.ParalyzHealItem;
 import trainers.Trainer;
 
 public class Behavior_UseLowestAccuracyMove extends Behavior {
-    Decision execute(Battle battle, Trainer user) {
+    public Decision execute(Battle battle, Trainer user) {
         int lowestAcc = 0;
         Monster monster = user.getActiveMonster();
 

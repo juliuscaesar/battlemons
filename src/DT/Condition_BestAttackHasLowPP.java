@@ -22,7 +22,7 @@ public class Condition_BestAttackHasLowPP extends Condition {
         lower_bound = 0.0;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Damage d = new Damage();
 
         // Get the strongest move and check how much PP is left as a

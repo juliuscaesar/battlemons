@@ -17,7 +17,7 @@ public class Condition_IsStatusNotNormal extends Condition {
         uses_parameter = false;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Monster currentMon = user.getActiveMonster();
         return (currentMon.getStatus() != Status.Normal);
     }

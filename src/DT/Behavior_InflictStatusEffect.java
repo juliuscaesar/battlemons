@@ -20,7 +20,7 @@ import trainers.ParalyzHealItem;
 import trainers.Trainer;
 
 public class Behavior_InflictStatusEffect extends Behavior {
-    Decision execute(Battle battle, Trainer user) {
+    public Decision execute(Battle battle, Trainer user) {
 
         Monster monster = user.getActiveMonster();
 

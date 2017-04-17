@@ -21,7 +21,7 @@ public class Condition_OpponentHealthLowerThanPercent extends Condition {
         uses_parameter = true;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Monster currentMon = battle.p2.getActiveMonster();
         return currentMon.getPercentHP() <= parameter;
     }

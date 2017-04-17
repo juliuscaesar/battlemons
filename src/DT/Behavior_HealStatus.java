@@ -20,7 +20,7 @@ import trainers.ParalyzHealItem;
 import trainers.Trainer;
 
 public class Behavior_HealStatus extends Behavior {
-    Decision execute(Battle battle, Trainer user) {
+    public Decision execute(Battle battle, Trainer user) {
         Monster activeMonsterOfUser = user.getActiveMonster();
         IceHealItem cureFreeze = new IceHealItem();
         AwakeningItem cureSleep = new AwakeningItem();

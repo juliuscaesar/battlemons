@@ -247,6 +247,12 @@ public class Move{
     	this.pp = pp;
     }
     
+    public void increasePP(int amount)
+    {
+    	this.pp = this.pp + amount;    	
+    
+    }
+    
     
   }
 

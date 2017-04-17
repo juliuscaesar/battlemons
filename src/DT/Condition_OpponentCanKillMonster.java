@@ -18,7 +18,7 @@ public class Condition_OpponentCanKillMonster extends Condition {
         uses_parameter = false;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Monster opponent = battle.getOpponentsMonster(user);
         Damage d = new Damage();
 
