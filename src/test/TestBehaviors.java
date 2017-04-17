@@ -233,27 +233,29 @@ public class TestBehaviors {
         // no weak monsters
     }
 
-    @Test
-    public void test15() {
-        int opponentOriginalHP = b.p2.getActiveMonster().getHP();
-        Behavior_UseHighestAccuracyMove behaviorAccuracyMove = new Behavior_UseHighestAccuracyMove();
-        Decision decision = behaviorAccuracyMove.execute(b, b.p1);
-        decision.executeDecision(b, b.p1);
-
-        assertEquals(b.getOpponentsMonster(b.p2).getHP() == opponentOriginalHP,
-                false);
-    }
-
-    @Test
-    public void test16() {
-        int opponentOriginalHP = b.p2.getActiveMonster().getHP();
-        Behavior_UseHighestDamageMove behaviorDamageMove = new Behavior_UseHighestDamageMove();
-        Decision decision = behaviorDamageMove.execute(b, b.p1);
-        decision.executeDecision(b, b.p1);
-
-        assertEquals(b.getOpponentsMonster(b.p2).getHP() == opponentOriginalHP,
-                false);
-    }
+@Test
+	public void test15()
+	{		
+		int opponentOriginalHP = b.p2.getActiveMonster().getHP();
+		Behavior_UseHighestAccuracyMove behaviorAccuracyMove =
+				new Behavior_UseHighestAccuracyMove();
+		Decision decision = behaviorAccuracyMove.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);	
+		
+		assertEquals(b.p2.getActiveMonster().getHP() == opponentOriginalHP, false);
+	}
+	
+	@Test
+	public void test16()
+	{		
+		int opponentOriginalHP = b.p2.getActiveMonster().getHP();
+		Behavior_UseHighestDamageMove behaviorDamageMove =
+				new Behavior_UseHighestDamageMove();
+		Decision decision = behaviorDamageMove.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);	
+		
+		assertEquals(b.p2.getActiveMonster().getHP() == opponentOriginalHP, false);
+	}
 
     @Test
     public void test17() {
