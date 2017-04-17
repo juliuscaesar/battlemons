@@ -1,9 +1,14 @@
 package general;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+
 import general.BattleVariables;
 import monsters.Monster;
 import monsters.MonsterSet;
+import trainers.Item;
 import trainers.Trainer;
 
 /**
@@ -23,7 +28,9 @@ public class Battle {
 	public Trainer p2;
 
 	// A random number generator for team selection
-	Random rng;
+	public Random rng_turnorder;
+	public Random rng_monster;
+	public Random rng_move;
 	// Text output for debugging.
 	TextOutput textOutput = new TextOutput();
 
@@ -40,9 +47,41 @@ public class Battle {
 	public Battle(Trainer p1, Trainer p2) {
 		this.p1 = p1;
 		this.p2 = p2;
-		this.rng = new Random(0); // TODO should this be unique per genetic
+		this.rng_turnorder = new Random(0);
+		this.rng_move = new Random(0);
+		this.rng_monster = new Random(0);
 		// mutation? or always 0?
 		this.defeated = 0;
+	}
+	
+	/*
+	 * For testing
+	 */
+	public static Battle testBattle() {
+	    
+	    List<Monster> trainer1team = 
+	            new ArrayList<Monster>(
+	                    Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
+	                            MonsterSet.getMonster(MonsterID.Armordillo), 
+	                            MonsterSet.getMonster(MonsterID.Boomtu), 
+	                            MonsterSet.getMonster(MonsterID.Bulblight),
+	                            MonsterSet.getMonster(MonsterID.Carrotay), 
+	                            MonsterSet.getMonster(MonsterID.Emberfly)));
+	    List<Monster> trainer2team = 
+	            new ArrayList<Monster>(
+	                    Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
+	                            MonsterSet.getMonster(MonsterID.Armordillo), 
+	                            MonsterSet.getMonster(MonsterID.Boomtu), 
+	                            MonsterSet.getMonster(MonsterID.Bulblight),
+	                            MonsterSet.getMonster(MonsterID.Carrotay), 
+	                            MonsterSet.getMonster(MonsterID.Emberfly)));
+
+	    List<Item> trainer1items = new ArrayList<Item>();
+	    List<Item> trainer2items = new ArrayList<Item>();
+	    
+        Trainer t1 = new Trainer("player", trainer1team, trainer1items);
+        Trainer t2 = new Trainer("enemy", trainer2team, trainer2items);
+        return new Battle(t1, t2);
 	}
 
 	/**
@@ -135,7 +174,7 @@ public class Battle {
 			}
 			// It's a tie - flip a coin!
 			else {
-				return rng.nextBoolean() ? new Trainer[] { p1, p2 }
+				return rng_turnorder.nextBoolean() ? new Trainer[] { p1, p2 }
 				: new Trainer[] { p2, p1 };
 			}
 		}
@@ -281,7 +320,7 @@ public class Battle {
 
 		for (int i = 0; i < 6; i++) {
 			// TODO this rng needs to be moved to a static space
-			p2.addMonster(MonsterSet.getRandomMonster());
+			p2.addMonster(MonsterSet.getRandomMonster(this));
 		}
 		if (BattleVariables.printEachTurn) {
 			p2.DisplayListOfMonsters();

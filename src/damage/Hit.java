@@ -18,11 +18,9 @@ import moves.MoveSet;
  */
 public class Hit {
     private MoveSet set;
-    private Random rnd;
 
     public Hit() {
         set = new MoveSet();
-        rnd = new Random();
     }
 
     /**
@@ -86,15 +84,15 @@ public class Hit {
      *            Class.
      * @return true if the move landed, false if the move didn't land.
      */
-    public boolean hit(Attack atk, Monster source, Monster target, int dmg) {
+    public boolean hit(Attack atk, Monster source, Monster target, int dmg, Random rng) {
         int chance = getHitChance(atk, source, target);
-        int value = Math.abs(rnd.nextInt(100));
+        int value = Math.abs(rng.nextInt(100));
         boolean gotHit = (value <= chance);
         if (gotHit) {
             target.receiveAttack(dmg);
             Move m = set.move(atk);
             if (m.getStatus() != Status.Normal) {
-                int valueStat = Math.abs(rnd.nextInt(100));
+                int valueStat = Math.abs(rng.nextInt(100));
                 if (valueStat < m.getStatusChance()) {
                     target.setStatus(m.getStatus());
                 }

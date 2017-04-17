@@ -1,5 +1,6 @@
 import general.Battle;
 import general.BattleVariables;
+import general.MonsterID;
 import trainers.Trainer;
 import monsters.Monster;
 import monsters.MonsterSet;
@@ -35,26 +36,25 @@ public class RunBattle {
 
 		int counter = 0;
 		while (counter < BattleVariables.battlesPerCycle) {
-			List<Monster> trainer1team = 
-					new ArrayList<Monster>(
-							Arrays.asList(MonsterSet.getRandomMonster(),
-									MonsterSet.getRandomMonster(), 
-									MonsterSet.getRandomMonster(), 
-									MonsterSet.getRandomMonster(), 
-									MonsterSet.getRandomMonster(), 
-									MonsterSet.getRandomMonster()));
-			List<Monster> trainer2team = 
-					new ArrayList<Monster>(
-							Arrays.asList(MonsterSet.getRandomMonster(),
-									MonsterSet.getRandomMonster(), 
-									MonsterSet.getRandomMonster(), 
-									MonsterSet.getRandomMonster(), 
-									MonsterSet.getRandomMonster(), 
-									MonsterSet.getRandomMonster()));
+		    List<Monster> trainer1team = 
+		            new ArrayList<Monster>(
+		                    Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
+		                            MonsterSet.getMonster(MonsterID.Armordillo), 
+		                            MonsterSet.getMonster(MonsterID.Boomtu), 
+		                            MonsterSet.getMonster(MonsterID.Bulblight),
+		                            MonsterSet.getMonster(MonsterID.Carrotay), 
+		                            MonsterSet.getMonster(MonsterID.Emberfly)));
+		    List<Monster> trainer2team = 
+		            new ArrayList<Monster>(
+		                    Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
+		                            MonsterSet.getMonster(MonsterID.Armordillo), 
+		                            MonsterSet.getMonster(MonsterID.Boomtu), 
+		                            MonsterSet.getMonster(MonsterID.Bulblight),
+		                            MonsterSet.getMonster(MonsterID.Carrotay), 
+		                            MonsterSet.getMonster(MonsterID.Emberfly)));
 
-
-			List<Item> trainer1items = new ArrayList<Item>();
-			List<Item> trainer2items = new ArrayList<Item>();
+		    List<Item> trainer1items = new ArrayList<Item>();
+		    List<Item> trainer2items = new ArrayList<Item>();
 			
 			DT newDT;
 			/**
@@ -73,7 +73,7 @@ public class RunBattle {
 			}
 
 			// create opponent to run this battle with
-			Trainer trainer1 = new Trainer("Caesar", trainer2team, trainer2items, newDT);
+			Trainer trainer1 = new Trainer("Caesar", trainer1team, trainer1items, newDT);
 			Trainer trainer2 = new Trainer("Nishant", trainer2team, trainer2items);
 			Battle b = new Battle(trainer1, trainer2);
 
