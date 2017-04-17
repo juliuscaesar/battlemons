@@ -91,7 +91,7 @@ public class DT {
 				new Behavior_SwitchToMonsterWithBestAttack(), -1, -1));
 
 		 this.behaviors.add(new DecisionNode(0, null, new
-		 Behavior_ChangeToMonsterWithHighSurvivability(), -1, -1));
+		 Behavior_SwitchToMonsterWithHighSurvivability(), -1, -1));
 		
 		 this.behaviors.add(new DecisionNode(0, null, new Behavior_HealPP(),
 		 -1, -1));

@@ -4,13 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import DT.Behavior_ChangeToMonsterWithHighSurvivability;
 import DT.Behavior_HealHP;
 import DT.Behavior_HealPP;
 import DT.Behavior_HealStatus;
 import DT.Behavior_InflictStatusEffect;
 import DT.Behavior_SwitchToMonsterWithBestAttack;
 import DT.Behavior_SwitchToMonsterWithHighestHP;
+import DT.Behavior_SwitchToMonsterWithHighSurvivability;
 import DT.Behavior_SwitchToMonsterWithLowestHP;
 import DT.Behavior_SwitchToMonsterWithStrongType;
 import DT.Behavior_SwitchToMonsterWithWeakType;
@@ -75,8 +75,8 @@ public class TestBehaviors {
 	public void test3()
 	{
 		Monster currentActiveMonster = b.p1.getActiveMonster();
-		Behavior_ChangeToMonsterWithHighSurvivability behaviorSurvivability =
-				new Behavior_ChangeToMonsterWithHighSurvivability();
+		Behavior_SwitchToMonsterWithHighSurvivability behaviorSurvivability =
+				new Behavior_SwitchToMonsterWithHighSurvivability();
 		Decision decision = behaviorSurvivability.execute(b, b.p1);
 		decision.executeDecision(b, b.p1);
 		Monster changedMonster = b.p1.getActiveMonster();
