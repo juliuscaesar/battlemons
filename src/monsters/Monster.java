@@ -140,15 +140,6 @@ public final class Monster {
 	 * @param m4
 	 *            is the fourth move.
 	 */
-	public void addMoves(Move m1, Move m2, Move m3, Move m4) {
-		Map<Attack, Move> temp = new HashMap<>();
-		temp.put(m1.toAttack(), new Move(m1));
-		temp.put(m2.toAttack(), new Move(m2));
-		temp.put(m3.toAttack(), new Move(m3));
-		temp.put(m4.toAttack(), new Move(m4));
-		moves = new HashMap<>(temp);
-	}
-	
 	public void addMoves(Attack...attacks){
 		Map<Attack, Move> temp = new HashMap<>();
 		for(int i = 0; i < attacks.length; i++){
@@ -326,6 +317,7 @@ public final class Monster {
 		this.status = stat;
 		this.applyStatus();
 		getStatusDuration();
+		
 	}
 
 	/**
