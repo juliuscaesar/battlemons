@@ -28,7 +28,7 @@ import moves.MoveSet;
  * Upon taking fatal damage, a Trainer's active monster's alive state is changed to [Dead] and the active Monster is forcefully changed to another
  * monster owned by the Trainer.
  * A Trainer can not switch to a [Dead] Monster.
- * A Trainer will lose a Battle if all this Monsters are [Dead].
+ * A Trainer will lose a Battle if all his Monsters are [Dead].
  * 
  */
 public class Trainer {
