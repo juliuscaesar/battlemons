@@ -60,4 +60,16 @@ public class TestMove {
 			assertNotEquals(move.getPP(), other.getPP());
 		}
 	}
+	
+	@Test
+	public void test_move_5(){
+		for(Attack atk : Attack.values()){
+			Move move = MoveSet.getMove(atk);
+			while(move.use());
+		}
+		for(Attack atk : Attack.values()){
+			Move move = MoveSet.getMove(atk);
+			assertEquals(move.getPP(), move.getMaxPP());
+		}
+	}
 }

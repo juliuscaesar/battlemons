@@ -362,5 +362,39 @@ public class TestMonsters {
             }
         }
     }
+    
+    @Test
+    public void test_move_6(){
+    	for (MonsterID id : MonsterID.values()) {
+            Monster m = MonsterSet.getMonster(id);// MonsterSet.getRandomMonster();
+            for (Move move : m.getMoves().values()) {
+                while(move.use());
+                assertEquals(move.getPP(), 0);
+            }
+            for (Move move : m.getMoves().values()) {
+                assertEquals(move.getPP(), 0);
+            }
+        }
+    }
+    
+    @Test
+    public void test_move_7(){
+    	for (MonsterID id : MonsterID.values()) {
+            Monster m = MonsterSet.getMonster(id);// MonsterSet.getRandomMonster();
+            for (Move move : m.getMoves().values()) {
+                while(move.use());
+                assertEquals(move.getPP(), 0);
+            }
+            for (Move move : m.getMoves().values()) {
+                assertEquals(move.getPP(), 0);
+            }
+        }
+    	for (MonsterID id : MonsterID.values()) {
+            Monster m = MonsterSet.getMonster(id);// MonsterSet.getRandomMonster();
+            for (Move move : m.getMoves().values()) {
+                assertEquals(move.getPP(), move.getMaxPP());
+            }
+        }
+    }
 
 }
