@@ -21,11 +21,14 @@ public class Behavior_HealPP extends Behavior {
 
         // Iterate through monsters
         for (Attack a : monster.listMoves()) {
+
+         
             Move m = monster.getMoves().get(a);
             int movePP = m.getPP();
             if (movePP >= 0 && movePP < lowestPP) {
                 lowestPP = movePP;
                 lowestPPMove = m;
+
             }
         }
 

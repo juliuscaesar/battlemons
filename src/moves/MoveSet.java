@@ -67,7 +67,7 @@ public class MoveSet {
 	    Move SurfMove = new Move(Attack.Surf, 90, 100, 15, Element.Water, MoveCategory.Special);
 	   Move TeleportMove = new Move(Attack.Teleport, 0, 0, 20, Element.Psychic, MoveCategory.Status);
 	    Move ThunderMove = new Move(Attack.Thunder, 110, 70, 10, Element.Electric, MoveCategory.Special);
-	   Move ThunderboltMove = new Move(Attack.thunderbolt, 90, 100, 15, Element.Electric, MoveCategory.Special);
+	   Move ThunderboltMove = new Move(Attack.Thunderbolt, 90, 100, 15, Element.Electric, MoveCategory.Special);
 	    Move ThunderPunchMove = new Move(Attack.ThunderPunch, 75, 100, 15, Element.Electric, MoveCategory.Physical);
 	   Move ThunderShockMove = new Move(Attack.ThunderShock, 40, 100, 30, Element.Electric, MoveCategory.Special);
 	    Move ThunderWaveMove = new Move(Attack.ThunderWave, 0, 90, 20, Element.Electric, MoveCategory.Status);
@@ -131,7 +131,7 @@ public class MoveSet {
     moves.put(Attack.Surf, SurfMove);
     moves.put(Attack.Teleport, TeleportMove);
     moves.put(Attack.Thunder, ThunderMove);
-    moves.put(Attack.thunderbolt, ThunderboltMove);
+    moves.put(Attack.Thunderbolt, ThunderboltMove);
     moves.put(Attack.ThunderPunch, ThunderPunchMove);
     moves.put(Attack.ThunderShock, ThunderShockMove);
     moves.put(Attack.ThunderWave, ThunderWaveMove);

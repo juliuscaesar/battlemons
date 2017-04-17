@@ -1,5 +1,9 @@
 package general;
 
+/**
+ * Identification for all the Moves supported.
+ * Moves are implemented by default at {moves} package.
+ */
 public enum Attack {	
 
 	Acid,
@@ -54,7 +58,7 @@ public enum Attack {
 	Surf,
 	Teleport,
 	Thunder,
-	thunderbolt,
+	Thunderbolt,
 	ThunderPunch,
 	ThunderShock,
 	ThunderWave,

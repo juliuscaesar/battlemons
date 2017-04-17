@@ -1,5 +1,10 @@
 package general;
 
+/**
+ * Identification for all the Monsters supported.
+ * Monsters are implemented by default at {monsters} package.
+ */
+
 public enum MonsterID {
   Emberfly,
   Flamber,
