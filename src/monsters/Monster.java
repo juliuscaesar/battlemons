@@ -145,7 +145,7 @@ public final class Monster {
 		for(int i = 0; i < attacks.length; i++){
 			moves.put(attacks[i], MoveSet.getMove(attacks[i]));
 		}
-		System.out.println(attacks.length);
+		//System.out.println(attacks.length);
 	}
 
 	/**
