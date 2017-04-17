@@ -32,7 +32,7 @@ public class Behavior_HealPP extends Behavior {
             int movePP = MoveSet.getMove(a).getPP();
             if (movePP > 0 && movePP < lowestPP) {
             	lowestPP = movePP;
-            	lowestPPAttack = a;
+            	lowestPPAttack = a; 
             }
         } 
       
