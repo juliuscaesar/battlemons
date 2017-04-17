@@ -6,7 +6,7 @@ package trainers;
  */
 public abstract class ItemEffectCreator{
 	
-	static ItemEffect getEffect(ItemEnum item){
+	public static ItemEffect getEffect(ItemEnum item){
 		switch(item){
 		case Antidote:{
 			return new Antidote();
