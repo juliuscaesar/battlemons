@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+import general.Battle;
 
 import org.junit.Test;
 
@@ -11,7 +12,8 @@ import trainers.FreshwaterItem;
 public class TestFreshwaterItem {
 
 	FreshwaterItem waterItem = new FreshwaterItem();
-	Monster monster = MonsterSet.getRandomMonster();
+    Battle b = Battle.testBattle();
+    Monster monster = b.p1.getActiveMonster();
 	
 	@Test	
 	public void test()

@@ -36,34 +36,10 @@ import trainers.Item;
 import trainers.ItemEnum;
 import trainers.Trainer;
 
-public class TestBehaviors {
-
-	List<Monster> trainer1team = 
-			new ArrayList<Monster>(
-					Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
-							MonsterSet.getMonster(MonsterID.Armordillo), 
-							MonsterSet.getMonster(MonsterID.Boomtu), 
-							MonsterSet.getMonster(MonsterID.Bulblight),
-							MonsterSet.getMonster(MonsterID.Carrotay), 
-							MonsterSet.getMonster(MonsterID.Emberfly)));
-	List<Monster> trainer2team = 
-			new ArrayList<Monster>(
-					Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
-							MonsterSet.getMonster(MonsterID.Armordillo), 
-							MonsterSet.getMonster(MonsterID.Boomtu), 
-							MonsterSet.getMonster(MonsterID.Bulblight),
-							MonsterSet.getMonster(MonsterID.Carrotay), 
-							MonsterSet.getMonster(MonsterID.Emberfly)));
-
-	List<Item> trainer1items = new ArrayList<Item>();
-	List<Item> trainer2items = new ArrayList<Item>();
-	
-	
+public class TestBehaviors {	
 
 	// create trainers to run this battle with
-	Trainer trainer1 = new Trainer("Caesar", trainer1team, trainer1items);
-	Trainer trainer2 = new Trainer("Nishant", trainer2team, trainer2items);
-	Battle b = new Battle(trainer1, trainer2);		
+	Battle b = Battle.testBattle();
 	
 	
 	ItemEnum itemEnum = null;
@@ -75,13 +51,13 @@ public class TestBehaviors {
 		
 		Item freshwater = new Item(itemEnum.FreshWater, 1);
 		
-		trainer1items.add(freshwater);
-		trainer1.getActiveMonster().testSetHP(10);	
+		b.p1.items.add(freshwater);
+		b.p1.getActiveMonster().testSetHP(10);	
 		Behavior_HealHP behaviorHealHP = new Behavior_HealHP();
-		Decision decision = behaviorHealHP.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
+		Decision decision = behaviorHealHP.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
 		
-		assertEquals(60, trainer1.getActiveMonster().getHP());	
+		assertEquals(60, b.p1.getActiveMonster().getHP());	
 		
 		
 	}
@@ -91,15 +67,15 @@ public class TestBehaviors {
 	{
 		Item ether = new Item(itemEnum.Ether, 1);
 		
-		trainer1items.add(ether);
+		b.p1.items.add(ether);
 		
-		Attack attackToTest = trainer1.getActiveMonster().listMoves().get(2);
+		Attack attackToTest = b.p1.getActiveMonster().listMoves().get(2);
 		Move moveToTest = MoveSet.getMove(attackToTest);
 		moveToTest.testSetPP(0);
 		System.out.println(moveToTest);
 		Behavior_HealPP behaviorHealPP = new Behavior_HealPP();
-		Decision decision = behaviorHealPP.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
+		Decision decision = behaviorHealPP.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
 		
 		assertEquals(10, moveToTest.getPP());
 	}
@@ -107,12 +83,12 @@ public class TestBehaviors {
 	@Test
 	public void test3()
 	{
-		Monster currentActiveMonster = trainer1.getActiveMonster();
+		Monster currentActiveMonster = b.p1.getActiveMonster();
 		Behavior_ChangeToMonsterWithHighSurvivability behaviorSurvivability =
 				new Behavior_ChangeToMonsterWithHighSurvivability();
-		Decision decision = behaviorSurvivability.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
-		Monster changedMonster = trainer1.getActiveMonster();
+		Decision decision = behaviorSurvivability.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
+		Monster changedMonster = b.p1.getActiveMonster();
 		
 		assertEquals(currentActiveMonster.getID() == changedMonster.getID(), false);
 	}
@@ -122,13 +98,13 @@ public class TestBehaviors {
 		
 		Item cureBurn = new Item(itemEnum.BurnHeal, 1);
 		
-		trainer1items.add(cureBurn);
-		trainer1.getActiveMonster().setStatus(Status.Burn);	
+		b.p1.items.add(cureBurn);
+		b.p1.getActiveMonster().setStatus(Status.Burn);	
 		Behavior_HealStatus behaviorHealStatus = new Behavior_HealStatus();
-		Decision decision = behaviorHealStatus.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
+		Decision decision = behaviorHealStatus.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
 		
-		assertEquals(Status.Normal, trainer1.getActiveMonster().getStatus());	
+		assertEquals(Status.Normal, b.p1.getActiveMonster().getStatus());	
 		
 		
 	}
@@ -138,13 +114,13 @@ public class TestBehaviors {
 		
 		Item cureBurn = new Item(itemEnum.Antidote, 1);
 		
-		trainer1items.add(cureBurn);
-		trainer1.getActiveMonster().setStatus(Status.Poison);	
+		b.p1.items.add(cureBurn);
+		b.p1.getActiveMonster().setStatus(Status.Poison);	
 		Behavior_HealStatus behaviorHealStatus = new Behavior_HealStatus();
-		Decision decision = behaviorHealStatus.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
+		Decision decision = behaviorHealStatus.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
 		
-		assertEquals(Status.Normal, trainer1.getActiveMonster().getStatus());	
+		assertEquals(Status.Normal, b.p1.getActiveMonster().getStatus());	
 		
 		
 	}
@@ -154,13 +130,13 @@ public class TestBehaviors {
 		
 		Item cureBurn = new Item(itemEnum.Awakening, 1);
 		
-		trainer1items.add(cureBurn);
-		trainer1.getActiveMonster().setStatus(Status.Sleep);	
+		b.p1.items.add(cureBurn);
+		b.p1.getActiveMonster().setStatus(Status.Sleep);	
 		Behavior_HealStatus behaviorHealStatus = new Behavior_HealStatus();
-		Decision decision = behaviorHealStatus.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
+		Decision decision = behaviorHealStatus.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
 		
-		assertEquals(Status.Normal, trainer1.getActiveMonster().getStatus());	
+		assertEquals(Status.Normal, b.p1.getActiveMonster().getStatus());	
 		
 		
 	}
@@ -169,14 +145,13 @@ public class TestBehaviors {
 	public void test7() {		
 		
 		Item cureBurn = new Item(itemEnum.IceHeal, 1);
-		
-		trainer1items.add(cureBurn);
-		trainer1.getActiveMonster().setStatus(Status.Freeze);	
+		b.p1.items.add(cureBurn);
+		b.p1.getActiveMonster().setStatus(Status.Freeze);	
 		Behavior_HealStatus behaviorHealStatus = new Behavior_HealStatus();
-		Decision decision = behaviorHealStatus.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
+		Decision decision = behaviorHealStatus.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
 		
-		assertEquals(Status.Normal, trainer1.getActiveMonster().getStatus());	
+		assertEquals(Status.Normal, b.p1.getActiveMonster().getStatus());	
 		
 		
 	}
@@ -186,13 +161,13 @@ public class TestBehaviors {
 		
 		Item cureBurn = new Item(itemEnum.ParalyzHeal, 1);
 		
-		trainer1items.add(cureBurn);
-		trainer1.getActiveMonster().setStatus(Status.Paralysis);	
+		b.p1.items.add(cureBurn);
+		b.p1.getActiveMonster().setStatus(Status.Paralysis);	
 		Behavior_HealStatus behaviorHealStatus = new Behavior_HealStatus();
-		Decision decision = behaviorHealStatus.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
+		Decision decision = behaviorHealStatus.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
 		
-		assertEquals(Status.Normal, trainer1.getActiveMonster().getStatus());	
+		assertEquals(Status.Normal, b.p1.getActiveMonster().getStatus());	
 		
 		
 	}
@@ -203,21 +178,21 @@ public class TestBehaviors {
 			
 		Behavior_InflictStatusEffect behaviorStatusEffect =
 				new Behavior_InflictStatusEffect();
-		Decision decision = behaviorStatusEffect.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
+		Decision decision = behaviorStatusEffect.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
 		
-		assertEquals(trainer2.getActiveMonster().getStatus().equals(Status.Normal), false);
+		assertEquals(b.p1.getActiveMonster().getStatus().equals(Status.Normal), false);
 	}
 	
 	@Test
 	public void test10()
 	{		
-		Monster originalMonster = trainer1.getActiveMonster();
+		Monster originalMonster = b.p1.getActiveMonster();
 		Behavior_SwitchToMonsterWithBestAttack behaviorSwitchMonster =
 				new Behavior_SwitchToMonsterWithBestAttack();
-		Decision decision = behaviorSwitchMonster.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
-		Monster newMonster = trainer1.getActiveMonster();
+		Decision decision = behaviorSwitchMonster.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
+		Monster newMonster = b.p1.getActiveMonster();
 		
 		assertEquals(originalMonster.getID() == newMonster.getID(), false);
 	}
@@ -225,12 +200,12 @@ public class TestBehaviors {
 	@Test
 	public void test11()
 	{		
-		Monster originalMonster = trainer1.getActiveMonster();
+		Monster originalMonster = b.p1.getActiveMonster();
 		Behavior_SwitchToMonsterWithHighestHP behaviorSwitchMonster =
 				new Behavior_SwitchToMonsterWithHighestHP();
-		Decision decision = behaviorSwitchMonster.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
-		Monster newMonster = trainer1.getActiveMonster();
+		Decision decision = behaviorSwitchMonster.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
+		Monster newMonster = b.p1.getActiveMonster();
 		
 		assertEquals(originalMonster.getID() == newMonster.getID(), false);
 	}
@@ -238,12 +213,12 @@ public class TestBehaviors {
 	@Test
 	public void test12()
 	{		
-		Monster originalMonster = trainer1.getActiveMonster();
+		Monster originalMonster = b.p1.getActiveMonster();
 		Behavior_SwitchToMonsterWithLowestHP behaviorSwitchMonster =
 				new Behavior_SwitchToMonsterWithLowestHP();
-		Decision decision = behaviorSwitchMonster.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
-		Monster newMonster = trainer1.getActiveMonster();
+		Decision decision = behaviorSwitchMonster.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
+		Monster newMonster = b.p1.getActiveMonster();
 		newMonster.testSetHP(1);
 		
 		assertEquals(originalMonster.getID() == newMonster.getID(), false);
@@ -252,12 +227,12 @@ public class TestBehaviors {
 	@Test
 	public void test13()
 	{		
-		Monster originalMonster = trainer1.getActiveMonster();
+		Monster originalMonster = b.p1.getActiveMonster();
 		Behavior_SwitchToMonsterWithStrongType behaviorSwitchMonster =
 				new Behavior_SwitchToMonsterWithStrongType();
-		Decision decision = behaviorSwitchMonster.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
-		Monster newMonster = trainer1.getActiveMonster();
+		Decision decision = behaviorSwitchMonster.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
+		Monster newMonster = b.p1.getActiveMonster();
 		
 		
 		assertEquals(originalMonster.getID() == newMonster.getID(), false);
@@ -266,12 +241,12 @@ public class TestBehaviors {
 	@Test
 	public void test14()
 	{		
-		Monster originalMonster = trainer1.getActiveMonster();
+		Monster originalMonster = b.p1.getActiveMonster();
 		Behavior_SwitchToMonsterWithWeakType behaviorSwitchMonster =
 				new Behavior_SwitchToMonsterWithWeakType();
-		Decision decision = behaviorSwitchMonster.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);
-		Monster newMonster = trainer1.getActiveMonster();
+		Decision decision = behaviorSwitchMonster.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
+		Monster newMonster = b.p1.getActiveMonster();
 		
 		
 		assertEquals(originalMonster.getID() == newMonster.getID(), false);
@@ -280,37 +255,37 @@ public class TestBehaviors {
 	@Test
 	public void test15()
 	{		
-		int opponentOriginalHP = trainer2.getActiveMonster().getHP();
+		int opponentOriginalHP = b.p2.getActiveMonster().getHP();
 		Behavior_UseHighestAccuracyMove behaviorAccuracyMove =
 				new Behavior_UseHighestAccuracyMove();
-		Decision decision = behaviorAccuracyMove.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);	
+		Decision decision = behaviorAccuracyMove.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);	
 		
-		assertEquals(b.getOpponentsMonster(trainer2).getHP() == opponentOriginalHP, false);
+		assertEquals(b.getOpponentsMonster(b.p2).getHP() == opponentOriginalHP, false);
 	}
 	
 	@Test
 	public void test16()
 	{		
-		int opponentOriginalHP = trainer2.getActiveMonster().getHP();
+		int opponentOriginalHP = b.p2.getActiveMonster().getHP();
 		Behavior_UseHighestDamageMove behaviorDamageMove =
 				new Behavior_UseHighestDamageMove();
-		Decision decision = behaviorDamageMove.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);	
+		Decision decision = behaviorDamageMove.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);	
 		
-		assertEquals(b.getOpponentsMonster(trainer2).getHP() == opponentOriginalHP, false);
+		assertEquals(b.getOpponentsMonster(b.p2).getHP() == opponentOriginalHP, false);
 	}
 	
 	@Test
 	public void test17()
 	{		
-		int opponentOriginalHP = trainer2.getActiveMonster().getHP();
+		int opponentOriginalHP = b.p2.getActiveMonster().getHP();
 		Behavior_UseLowestAccuracyMove behaviorAccuracyMove =
 				new Behavior_UseLowestAccuracyMove();
-		Decision decision = behaviorAccuracyMove.execute(b, trainer1);
-		decision.executeDecision(b, trainer1);	
+		Decision decision = behaviorAccuracyMove.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);	
 		
-		assertEquals(b.getOpponentsMonster(trainer2).getHP() == opponentOriginalHP, false);
+		assertEquals(b.getOpponentsMonster(b.p2).getHP() == opponentOriginalHP, false);
 	}
 	
 	

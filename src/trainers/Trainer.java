@@ -62,7 +62,6 @@ public class Trainer {
 			throw new IllegalArgumentException(
 					"Trainer can't have no Monsters.");
 		}
-		Collections.shuffle(monsters);
 		this.monsters = new HashMap<>();
 		this.order = new ArrayList<>();
 		for (Monster m : monsters) {

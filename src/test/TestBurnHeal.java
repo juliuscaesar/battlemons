@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import general.Battle;
 import general.Status;
 import monsters.Monster;
 import monsters.MonsterSet;
@@ -12,7 +13,8 @@ import trainers.BurnHealItem;
 public class TestBurnHeal {
 
 	BurnHealItem burnHealer = new BurnHealItem();
-	Monster monster = MonsterSet.getRandomMonster();
+    Battle b = Battle.testBattle();
+    Monster monster = b.p1.getActiveMonster();
 	
 	@Test
 	public void test1() {

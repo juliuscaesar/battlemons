@@ -31,33 +31,8 @@ import trainers.Trainer;
 
 public class TestConditions {
 	
-	List<Monster> trainer1team = 
-			new ArrayList<Monster>(
-					Arrays.asList(MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster()));
-	List<Monster> trainer2team = 
-			new ArrayList<Monster>(
-					Arrays.asList(MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster()));
 
-
-	List<Item> trainer1items = new ArrayList<Item>();
-	List<Item> trainer2items = new ArrayList<Item>();
-	
-	
-
-	// create trainers to run this battle with
-	Trainer trainer1 = new Trainer("Caesar", trainer1team, trainer1items);
-	Trainer trainer2 = new Trainer("Nishant", trainer2team, trainer2items);
-	Battle b = new Battle(trainer1, trainer2);
+    Battle b = Battle.testBattle();
 
 	@Test
 	public void test1() {		
@@ -65,7 +40,7 @@ public class TestConditions {
 		Condition_HealthGreaterThanValue conditionHealth = 
 				new Condition_HealthGreaterThanValue(10);
 
-		assertEquals(true, conditionHealth.check_condition(b, trainer1));
+		assertEquals(true, conditionHealth.check_condition(b, b.p1));
 		
 	}
 	
@@ -75,7 +50,7 @@ public class TestConditions {
 		Condition_BestAttackHasLowPP conditionLowPP = 
 				new Condition_BestAttackHasLowPP(10);
 
-		assertEquals(true, conditionLowPP.check_condition(b, trainer1));
+		assertEquals(true, conditionLowPP.check_condition(b, b.p1));
 		
 	}
 	
@@ -85,7 +60,7 @@ public class TestConditions {
 		Condition_CanStatusHealItself condition = 
 				new Condition_CanStatusHealItself();
 
-		assertEquals(false, condition.check_condition(b, trainer1));
+		assertEquals(false, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -95,7 +70,7 @@ public class TestConditions {
 		Condition_HealthGreaterThanPercent condition = 
 				new Condition_HealthGreaterThanPercent(100);
 
-		assertEquals(false, condition.check_condition(b, trainer1));
+		assertEquals(false, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -105,7 +80,7 @@ public class TestConditions {
 		Condition_HealthGreaterThanValue condition = 
 				new Condition_HealthGreaterThanValue(10);
 
-		assertEquals(true, condition.check_condition(b, trainer1));
+		assertEquals(true, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -115,7 +90,7 @@ public class TestConditions {
 		Condition_IfSomeMoveHasNoPP condition = 
 				new Condition_IfSomeMoveHasNoPP();
 
-		assertEquals(false, condition.check_condition(b, trainer1));
+		assertEquals(false, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -125,7 +100,7 @@ public class TestConditions {
 		Condition_IsOpponentStatusNormal condition = 
 				new Condition_IsOpponentStatusNormal();
 
-		assertEquals(true, condition.check_condition(b, trainer1));
+		assertEquals(true, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -135,7 +110,7 @@ public class TestConditions {
 		Condition_IsOpponentStatusNotNormal condition = 
 				new Condition_IsOpponentStatusNotNormal();
 
-		assertEquals(false, condition.check_condition(b, trainer1));
+		assertEquals(false, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -145,7 +120,7 @@ public class TestConditions {
 		Condition_IsStatusNormal condition = 
 				new Condition_IsStatusNormal();
 
-		assertEquals(true, condition.check_condition(b, trainer1));
+		assertEquals(true, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -155,7 +130,7 @@ public class TestConditions {
 		Condition_IsStatusNotNormal condition = 
 				new Condition_IsStatusNotNormal();
 
-		assertEquals(false, condition.check_condition(b, trainer1));
+		assertEquals(false, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -165,7 +140,7 @@ public class TestConditions {
 		Condition_OpponentCanKillMonster condition = 
 				new Condition_OpponentCanKillMonster();
 
-		assertEquals(false, condition.check_condition(b, trainer1));
+		assertEquals(false, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -175,7 +150,7 @@ public class TestConditions {
 		Condition_OpponentHealthLowerThanPercent condition = 
 				new Condition_OpponentHealthLowerThanPercent(100);
 
-		assertEquals(true, condition.check_condition(b, trainer1));
+		assertEquals(true, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -185,7 +160,7 @@ public class TestConditions {
 		Condition_OpponentHealthLowerThanValue condition = 
 				new Condition_OpponentHealthLowerThanValue(10);
 
-		assertEquals(false, condition.check_condition(b, trainer1));
+		assertEquals(false, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -195,7 +170,7 @@ public class TestConditions {
 		Condition_OtherMonsterCanSurviveOpponentAttack condition = 
 				new Condition_OtherMonsterCanSurviveOpponentAttack();
 
-		assertEquals(true, condition.check_condition(b, trainer1));
+		assertEquals(true, condition.check_condition(b, b.p1));
 		
 	}
 	
@@ -209,9 +184,9 @@ public class TestConditions {
 		Condition_UserHasHealItem condition = 
 				new Condition_UserHasHealItem();
 		
-		trainer1items.add(freshwater);
+		b.p1.items.add(freshwater);
 
-		assertEquals(true, condition.check_condition(b, trainer1));
+		assertEquals(true, condition.check_condition(b, b.p1));
 		
 	}
 
