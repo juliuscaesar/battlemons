@@ -25,7 +25,6 @@ import DT.Condition_UserHasHealItem;
 import general.Battle;
 import monsters.Monster;
 import monsters.MonsterSet;
-import trainers.FreshwaterItem;
 import trainers.Item;
 import trainers.ItemEnum;
 import trainers.Trainer;

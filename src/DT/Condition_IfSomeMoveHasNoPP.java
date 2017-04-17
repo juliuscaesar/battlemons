@@ -1,13 +1,11 @@
 package DT;
 
 import general.Battle;
-import monsters.Monster;
-import damage.Damage;
+
 import general.Attack;
 import moves.MoveSet;
 import trainers.Trainer;
-import trainers.Item;
-import trainers.ItemEnum;
+
 
 // Returns true if the user's active monster has at least one move with
 // no PP left.

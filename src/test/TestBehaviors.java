@@ -24,14 +24,14 @@ import DT.Behavior_UseLowestAccuracyMove;
 import general.Attack;
 import general.Battle;
 import general.Decision;
-import general.MonsterID;
+
 import general.Status;
-import general.Decision.UseHealHPItem;
+
 import monsters.Monster;
 import monsters.MonsterSet;
 import moves.Move;
 import moves.MoveSet;
-import trainers.FreshwaterItem;
+
 import trainers.Item;
 import trainers.ItemEnum;
 import trainers.Trainer;

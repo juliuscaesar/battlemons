@@ -5,8 +5,6 @@ import monsters.Monster;
 
 import java.util.List;
 
-import damage.Damage;
-import general.Attack;
 import general.Status;
 import trainers.Trainer;
 import trainers.Item;

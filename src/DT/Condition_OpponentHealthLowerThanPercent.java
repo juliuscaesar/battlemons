@@ -2,11 +2,9 @@ package DT;
 
 import general.Battle;
 import monsters.Monster;
-import damage.Damage;
-import general.Attack;
+
 import trainers.Trainer;
-import trainers.Item;
-import trainers.ItemEnum;
+
 
 /**
  * Check if the opponent's health is lower than x%

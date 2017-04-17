@@ -2,11 +2,9 @@ package DT;
 
 import general.Battle;
 import monsters.Monster;
-import damage.Damage;
-import general.Attack;
+
 import trainers.Trainer;
-import trainers.Item;
-import trainers.ItemEnum;
+
 
 // Returns true if the user's current monster's health is at
 // least the parameter.

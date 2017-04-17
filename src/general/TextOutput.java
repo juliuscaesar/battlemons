@@ -1,7 +1,7 @@
 package general;
 
 import trainers.Trainer;
-import general.Decision;
+
 
 
 public class TextOutput {

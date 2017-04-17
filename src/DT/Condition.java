@@ -1,15 +1,9 @@
 package DT;
 
-import java.util.List;
 
-import damage.Damage;
-import general.Attack;
 import general.Battle;
 import general.Status;
-import monsters.Monster;
-import moves.MoveSet;
-import trainers.Item;
-import trainers.ItemEnum;
+
 import trainers.Trainer;
 
 /**

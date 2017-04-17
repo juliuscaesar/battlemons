@@ -8,13 +8,12 @@ import trainers.BurnHealItem;
 import trainers.EtherItem;
 import trainers.FreshwaterItem;
 import trainers.IceHealItem;
-import DT.Behavior_SwitchToMonsterWithBestAttack;
-import trainers.Item;
+
 import trainers.ParalyzHealItem;
 import trainers.Trainer;
 import monsters.Monster;
 import moves.Move;
-import moves.MoveSet;
+
 
 public abstract interface Decision {
 

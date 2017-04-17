@@ -5,8 +5,7 @@ import monsters.Monster;
 import damage.Damage;
 import general.Attack;
 import trainers.Trainer;
-import trainers.Item;
-import trainers.ItemEnum;
+
 
 // Returns true if the user has a monster on their team that can survive
 // any attack the opponent's monster can throw at it on the next turn.

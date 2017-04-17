@@ -5,8 +5,7 @@ import monsters.Monster;
 import damage.Damage;
 import general.Attack;
 import trainers.Trainer;
-import trainers.Item;
-import trainers.ItemEnum;
+
 
 // Returns true if the opponent's current monster has a move that can
 // kill the user's current monster on the next turn.
