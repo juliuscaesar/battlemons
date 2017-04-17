@@ -184,6 +184,7 @@ public class Trainer {
 			if (BattleVariables.printEachTurn) {
 				System.out.println("Trainer " + name + " couldn't make a decision...");
 			}
+			decision = new Decision.Struggle();
 		} else {
 			if (BattleVariables.printEachTurn) {
 				System.out.println("Trainer " + name + "'s decision is "

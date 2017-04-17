@@ -64,6 +64,7 @@ public class MoveSet {
 	   Move SolarBeamMove = new Move(Attack.FirePunch, 120, 100, 10, Element.Grass, MoveCategory.Special);
 	   Move SporeMove = new Move(Attack.Spore, 0, 100, 15, Element.Grass, MoveCategory.Status);
 	    Move StringShotMove = new Move(Attack.StringShot, 0, 95, 40, Element.Bug, MoveCategory.Status);
+	    Move StruggleMove = new Move(Attack.Struggle, 50, 100, 0, Element.Normal, MoveCategory.Physical);
 	    Move SurfMove = new Move(Attack.Surf, 90, 100, 15, Element.Water, MoveCategory.Special);
 	   Move TeleportMove = new Move(Attack.Teleport, 0, 0, 20, Element.Psychic, MoveCategory.Status);
 	    Move ThunderMove = new Move(Attack.Thunder, 110, 70, 10, Element.Electric, MoveCategory.Special);

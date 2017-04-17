@@ -55,6 +55,7 @@ public enum Attack {
 	SolarBeam,
 	Spore,
 	StringShot,
+	Struggle,
 	Surf,
 	Teleport,
 	Thunder,
