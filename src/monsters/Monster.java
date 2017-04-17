@@ -486,6 +486,20 @@ public final class Monster {
 		}
 		return false;
 	}
+	
+	public int getPPOn(Attack atk){
+		if(moves.containsKey(atk)){
+			return moves.get(atk).getPP();
+		}
+		return 0;
+	}
+	
+	public int getMaxPPOn(Attack atk){
+		if(moves.containsKey(atk)){
+			return moves.get(atk).getMaxPP();
+		}
+		return 0;
+	}
 
 	/**
 	 * Revive the Monster. And restore is HP.

@@ -17,9 +17,12 @@ public class Item {
 	}
 	
 	public boolean useOn(Monster m){
-		if(this.effect.canUseItem(m)){
-			this.effect.useItem(m);
-			return true;
+		if(quantity > 0){
+			if(this.effect.canUseItem(m)){
+				this.effect.useItem(m);
+				quantity--;
+				return true;
+			}
 		}
 		return false;
 	}
@@ -29,10 +32,13 @@ public class Item {
 	}
 	
 	public boolean useOnMove(Monster m, Attack attack){
-		Move mov = MoveSet.getMove(attack);
-		if(this.effect.canUseItemOnMove(m, attack)){
-			this.effect.useItemOnMove(m, mov);
-			return true;
+		if(quantity > 0){
+			Move mov = MoveSet.getMove(attack);
+			if(this.effect.canUseItemOnMove(m, attack)){
+				this.effect.useItemOnMove(m, mov);
+				quantity--;
+				return true;
+			}
 		}
 		return false;
 	}
