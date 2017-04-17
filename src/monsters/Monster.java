@@ -623,7 +623,7 @@ public final class Monster {
 	 * @param opponent
 	 * @return
 	 */
-	public int GetSurvivabilityScoreOfMonAgainstOpponent(Monster opponent) {
+	public int calculateSurvivability(Monster opponent) {
 		int maxDamageThatCanBeIncurred = 0;
 
 		Damage damageToMon = new Damage();

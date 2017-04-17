@@ -16,6 +16,9 @@ public class Behavior_SwitchToMonsterWithHighestHP extends Behavior {
         int highestHp = 0;
         Monster highestHpMon = null;
         for (Monster m : user.listMonsters()) {
+            
+            if (!m.isAlive()) continue;
+            
             int monHp = m.getHP();
             if (monHp > 0 && monHp > highestHp) {
                 highestHp = monHp;
