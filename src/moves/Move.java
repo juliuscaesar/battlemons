@@ -24,7 +24,7 @@ import general.Status;
  * accuracy, it will inflict this Status on the enemy, or not. An enemy may be immune to your status, making it impossible to apply your Status to him.
  * 
  * Moves can belong to different categories, but one move may only belong to one category. Those categories, declared in the
- * MoveCategory enums are { Physical, Special, Status }
+ * MoveCategory enums, are { Physical, Special, Status }
  * 
  * Using a Move consume PP ( Power Points ), and if you run out of PPs, your move is not usable anymore.
  * You can restore your PP through items.

@@ -53,11 +53,14 @@ public class TestMove {
 	
 	@Test
 	public void test_move_4(){
+		MoveSet set = new MoveSet();
 		for(Attack atk : Attack.values()){
-			Move move = MoveSet.getMove(atk);
-			move.use();
-			Move other = MoveSet.getMove(atk);
-			assertNotEquals(move.getPP(), other.getPP());
+			if(atk != Attack.Struggle){
+				Move move = MoveSet.getMove(atk);
+				Move other = MoveSet.getMove(atk);
+				move.use();
+				assertNotEquals(move.getPP(), other.getPP());
+			}
 		}
 	}
 	
@@ -68,9 +71,11 @@ public class TestMove {
 			while(move.use());
 		}
 		for(Attack atk : Attack.values()){
-			Move move = MoveSet.getMove(atk);
-			assertEquals(move.getPP(), move.getMaxPP());
-			assertNotEquals(move.getPP(), 0);
+			if(atk != Attack.Struggle){
+				Move move = MoveSet.getMove(atk);
+				assertEquals(move.getPP(), move.getMaxPP());
+				assertNotEquals(move.getPP(), 0);
+			}
 		}
 	}
 	

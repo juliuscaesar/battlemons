@@ -17,7 +17,7 @@ public class EtherItem implements ItemEffect{
 
 	@Override
 	public void useItemOnMove(Monster battlemon, Move move) {
-		move.increasePP(boostAmount);
+		battlemon.increasePP(move.toAttack(), boostAmount);
 	}
 
 	@Override
