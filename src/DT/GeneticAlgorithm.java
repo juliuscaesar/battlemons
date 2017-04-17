@@ -42,12 +42,7 @@ public class GeneticAlgorithm {
      * Swaps a node in a decision tree with the given node
      * 
      */
-    public static DT swapNode(DT tree, int from, DecisionNode newNode) {
-    	tree.nodeMap.replace(from, newNode);
-    	return tree;
-    }
-    
-    public static DT mutate(DT tree) {
+    public static DT swapNode(DT tree) {
     	Random rng = new Random();
     	int index = Math.abs(rng.nextInt(tree.nodeMap.size()));
 		
@@ -61,5 +56,9 @@ public class GeneticAlgorithm {
     	}
     	
     	return tree;
+    }
+    
+    public static DT mutate(DT tree) {
+    	return GeneticAlgorithm.swapNode(tree);
     }
 }
