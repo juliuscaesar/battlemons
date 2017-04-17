@@ -4,6 +4,9 @@ import monsters.MonsterSet;
 import moves.Move;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import monsters.Monster;
@@ -427,6 +430,25 @@ public class TestMonsters {
     	for (MonsterID id : MonsterID.values()) {
             Monster m = MonsterSet.getMonster(id);
            assertEquals(m.getHP(), m.getMaxHP());
+    	}
+    }
+   
+    @Test
+    public void test__unique__2(){
+    	for(MonsterID id : MonsterID.values()){
+    		System.out.println(id);
+    		Monster m = MonsterSet.getMonster(id);
+    		List<String> atks = new ArrayList<>();
+    		List<String> movs = new ArrayList<>();
+    		for(Attack atk : m.listMoves()){
+    			atks.add(atk.toString());
+    		}
+    		for(Move mov :m.getMoves().values()){
+    			movs.add(mov.toAttack().toString());
+    		}
+    		for(int i = 0; i < atks.size(); i++){
+    			assertEquals(atks.get(i).equals(movs.get(i)), true);
+    		}
     	}
     }
 

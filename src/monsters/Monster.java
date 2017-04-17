@@ -58,6 +58,7 @@ public final class Monster {
 	private int hp;
 	private final int maxHP;
 	private int survivabilityScore;
+	private MoveSet set;
 
 	/**
 	 * Constructor for a Monster. This method should be called only by the
@@ -122,7 +123,11 @@ public final class Monster {
 		att = new Attributes(other.getAtk(), other.getSpAtk(),
 				other.getSpDef(), other.getDef(), other.getSpeed());
 		this.e1 = other.getElem();
-		this.moves = other.moves;
+		this.moves = new HashMap<>();
+		set = new MoveSet();
+		for(Entry<Attack, Move> entry : other.moves.entrySet()){
+			this.moves.put(entry.getKey(), set.move(entry.getKey()));
+		}
 		this.alive = true;
 	}
 
@@ -131,21 +136,21 @@ public final class Monster {
 	 * called after constructing a Monster, otherwise a Monster won't be able to
 	 * attack at all.
 	 * 
-	 * @param m1
-	 *            is the first move.
-	 * @param m2
-	 *            is the second move.
-	 * @param m3
-	 *            is the third move.
-	 * @param m4
-	 *            is the fourth move.
+	 * @param attacks is an array of Attacks with at least 1 Attack, and maximum of 4 Attacks.
+	 * 
 	 */
 	public void addMoves(Attack...attacks){
 		moves = new HashMap<Attack, Move>();
-		for(int i = 0; i < attacks.length; i++){
-			moves.put(attacks[i], MoveSet.getMove(attacks[i]));
+		if(attacks.length == 0){
+			throw new IllegalArgumentException("Monster can't have no moves");
 		}
-		System.out.println(attacks.length);
+		for(int i = 0; i < attacks.length; i++){
+			moves.put(attacks[i], set.move(attacks[i]));
+			if(i == 4){
+				break;
+			}
+		}
+		//System.out.println(attacks.length);
 	}
 
 	/**
@@ -358,21 +363,21 @@ public final class Monster {
 	 */
 	public void applyStatusDamage() {
 		switch (this.status) {
-		case Burn: {
-			System.out.println(name.toString() + " took burn damage. ("
-					+ this.hp + "/" + this.maxHP + ")");
-			this.hp = this.maxHP / 16;
-			return;
-		}
-		case Poison: {
-			System.out.println(name.toString() + " took poison damage. ("
-					+ this.hp + "/" + this.maxHP + ")");
-			this.hp = this.maxHP / 16;
-			return;
-		}
-		default: {
-
-		}
+			case Burn: {
+				System.out.println(name.toString() + " took burn damage. ("
+						+ this.hp + "/" + this.maxHP + ")");
+				this.hp = this.maxHP / 16;
+				return;
+			}
+			case Poison: {
+				System.out.println(name.toString() + " took poison damage. ("
+						+ this.hp + "/" + this.maxHP + ")");
+				this.hp = this.maxHP / 16;
+				return;
+			}
+			default: {
+	
+			}
 		}
 		checkAlive();
 	}
@@ -481,10 +486,12 @@ public final class Monster {
 
 	public boolean increasePP(Attack atk, int amount) {
 		if (amount <= 0) {
+			//return false;
 			return false;
 		}
 		if (moves.containsKey(atk)) {
-			return moves.get(atk).addPowerPoints(amount);
+			boolean b = moves.get(atk).addPowerPoints(amount);
+			return b;
 		}
 		return false;
 	}

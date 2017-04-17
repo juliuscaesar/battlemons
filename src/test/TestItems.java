@@ -9,6 +9,7 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import monsters.*;
+import moves.Move;
 import trainers.*;
 import general.*;
 
@@ -39,7 +40,7 @@ public class TestItems {
 
 	
 	//Testing (Status Remover)s.
-	//@Test
+	@Test
 	public void test01(){
 		fillMap();
 		for(MonsterID id : MonsterID.values()){
@@ -56,7 +57,7 @@ public class TestItems {
 	}
 	
 	//Testing if Item with negative quantity cannot be used.
-	//@Test
+	@Test
 	public void test02(){
 		fillMap();
 		for(MonsterID id : MonsterID.values()){
@@ -109,18 +110,30 @@ public class TestItems {
 		for(MonsterID id : MonsterID.values()){
 			Monster m = MonsterSet.getMonster(id);
 			for(Attack atk : m.listMoves()){
-				Item ether = new Item(ItemEnum.Ether, 10);
-				for(int i = 0; i < 10; i++){
-					assertEquals(m.canIncreasePP(atk), false);
-					m.useMove(atk);
-					assertEquals(m.canIncreasePP(atk), true);
-					ether.useOnMove(m, atk);
-					assertEquals(m.canIncreasePP(atk), false);
+				if(atk != Attack.Struggle){
+					Item ether = new Item(ItemEnum.Ether, 10);
+					for(int i = 0; i < 10; i++){
+						assertEquals(m.canIncreasePP(atk), false);			
+						m.useMove(atk);
+						assertEquals(m.canIncreasePP(atk), true);
+						ether.useOnMove(m, atk);
+						assertEquals(m.canIncreasePP(atk), false);
+					}
+					assertEquals(ether.useOnMove(m, atk), false);
 				}
-				assertEquals(ether.useOnMove(m, atk), false);
 			}
-			System.out.println("");
 		}
+	}
+	
+	@Test
+	public void test__ether__04(){
+		Monster m = MonsterSet.getMonster(MonsterID.Crysanthum);
+		Item ether = new Item(ItemEnum.Ether, 10);
+		Attack atk = Attack.SolarBeam;
+		m.useMove(atk);
+		assertEquals(m.canIncreasePP(atk), true);
+		ether.useOnMove(m, atk);
+		assertEquals(m.canIncreasePP(atk), false);
 	}
 	
 	@Test
