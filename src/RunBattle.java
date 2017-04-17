@@ -175,14 +175,15 @@ public class RunBattle {
 		System.out.println("");
 		System.out.println("BEGINNING SETS....");
 		System.out.println("");
-		
 		System.out.println("-------------------------------------------------------");
 
 
 		int n = 1;
-		while (n < BattleVariables.numberOfSets) {
+		while (n <= BattleVariables.numberOfSets) {
 			RunBattle.executeSet(n);
 			n++;
 		}
+		
+		System.out.println("Done");
 	}
 }
