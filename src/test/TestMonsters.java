@@ -417,7 +417,7 @@ public class TestMonsters {
     	}
     }
     
-   // @Test
+    @Test
     public void test__unique__1(){
     	for (MonsterID id : MonsterID.values()) {
             Monster m = MonsterSet.getMonster(id);

@@ -2,6 +2,8 @@ package test;
 
 import monsters.*;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import damage.*;
@@ -17,7 +19,7 @@ public class TestHit {
 		Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
 		Monster n = MonsterSet.getMonster(MonsterID.Emberfly);
 		
-		System.out.println(hit.getHitChance(Attack.FirePunch, m ,n));
+		assertEquals(hit.getHitChance(Attack.FirePunch, m ,n),100);
 		
 	}
 }
