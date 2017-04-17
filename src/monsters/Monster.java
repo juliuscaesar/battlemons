@@ -159,6 +159,10 @@ public final class Monster {
 			resetStatus();
 		}
 	}
+	
+	public String toString() {
+		return this.getID().toString();
+	}
 
 	/**
 	 * Recalculate the Monster's remaining HP.

@@ -161,8 +161,14 @@ public class Battle {
 
 		// Player is not using a move
 		if (!(user.getDecision() instanceof Decision.UseMove)) {
-
-			user.getDecision().executeDecision(this, user);
+			
+			try {
+				user.getDecision().executeDecision(this, user);
+			}
+			catch(NullPointerException e) {
+				// if the users decision happens to be null and we arent
+				// using a move then just do nothing
+			}
 			textOutput.printStuffToConsole(user, opponent);
 
 		} else { // Player is using a move
@@ -218,7 +224,9 @@ public class Battle {
 
 		// Check if the current monster is alive
 		if (!t.getActiveMonster().isAlive()) { // If not, try to find a new one
-
+			if (t.equals(p2)) {
+				this.defeated++;
+			}
 			if (BattleVariables.printEachTurn) {
 				System.out.println(t.name + "'s "
 						+ t.getActiveMonster().getID().toString() + " fainted.");

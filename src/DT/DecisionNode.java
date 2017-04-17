@@ -37,4 +37,10 @@ public class DecisionNode {
         this.conditionTrue = condTrue;
         this.conditionFalse = condFalse;
     }
+    
+    public DecisionNode setConditions(int t, int f) {
+    	this.conditionTrue = t;
+    	this.conditionFalse = f;
+    	return this;
+    }
 }

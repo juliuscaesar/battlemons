@@ -40,7 +40,7 @@ public class Trainer {
 	public String name; // Trainer's Name.
 	public List<Item> items; // List of this Trainer's items.
 	public Decision decision; // The decision made by the AI for this player.
-	private DT trainerAI = new DT();
+	public DT trainerAI = new DT();
 
 	/**
 	 * Default Constructor for the Trainer.
@@ -58,6 +58,37 @@ public class Trainer {
 	public Trainer(String name, List<Monster> monsters, List<Item> itens) {
 		this.name = name;
 		this.items = itens;
+		if (monsters.size() == 0) {
+			throw new IllegalArgumentException(
+					"Trainer can't have no Monsters.");
+		}
+		Collections.shuffle(monsters);
+		this.monsters = new HashMap<>();
+		this.order = new ArrayList<>();
+		for (Monster m : monsters) {
+			this.monsters.put(m.getID(), m);
+			this.order.add(m.getID());
+		}
+		active = monsters.get(0);
+	}
+	
+	/**
+	 * Specify DecisionTree for Trainer
+	 * It will receive a Name, a List of its Monsters, a List of Items.
+	 * The List of Monsters should contain 6 Monsters.
+	 * No rules for the List of Items.
+	 * 
+	 * The List of Monsters will be shuffled, and the first Monster in the shuffled list,
+	 * will become the Active Monster.
+	 * 
+	 * @param name is the Trainer's Name.
+	 * @param monsters is the List of Trainer's Monsters.
+	 * @param itens is the List of the Trainer's Items.
+	 */
+	public Trainer(String name, List<Monster> monsters, List<Item> itens, DT decisionTree) {
+		this.name = name;
+		this.items = itens;
+		this.trainerAI = decisionTree;
 		if (monsters.size() == 0) {
 			throw new IllegalArgumentException(
 					"Trainer can't have no Monsters.");
@@ -104,6 +135,10 @@ public class Trainer {
 			list.add(monsters.get(m));
 		}
 		return list;
+	}
+	
+	public DT getDT() {
+		return this.trainerAI;
 	}
 
 	/**
