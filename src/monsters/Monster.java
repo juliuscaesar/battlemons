@@ -140,12 +140,11 @@ public final class Monster {
 	 * @param m4
 	 *            is the fourth move.
 	 */
-	public void addMoves(Move m1, Move m2, Move m3, Move m4) {
+	public void addMoves(Attack...attacks){
 		Map<Attack, Move> temp = new HashMap<>();
-		temp.put(m1.toAttack(), m1);
-		temp.put(m2.toAttack(), m2);
-		temp.put(m3.toAttack(), m3);
-		temp.put(m4.toAttack(), m4);
+		for(int i = 0; i < attacks.length; i++){
+			temp.put(attacks[i], MoveSet.getMove(attacks[i]));
+		}
 		moves = new HashMap<>(temp);
 	}
 
@@ -318,6 +317,7 @@ public final class Monster {
 		this.status = stat;
 		this.applyStatus();
 		getStatusDuration();
+		
 	}
 
 	/**
@@ -353,6 +353,8 @@ public final class Monster {
 	/**
 	 * This method will apply the status damage Burn: takes damage to equal of
 	 * 16% of max HP. Poison: takes damage to equal of 16% of max HP.
+	 * Or Will do nothing if the Current Status inflicts no damage over time
+	 * on the Monster.
 	 */
 	public void applyStatusDamage() {
 		switch (this.status) {
@@ -489,16 +491,17 @@ public final class Monster {
 	
 	public int getPPOn(Attack atk){
 		if(moves.containsKey(atk)){
+			//System.out.println(moves.get(atk).getPP() + "/" + moves.get(atk).getMaxPP());
 			return moves.get(atk).getPP();
 		}
-		return 0;
+		throw new IllegalArgumentException("Monster doesn't have this attack.");
 	}
 	
 	public int getMaxPPOn(Attack atk){
 		if(moves.containsKey(atk)){
 			return moves.get(atk).getMaxPP();
 		}
-		return 0;
+		throw new IllegalArgumentException("Monster doesn't have this attack.");
 	}
 
 	/**

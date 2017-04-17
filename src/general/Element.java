@@ -2,6 +2,15 @@ package general;
 
 import java.util.HashMap;
 
+/**
+ * Enumeration for all the Elements supported.
+ * 
+ * An Element can belong to both a Monster and a Move.
+ * 
+ * When a Move is used against a Monster, the Elements of both are combined to generate a damage multiplier, that could
+ * be {0.5 , 1.0 , 2}.
+ *
+ */
 public enum Element {
     Fire, Water, Grass, Poison, Flying, Normal, Ghost, Psychic, Fighting, Rock, Ground, Electric, Ice, Bug;
 

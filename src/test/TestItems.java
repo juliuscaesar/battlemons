@@ -103,30 +103,25 @@ public class TestItems {
 		}
 	}
 	
-	/*@Test
+	@Test
 	public void test__ether__03(){
 		fillMap();
 		for(MonsterID id : MonsterID.values()){
 			Monster m = MonsterSet.getMonster(id);
 			for(Attack atk : m.listMoves()){
-				//Item ether = new Item(ItemEnum.Ether, 10);
-				//for(int i = 0; i < 10; i++){
-					m.getPPOn(atk);
-					//System.exit(0);
-					//m.getPPOn(atk);
-					//System.out.println(m.getPPOn(atk));
-					//assertEquals(m.canIncreasePP(atk), false);
-					//m.useMove(atk);
-
-					//assertEquals(m.canIncreasePP(atk), true);
-					//ether.useOnMove(m, atk);
-					//assertEquals(m.canIncreasePP(atk), false);
-				//}
-				//assertEquals(ether.useOnMove(m, atk), false);
+				Item ether = new Item(ItemEnum.Ether, 10);
+				for(int i = 0; i < 10; i++){
+					assertEquals(m.canIncreasePP(atk), false);
+					m.useMove(atk);
+					assertEquals(m.canIncreasePP(atk), true);
+					ether.useOnMove(m, atk);
+					assertEquals(m.canIncreasePP(atk), false);
+				}
+				assertEquals(ether.useOnMove(m, atk), false);
 			}
 			System.out.println("");
 		}
-	}*/
+	}
 	
 	@Test
 	public void test__freshWater__01(){

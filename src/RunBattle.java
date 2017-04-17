@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class RunBattle {
 	static float bestFitness = 0;
-	static DT bestTrainerDT = new DT();
+	static DT bestTrainerDT = RunBattle.makeDT();
 
 	/**
 	 * Execute a set
@@ -61,27 +61,21 @@ public class RunBattle {
 			 * Mutate the decision tree first and create the trainer
 			 */
 			if (performedMutations < BattleVariables.maxMutationsPerCycle) {
-				//DT newDT = GeneticAlgorithm.mutateParameters(bestTrainerDT, 0, .4);
-				//GeneticAlgorithm.removeNode(bestTrainerDT, index)
-				newDT = GeneticAlgorithm.addNode(bestTrainerDT, bestTrainerDT.getRandomCondition());
-				//GeneticAlgorithm.swapNode(bestTrainerDT, bestTrainerDT.nodeMap(0), getRandomCondition());
-						
+				newDT = GeneticAlgorithm.mutate(bestTrainerDT);					
 				performedMutations++;
 			}
 			else {
-				newDT = bestTrainerDT;
+				newDT = RunBattle.makeDT();
 			}
 
 			// create opponent to run this battle with
 			Trainer trainer1 = new Trainer("Caesar", trainer1team, trainer1items, newDT);
 			Trainer trainer2 = new Trainer("Nishant", trainer2team, trainer2items);
+
 			Battle b = new Battle(trainer1, trainer2);
 
 			if (BattleVariables.printBattleSummary && !BattleVariables.justFitness) {
 				System.out.println("----- BEGINNING THE BATTLE -----");
-				// display some initial information to console
-				trainer1.DisplayListOfMonsters();
-				trainer2.DisplayListOfMonsters();
 			}
 			// Run the battle and receive the fitness float
 			float fitness = b.runBattle();
@@ -102,6 +96,16 @@ public class RunBattle {
 			RunBattle.bestTrainerDT = RunBattle.getBest(fitnessHistory, trainerHistory);
 
 			System.out.println("-------------------------------------------------------");
+		}
+	}
+
+	private static DT makeDT() {
+		if (BattleVariables.randomDT) {
+			return new DT(true);
+		}
+		else {
+			new DT().printTree();
+			return new DT();
 		}
 	}
 
@@ -170,6 +174,8 @@ public class RunBattle {
 		System.out.println("Max # of mutations per cycle: " + BattleVariables.maxMutationsPerCycle);
 		System.out.println("");
 		System.out.println("BEGINNING SETS....");
+		System.out.println("");
+		
 		System.out.println("-------------------------------------------------------");
 
 

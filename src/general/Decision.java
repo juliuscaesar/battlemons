@@ -13,6 +13,7 @@ import trainers.ParalyzHealItem;
 import trainers.Trainer;
 import monsters.Monster;
 import moves.Move;
+import moves.MoveSet;
 
 public abstract interface Decision {
 
@@ -207,6 +208,43 @@ public abstract interface Decision {
 
         public String toString() {
             return "Use move " + move_to_use.toAttack().toString();
+        }
+    }
+
+    public class Struggle implements Decision {
+
+        public void executeDecision(Battle b, Trainer user) {
+
+            Hit h = new Hit();
+            Damage d = new Damage();
+            Attack attackToUse = Attack.Struggle;
+            Monster userMon = user.getActiveMonster();
+            Monster enemyMon = b.getOpponentsMonster(user);
+            int enemyStartingHP = enemyMon.getHP();
+
+            if (BattleVariables.printEachTurn) {
+                System.out.println("  " + user.name + "\'s " + userMon.getID()
+                        + " used " + attackToUse + "!");
+            }
+            if (!h.hit(attackToUse, userMon, enemyMon,
+                    d.getDamage(attackToUse, userMon, enemyMon), b.rng_move)) {
+                if (BattleVariables.printEachTurn) {
+                    System.out.println("  But it missed!");
+                }
+            }
+            int diffDmg = enemyStartingHP - enemyMon.getHP();
+            diffDmg /= 2;
+            userMon.receiveAttack(diffDmg);
+            if (BattleVariables.printEachTurn) {
+                System.out.println("  " + user.name + "\'s " + userMon.getID()
+                        + " was hurt by the recoil!");
+            }
+            // don't change PP!
+
+        }
+
+        public String toString() {
+            return "Struggle";
         }
 
     }

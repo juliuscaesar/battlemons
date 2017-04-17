@@ -1,5 +1,6 @@
 package DT;
 
+import java.util.Random;
 
 /**
  * Genetic Algorithm that performs mutations on the
@@ -43,6 +44,22 @@ public class GeneticAlgorithm {
      */
     public static DT swapNode(DT tree, int from, DecisionNode newNode) {
     	tree.nodeMap.replace(from, newNode);
+    	return tree;
+    }
+    
+    public static DT mutate(DT tree) {
+    	Random rng = new Random();
+    	int index = Math.abs(rng.nextInt(tree.nodeMap.size()));
+		
+    	if (tree.nodeMap.get(index).condition != null) {
+    		tree.nodeMap.put(index,tree.getRandomCondition().setConditions(
+    				tree.nodeMap.get(index).conditionTrue, tree.nodeMap.get(index).conditionFalse));
+    	}
+    	else {
+    		tree.nodeMap.put(index,tree.getRandomBehavior().setConditions(
+    				-1, -1));
+    	}
+    	
     	return tree;
     }
 }
