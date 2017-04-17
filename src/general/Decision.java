@@ -198,7 +198,7 @@ public abstract interface Decision {
 						+ move_to_use.toAttack() + "!");
 			}
 			if (!h.hit(attackToUse, userMon, enemyMon,
-					d.getDamage(attackToUse, userMon, enemyMon))) {
+					d.getDamage(attackToUse, userMon, enemyMon), null)) {
 				if (BattleVariables.printEachTurn) {
 					System.out.println("  But it missed!");
 				}

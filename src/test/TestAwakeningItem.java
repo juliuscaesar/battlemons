@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import general.MonsterID;
 import general.Status;
 import monsters.Monster;
 import monsters.MonsterSet;
@@ -12,7 +13,7 @@ import trainers.AwakeningItem;
 public class TestAwakeningItem {
 
 	AwakeningItem awakeItem = new AwakeningItem();
-	Monster monster = MonsterSet.getRandomMonster();
+	Monster monster = MonsterSet.getMonster(MonsterID.Adnocana);
 	
 	@Test
 	public void test1() {

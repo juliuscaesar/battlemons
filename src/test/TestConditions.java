@@ -23,6 +23,7 @@ import DT.Condition_OpponentHealthLowerThanValue;
 import DT.Condition_OtherMonsterCanSurviveOpponentAttack;
 import DT.Condition_UserHasHealItem;
 import general.Battle;
+import general.MonsterID;
 import monsters.Monster;
 import monsters.MonsterSet;
 import trainers.Item;
@@ -33,20 +34,20 @@ public class TestConditions {
 	
 	List<Monster> trainer1team = 
 			new ArrayList<Monster>(
-					Arrays.asList(MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster()));
+					Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
+							MonsterSet.getMonster(MonsterID.Armordillo), 
+							MonsterSet.getMonster(MonsterID.Boomtu), 
+							MonsterSet.getMonster(MonsterID.Bulblight),
+							MonsterSet.getMonster(MonsterID.Carrotay), 
+							MonsterSet.getMonster(MonsterID.Emberfly)));
 	List<Monster> trainer2team = 
 			new ArrayList<Monster>(
-					Arrays.asList(MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster()));
+					Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
+							MonsterSet.getMonster(MonsterID.Armordillo), 
+							MonsterSet.getMonster(MonsterID.Boomtu), 
+							MonsterSet.getMonster(MonsterID.Bulblight),
+							MonsterSet.getMonster(MonsterID.Carrotay), 
+							MonsterSet.getMonster(MonsterID.Emberfly)));
 
 
 	List<Item> trainer1items = new ArrayList<Item>();

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import general.MonsterID;
 import monsters.Monster;
 import monsters.MonsterSet;
 import moves.Move;
@@ -13,7 +14,7 @@ import trainers.EtherItem;
 public class TestEtherItem {
 
 	EtherItem etherItem = new EtherItem();
-	Monster monster = MonsterSet.getRandomMonster();
+	Monster monster = MonsterSet.getMonster(MonsterID.Adnocana);
 	
 	@Test	
 	public void test()

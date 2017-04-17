@@ -22,13 +22,13 @@ public class TestMonsters {
 
     @Test
     public void test__checkAlive__1() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         assertEquals(m.isAlive(), true);
     }
 
     @Test
     public void test__checkAlive_2() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         int dmg = m.getHP() * 10;
         m.receiveAttack(dmg);
         assertEquals(m.isAlive(), false);
@@ -36,7 +36,7 @@ public class TestMonsters {
 
     @Test
     public void test__receiveAttack__1() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         int hp = m.getHP();
         m.receiveAttack(hp / 2);
         assertNotEquals(hp, m.getHP());
@@ -44,7 +44,7 @@ public class TestMonsters {
 
     @Test
     public void test__receiveAttack__2() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         int hp = m.getHP();
         m.receiveAttack(hp / 2);
         assertEquals(m.isAlive(), true);
@@ -53,14 +53,14 @@ public class TestMonsters {
     @Test
     public void test__addStatus__1() {
         for (int i = 0; i < 10000; i++) {
-            Monster m = MonsterSet.getRandomMonster();
+            Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
             assertEquals(m.getStatus(), Status.Normal);
         }
     }
 
     @Test
     public void test__addStatus__2() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         assertEquals(m.getStatus(), Status.Normal);
         m.setStatus(Status.Paralysis);
         assertEquals(m.getStatus(), Status.Paralysis);
@@ -68,7 +68,7 @@ public class TestMonsters {
 
     @Test
     public void test__addStatus__3() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         assertEquals(m.getStatus(), Status.Normal);
         m.setStatus(Status.Sleep);
         assertEquals(m.getStatus(), Status.Sleep);
@@ -76,7 +76,7 @@ public class TestMonsters {
 
     @Test
     public void test__addStatus__4() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         assertEquals(m.getStatus(), Status.Normal);
         m.setStatus(Status.Poison);
         assertEquals(m.getStatus(), Status.Poison);
@@ -84,7 +84,7 @@ public class TestMonsters {
 
     @Test
     public void test__addStatus__5() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         assertEquals(m.getStatus(), Status.Normal);
         m.setStatus(Status.Burn);
         assertEquals(m.getStatus(), Status.Burn);
@@ -92,7 +92,7 @@ public class TestMonsters {
 
     @Test
     public void test__addStatus__6() {
-        Monster m = MonsterSet.getRandomMonster();
+        Monster m = MonsterSet.getMonster(MonsterID.Adnocana);
         assertEquals(m.getStatus(), Status.Normal);
         m.setStatus(Status.Freeze);
         assertEquals(m.getStatus(), Status.Freeze);
