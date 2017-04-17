@@ -252,7 +252,7 @@ public class TestBehaviors {
 		Decision decision = behaviorAccuracyMove.execute(b, b.p1);
 		decision.executeDecision(b, b.p1);	
 		
-		assertEquals(b.getOpponentsMonster(b.p2).getHP() == opponentOriginalHP, false);
+		assertEquals(b.p2.getActiveMonster().getHP() == opponentOriginalHP, false);
 	}
 	
 	@Test
@@ -264,7 +264,7 @@ public class TestBehaviors {
 		Decision decision = behaviorDamageMove.execute(b, b.p1);
 		decision.executeDecision(b, b.p1);	
 		
-		assertEquals(b.getOpponentsMonster(b.p2).getHP() == opponentOriginalHP, false);
+		assertEquals(b.p2.getActiveMonster().getHP() == opponentOriginalHP, false);
 	}
 	
 	@Test
