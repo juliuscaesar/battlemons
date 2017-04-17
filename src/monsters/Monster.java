@@ -353,6 +353,8 @@ public final class Monster {
 	/**
 	 * This method will apply the status damage Burn: takes damage to equal of
 	 * 16% of max HP. Poison: takes damage to equal of 16% of max HP.
+	 * Or Will do nothing if the Current Status inflicts no damage over time
+	 * on the Monster.
 	 */
 	public void applyStatusDamage() {
 		switch (this.status) {

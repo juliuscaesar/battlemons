@@ -230,7 +230,7 @@ public class DT {
             System.out.println("Making Decision for " + trainer.name);
 
         DecisionNode current = this.nodeMap.get(0);
-
+        this.printTree();
         while (current.behavior == null) {
 
             if (current.condition.check_condition(battle, trainer)) {
@@ -265,7 +265,7 @@ public class DT {
     public DecisionNode getRandomBehavior() {
         Random rng = new Random();
         int randomIndex = Math.abs(rng.nextInt(this.behaviors.size()));
-        return this.conditions.get(randomIndex);
+        return this.behaviors.get(randomIndex);
     }
 
     // Starts a recursive print of the tree

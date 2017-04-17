@@ -5,6 +5,7 @@ import java.util.Map;
 import general.Attack;
 import general.Element;
 import general.MoveCategory;
+import general.Status;
 
 
 public class MoveSet {
@@ -78,6 +79,12 @@ public class MoveSet {
 	    Move WaterfallMove = new Move(Attack.Waterfall, 80, 100, 15, Element.Water, MoveCategory.Physical);
 	    Move WaterGunMove = new Move(Attack.WaterGun, 40, 100, 25, Element.Water, MoveCategory.Special);
 	    Move WingAttackMove = new Move(Attack.WingAttack, 60, 100, 35, Element.Flying, MoveCategory.Physical);
+	    
+	    //If MoveCategory == Status , Status Accuracy = Set to 100.
+	    //If MoveCategory != Status, Status Accuracy = Anything you want ( Note that, over 10 is a little broken, try to keep it at 10, max 20).
+	    ThunderboltMove.addStatus(Status.Paralysis, 10);
+	    EmberMove.addStatus(Status.Burn, 10);
+	    ToxicMove.addStatus(Status.Poison, 100);
 	  
     
     moves.put(Attack.Acid, AcidMove);
