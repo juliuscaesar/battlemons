@@ -1,6 +1,5 @@
 package DT;
 
-
 import general.Battle;
 import general.Decision;
 import general.Element;
@@ -26,9 +25,10 @@ public class Behavior_SwitchToMonsterWithWeakType extends Behavior {
 
         // Look for a monster on the user's team with a weak matchup
         for (Monster m : user.listMonsters()) {
-            if (m.isAlive()
-                    && Element.getMatchupValue(m.getElem(),
-                            opposingType) < 1.) {
+
+            if (!m.isAlive()) continue;
+
+            if (Element.getMatchupValue(m.getElem(), opposingType) < 1.) {
                 return new Decision.ChangeMonster(m);
             }
         }

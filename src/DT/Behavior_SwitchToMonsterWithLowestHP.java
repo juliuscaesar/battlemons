@@ -21,6 +21,7 @@ public class Behavior_SwitchToMonsterWithLowestHP extends Behavior {
         // Iterate through monsters
         for (Monster m : user.listMonsters()) {
             int monHp = m.getHP();
+            if (!m.isAlive()) continue;
             if (monHp > 0 && monHp < lowestHp) {
                 lowestHp = monHp;
                 lowestHpMon = m;

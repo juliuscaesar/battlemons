@@ -103,7 +103,7 @@ public class TestItems {
 		}
 	}
 	
-	//@Test
+	/*@Test
 	public void test__ether__03(){
 		fillMap();
 		for(MonsterID id : MonsterID.values()){
@@ -125,6 +125,34 @@ public class TestItems {
 				//assertEquals(ether.useOnMove(m, atk), false);
 			}
 			System.out.println("");
+		}
+	}*/
+	
+	@Test
+	public void test__freshWater__01(){
+		for(MonsterID id : MonsterID.values()){
+			Monster m = MonsterSet.getMonster(id);
+			Item water = new Item(ItemEnum.FreshWater, 10);
+			assertEquals(water.useOn(m), false);
+			m.receiveAttack(50);
+			assertEquals(water.useOn(m), true);
+			assertEquals(water.useOn(m), false);
+		}
+	}
+	
+	@Test
+	public void test__freshWater__02(){
+		for(MonsterID id : MonsterID.values()){
+			Monster m = MonsterSet.getMonster(id);
+			Item water = new Item(ItemEnum.FreshWater, 10);
+			for(int i = 0; i < 10; i++){
+				assertEquals(water.useOn(m), false);
+				m.receiveAttack(50);
+				assertEquals(water.useOn(m), true);
+				assertEquals(water.useOn(m), false);
+			}
+			m.receiveAttack(50);
+			assertEquals(water.useOn(m),false);
 		}
 	}
 }
