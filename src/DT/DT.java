@@ -230,7 +230,7 @@ public class DT {
             System.out.println("Making Decision for " + trainer.name);
 
         DecisionNode current = this.nodeMap.get(0);
-        this.printTree();
+        //System.out.println(this.printTree());
         while (current.behavior == null) {
 
             if (current.condition.check_condition(battle, trainer)) {

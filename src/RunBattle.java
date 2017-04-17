@@ -180,7 +180,7 @@ public class RunBattle {
 
 
 		int n = 1;
-		while (true) {
+		while (n < BattleVariables.numberOfSets) {
 			RunBattle.executeSet(n);
 			n++;
 		}
