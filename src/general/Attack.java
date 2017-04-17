@@ -1,5 +1,9 @@
 package general;
 
+/**
+ * Identification for all the Moves supported.
+ * Moves are implemented by default at {moves} package.
+ */
 public enum Attack {	
 
 	Acid,
