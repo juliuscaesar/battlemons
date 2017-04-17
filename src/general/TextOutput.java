@@ -1,7 +1,7 @@
 package general;
 
 import trainers.Trainer;
-import general.Decision;
+
 
 
 public class TextOutput {
@@ -18,12 +18,12 @@ public class TextOutput {
 		if (!verboseSwitch)
 		{
 			// display the active monster of the user
-			System.out.println("The active monster for the " + user.name +
-					" is " + user.getActiveMonster());
+			System.out.println("The active monster for " + user.name +
+					" is " + user.getActiveMonster().getID());
 			
 			// display the active monster of the opponent 
-			System.out.println("The active monster for the " + opponent.name +
-					" is " + opponent.getActiveMonster());		
+			System.out.println("The active monster for " + opponent.name +
+					" is " + opponent.getActiveMonster().getID());		
 		
 		}
 		

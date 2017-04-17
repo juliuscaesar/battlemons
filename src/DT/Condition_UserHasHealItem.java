@@ -15,7 +15,7 @@ public class Condition_UserHasHealItem extends Condition {
         uses_parameter = false;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
 
         // Iterate across items
         for (Item i : user.listItems()) {

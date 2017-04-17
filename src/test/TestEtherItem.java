@@ -18,11 +18,12 @@ public class TestEtherItem {
 	@Test	
 	public void test()
 	{
-		Move testMove = MoveSet.getMove(monster.listMoves().get(1));
-		testMove.testSetPP(30);
+		Move testMove = MoveSet.getMove(monster.listMoves().get(2));
+		testMove.testSetPP(1);
+		System.out.println(testMove.getPP());
 		etherItem.useItemOnMove(monster, testMove);
 		
-		assertEquals(testMove.getPP(), 40);
+		assertEquals(testMove.getPP(), 11);
 	}
 
 }

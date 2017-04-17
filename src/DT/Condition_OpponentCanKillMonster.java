@@ -5,8 +5,7 @@ import monsters.Monster;
 import damage.Damage;
 import general.Attack;
 import trainers.Trainer;
-import trainers.Item;
-import trainers.ItemEnum;
+
 
 // Returns true if the opponent's current monster has a move that can
 // kill the user's current monster on the next turn.
@@ -18,7 +17,7 @@ public class Condition_OpponentCanKillMonster extends Condition {
         uses_parameter = false;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Monster opponent = battle.getOpponentsMonster(user);
         Damage d = new Damage();
 

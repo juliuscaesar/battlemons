@@ -10,7 +10,7 @@ public class Item {
 	private int quantity;
 	private ItemEffect effect;
 	
-	Item(ItemEnum item, int quantity){
+	public Item(ItemEnum item, int quantity){
 		this.item = item;
 		this.quantity = quantity;
 		this.effect = ItemEffectCreator.getEffect(item);

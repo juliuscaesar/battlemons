@@ -1,13 +1,5 @@
 package DT;
 
-import trainers.Item;
-import trainers.Trainer;
-
-import java.util.Collections;
-
-import general.Decision;
-import monsters.Monster;
-import moves.Move;
 
 /**
  * Genetic Algorithm that performs mutations on the

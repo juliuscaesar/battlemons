@@ -13,6 +13,7 @@ import general.Battle;
 import general.Decision;
 import general.MonsterID;
 import monsters.Monster;
+import monsters.MonsterSet;
 import moves.MoveSet;
 
 /**
@@ -216,6 +217,12 @@ public class Trainer {
             percent += m.getPercentHP();
         }
         return percent;
+    }
+    
+    // only for testing
+    public void testSetCurrentActiveMonster(MonsterID id)
+    {
+    	active = MonsterSet.getMonster(id);
     }
 
 }

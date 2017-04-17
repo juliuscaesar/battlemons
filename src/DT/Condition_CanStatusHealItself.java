@@ -5,8 +5,6 @@ import monsters.Monster;
 
 import java.util.List;
 
-import damage.Damage;
-import general.Attack;
 import general.Status;
 import trainers.Trainer;
 import trainers.Item;
@@ -20,7 +18,7 @@ public class Condition_CanStatusHealItself extends Condition {
         uses_parameter = true;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Monster currentMon = user.getActiveMonster();
         List<Item> itemsOnUser = user.listItems();
 

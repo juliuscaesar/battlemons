@@ -1,13 +1,12 @@
 package DT;
 
 import general.Battle;
-import monsters.Monster;
+
 import damage.Damage;
 import general.Attack;
 import moves.MoveSet;
 import trainers.Trainer;
-import trainers.Item;
-import trainers.ItemEnum;
+
 
 // Returns true if the user's active monster's strongest attack (the
 // attack that will deal the most damage to the opponent) has a
@@ -22,7 +21,7 @@ public class Condition_BestAttackHasLowPP extends Condition {
         lower_bound = 0.0;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Damage d = new Damage();
 
         // Get the strongest move and check how much PP is left as a

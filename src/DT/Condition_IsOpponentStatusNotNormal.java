@@ -2,12 +2,10 @@ package DT;
 
 import general.Battle;
 import monsters.Monster;
-import damage.Damage;
-import general.Attack;
+
 import general.Status;
 import trainers.Trainer;
-import trainers.Item;
-import trainers.ItemEnum;
+
 
 public class Condition_IsOpponentStatusNotNormal extends Condition {
     public Condition_IsOpponentStatusNotNormal() {
@@ -17,7 +15,7 @@ public class Condition_IsOpponentStatusNotNormal extends Condition {
         uses_parameter = true;
     }
 
-    boolean check_condition(Battle battle, Trainer user) {
+    public boolean check_condition(Battle battle, Trainer user) {
         Monster currentOpponentMon = battle.getOpponentsMonster(user);
         return (currentOpponentMon.getStatus() != Status.Normal);
     }
