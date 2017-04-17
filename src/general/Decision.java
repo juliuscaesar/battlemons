@@ -9,7 +9,6 @@ import trainers.BurnHealItem;
 import trainers.EtherItem;
 import trainers.FreshwaterItem;
 import trainers.IceHealItem;
-
 import trainers.ParalyzHealItem;
 import trainers.Trainer;
 import monsters.Monster;

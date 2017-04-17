@@ -59,9 +59,11 @@ public class TestBehaviors {
 		b.p1.items.add(ether);
 		
 		Attack attackToTest = b.p1.getActiveMonster().listMoves().get(2);
-		Move moveToTest = MoveSet.getMove(attackToTest);
+		Move moveToTest = b.p1.getActiveMonster().getMoves().get(attackToTest);
 		moveToTest.testSetPP(0);
 		System.out.println(moveToTest);
+        assertEquals(0, moveToTest.getPP());
+		
 		Behavior_HealPP behaviorHealPP = new Behavior_HealPP();
 		Decision decision = behaviorHealPP.execute(b, b.p1);
 		decision.executeDecision(b, b.p1);
