@@ -269,53 +269,51 @@ public class DT {
     }
 
     // Starts a recursive print of the tree
-    public void printTree() {
+    public String printTree() {
         if (nodeMap.size() == 0) {
-            System.out.println("tree is empty");
-            return;
+            return "tree is empty";
         }
-        printTree("", nodeMap.get(0));
+        return printTree("", 0, true);
     }
 
-    public void printTree(String prefix, DecisionNode node) {
-        if (node.condition != null) { // this is a condition
+    public String printTree(String prefix, int id, boolean isTrueChild) {
 
-            // Print this condition
-            System.out.println(prefix + node.id + ": "
-                    + node.condition.toString());
+        String result = "\n" + prefix + (isTrueChild ? "True [" : "False [")
+                + id + "]: ";
+
+        DecisionNode node = nodeMap.get(id);
+
+        if (node == null) {
+
+            result += "null";
+
+        } else if (node.condition != null) { // this is a condition
+
+            // Get Condition name
+            result += "Condition " + node.condition.toString();
 
             // Print the true child
-            if (node.conditionTrue > -1) {
-                DecisionNode trueChild = nodeMap
-                        .containsKey(node.conditionTrue) ? nodeMap
-                        .get(node.conditionTrue) : null;
-                if (trueChild == null) {
-                    System.out.println(prefix + "  null");
-                } else {
-                    printTree(prefix + "  ", trueChild);
-                }
+            if (nodeMap.containsKey(node.conditionTrue)) {
+                result += printTree(prefix + "  ", node.conditionTrue, true);
             } else {
-                System.out.println(prefix + "  no true child set");
+                result += "\n" + prefix + "  No valid true child set (id: "
+                        + node.conditionTrue + ")";
             }
 
             // Print the false child
-            if (node.conditionFalse > -1) {
-                DecisionNode falseChild = nodeMap
-                        .containsKey(node.conditionFalse) ? nodeMap
-                        .get(node.conditionFalse) : null;
-                if (falseChild == null) {
-                    System.out.println(prefix + "  null");
-                } else {
-                    printTree(prefix + "  ", falseChild);
-                }
+            if (nodeMap.containsKey(node.conditionFalse)) {
+                // Recurse
+                result += printTree(prefix + "  ", node.conditionFalse, false);
             } else {
-                System.out.println(prefix + "  no true child set");
+                result += "\n" + prefix + "  No valid false child set (id: "
+                        + node.conditionFalse + ")";
             }
         } else if (node.behavior != null) { // this is a behavior
-            System.out.println(prefix + node.id + ": "
-                    + node.behavior.toString());
+            result += "Behavior - " + node.behavior.toString();
         } else { // this is nothing?
-            System.out.println(prefix + "behavior and condition are null");
+            result += "!!!behavior and condition are null!!!";
         }
+
+        return result;
     }
 }
