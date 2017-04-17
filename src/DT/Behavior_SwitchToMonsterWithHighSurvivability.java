@@ -8,7 +8,7 @@ import general.Decision;
 import monsters.Monster;
 import trainers.Trainer;
 
-public class Behavior_ChangeToMonsterWithHighSurvivability extends Behavior {
+public class Behavior_SwitchToMonsterWithHighSurvivability extends Behavior {
     public Decision execute(Battle battle, Trainer user) {
         Monster opponent = battle.getOpponentsMonster(user);
         Monster bestMon = user.getActiveMonster();
