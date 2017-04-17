@@ -4,15 +4,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import general.Battle;
 import general.Status;
 import monsters.Monster;
-import monsters.MonsterSet;
 import trainers.IceHealItem;
 
 public class TestIceHealItem {
 
 	IceHealItem iceHealItem = new IceHealItem();
-	Monster monster = MonsterSet.getRandomMonster();
+    Battle b = Battle.testBattle();
+    Monster monster = b.p1.getActiveMonster();
 	
 	@Test
 	public void test1() {

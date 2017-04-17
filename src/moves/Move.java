@@ -249,8 +249,9 @@ public class Move{
     
     public void increasePP(int amount)
     {
+        System.out.println(this.pp);
     	this.pp = this.pp + amount;    	
-    
+    	System.out.println(this.pp);
     }
     
     

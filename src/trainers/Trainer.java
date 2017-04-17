@@ -8,14 +8,12 @@ import java.util.Map;
 
 import DT.Behavior_SwitchToMonsterWithBestAttack;
 import DT.DT;
-import general.Attack;
 import general.Battle;
 import general.BattleVariables;
 import general.Decision;
 import general.MonsterID;
 import monsters.Monster;
 import monsters.MonsterSet;
-import moves.MoveSet;
 
 /**
  * Trainer Class.
@@ -62,7 +60,6 @@ public class Trainer {
 			throw new IllegalArgumentException(
 					"Trainer can't have no Monsters.");
 		}
-		Collections.shuffle(monsters);
 		this.monsters = new HashMap<>();
 		this.order = new ArrayList<>();
 		for (Monster m : monsters) {

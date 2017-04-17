@@ -1,11 +1,11 @@
 package test;
 
 import static org.junit.Assert.*;
+import general.Battle;
 
 import org.junit.Test;
 
 import monsters.Monster;
-import monsters.MonsterSet;
 import moves.Move;
 import moves.MoveSet;
 import trainers.EtherItem;
@@ -13,7 +13,8 @@ import trainers.EtherItem;
 public class TestEtherItem {
 
 	EtherItem etherItem = new EtherItem();
-	Monster monster = MonsterSet.getRandomMonster();
+    Battle b = Battle.testBattle();
+    Monster monster = b.p1.getActiveMonster();
 	
 	@Test	
 	public void test()

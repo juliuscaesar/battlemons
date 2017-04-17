@@ -12,7 +12,7 @@ import trainers.Trainer;
 
 public class Behavior_UseLowestAccuracyMove extends Behavior {
     public Decision execute(Battle battle, Trainer user) {
-        int lowestAcc = 0;
+        int lowestAcc = 100;
         Monster monster = user.getActiveMonster();
 
         Attack lowestAttack = null;

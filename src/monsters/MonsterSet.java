@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import general.Battle;
 import general.MonsterID;
 import general.Attack;
 import general.Element;
@@ -143,9 +144,8 @@ public class MonsterSet {
 		throw new IllegalArgumentException("Monster: [" + name.name() + "] not found.");
 	}
 
-	public static Monster getRandomMonster(){
-		Random rng = new Random();
-		int randomIndex = Math.abs(rng.nextInt(monsters.size()));
+	public static Monster getRandomMonster(Battle b){
+		int randomIndex = Math.abs(b.rng_monster.nextInt(monsters.size()));
 		List<Monster> list = new ArrayList<Monster>(monsters.values());
 		return new Monster(list.get(randomIndex));
 	}
