@@ -2,11 +2,8 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
-import trainers.Item;
 import trainers.Trainer;
 import general.MonsterID;
 import monsters.Monster;
@@ -19,23 +16,10 @@ import damage.Damage;
 
 public class TestBattle {
 
+    Damage d = new Damage();
+    Battle battle;
     Monster a = MonsterSet.getMonster(MonsterID.Adnocana);
     Monster b = MonsterSet.getMonster(MonsterID.Emberfly);
-    Damage d = new Damage();
-
-    Battle initBattle() {
-        Trainer t1 = new Trainer("player", new ArrayList<Monster>() {
-            {
-                add(MonsterSet.getMonster(MonsterID.Adnocana));
-            }
-        }, new ArrayList<Item>());
-        Trainer t2 = new Trainer("enemy", new ArrayList<Monster>() {
-            {
-                add(MonsterSet.getMonster(MonsterID.Emberfly));
-            }
-        }, new ArrayList<Item>());
-        return new Battle(t1, t2);
-    }
 
     @Test
     public void test1() {
@@ -51,7 +35,7 @@ public class TestBattle {
 
     @Test
     public void test_turnOrder() {
-        Battle battle = initBattle();
+        Battle battle = Battle.testBattle();
 
         // both players doing non-moves
         assertArrayEquals(battle.getTurnOrder(), new Trainer[] { battle.p1,
@@ -98,7 +82,7 @@ public class TestBattle {
 
     @Test
     public void test_runBattle() {
-        Battle battle = initBattle();
+        Battle battle = Battle.testBattle();
         // TODO
         assertTrue(battle.runBattle() >= 0.);
     }

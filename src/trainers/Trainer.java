@@ -8,14 +8,12 @@ import java.util.Map;
 
 import DT.Behavior_SwitchToMonsterWithBestAttack;
 import DT.DT;
-import general.Attack;
 import general.Battle;
 import general.BattleVariables;
 import general.Decision;
 import general.MonsterID;
 import monsters.Monster;
 import monsters.MonsterSet;
-import moves.MoveSet;
 
 /**
  * Trainer Class.

@@ -7,7 +7,6 @@ import org.junit.Test;
 import general.Battle;
 import general.Status;
 import monsters.Monster;
-import monsters.MonsterSet;
 import trainers.IceHealItem;
 
 public class TestIceHealItem {

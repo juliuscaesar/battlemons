@@ -2,10 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 
 import DT.Behavior_ChangeToMonsterWithHighSurvivability;
@@ -24,32 +20,25 @@ import DT.Behavior_UseLowestAccuracyMove;
 import general.Attack;
 import general.Battle;
 import general.Decision;
-import general.MonsterID;
 import general.Status;
 
 import monsters.Monster;
-import monsters.MonsterSet;
 import moves.Move;
 import moves.MoveSet;
 
 import trainers.Item;
 import trainers.ItemEnum;
-import trainers.Trainer;
 
 public class TestBehaviors {	
 
 	// create trainers to run this battle with
-	Battle b = Battle.testBattle();
-	
-	
-	ItemEnum itemEnum = null;
-	
+	Battle b = Battle.testBattle();	
 	Attack attack;
 	
 	@Test
 	public void test1() {		
 		
-		Item freshwater = new Item(itemEnum.FreshWater, 1);
+		Item freshwater = new Item(ItemEnum.FreshWater, 1);
 		
 		b.p1.items.add(freshwater);
 		b.p1.getActiveMonster().testSetHP(10);	
@@ -65,7 +54,7 @@ public class TestBehaviors {
 	@Test
 	public void test2()
 	{
-		Item ether = new Item(itemEnum.Ether, 1);
+		Item ether = new Item(ItemEnum.Ether, 1);
 		
 		b.p1.items.add(ether);
 		
@@ -96,7 +85,7 @@ public class TestBehaviors {
 	@Test
 	public void test4() {		
 		
-		Item cureBurn = new Item(itemEnum.BurnHeal, 1);
+		Item cureBurn = new Item(ItemEnum.BurnHeal, 1);
 		
 		b.p1.items.add(cureBurn);
 		b.p1.getActiveMonster().setStatus(Status.Burn);	
@@ -112,7 +101,7 @@ public class TestBehaviors {
 	@Test
 	public void test5() {		
 		
-		Item cureBurn = new Item(itemEnum.Antidote, 1);
+		Item cureBurn = new Item(ItemEnum.Antidote, 1);
 		
 		b.p1.items.add(cureBurn);
 		b.p1.getActiveMonster().setStatus(Status.Poison);	
@@ -128,7 +117,7 @@ public class TestBehaviors {
 	@Test
 	public void test6() {		
 		
-		Item cureBurn = new Item(itemEnum.Awakening, 1);
+		Item cureBurn = new Item(ItemEnum.Awakening, 1);
 		
 		b.p1.items.add(cureBurn);
 		b.p1.getActiveMonster().setStatus(Status.Sleep);	
@@ -144,7 +133,7 @@ public class TestBehaviors {
 	@Test
 	public void test7() {		
 		
-		Item cureBurn = new Item(itemEnum.IceHeal, 1);
+		Item cureBurn = new Item(ItemEnum.IceHeal, 1);
 		b.p1.items.add(cureBurn);
 		b.p1.getActiveMonster().setStatus(Status.Freeze);	
 		Behavior_HealStatus behaviorHealStatus = new Behavior_HealStatus();
@@ -159,7 +148,7 @@ public class TestBehaviors {
 	@Test
 	public void test8() {		
 		
-		Item cureBurn = new Item(itemEnum.ParalyzHeal, 1);
+		Item cureBurn = new Item(ItemEnum.ParalyzHeal, 1);
 		
 		b.p1.items.add(cureBurn);
 		b.p1.getActiveMonster().setStatus(Status.Paralysis);	

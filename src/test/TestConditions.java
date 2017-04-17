@@ -2,10 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 
 import DT.Condition_BestAttackHasLowPP;
@@ -23,12 +19,8 @@ import DT.Condition_OpponentHealthLowerThanValue;
 import DT.Condition_OtherMonsterCanSurviveOpponentAttack;
 import DT.Condition_UserHasHealItem;
 import general.Battle;
-import general.MonsterID;
-import monsters.Monster;
-import monsters.MonsterSet;
 import trainers.Item;
 import trainers.ItemEnum;
-import trainers.Trainer;
 
 public class TestConditions {
     
@@ -177,9 +169,7 @@ public class TestConditions {
 	@Test
 	public void test15() {		
 		
-		ItemEnum itemEnum = null;
-		
-		Item freshwater = new Item(itemEnum.FreshWater, 1);
+		Item freshwater = new Item(ItemEnum.FreshWater, 1);
 		
 		Condition_UserHasHealItem condition = 
 				new Condition_UserHasHealItem();

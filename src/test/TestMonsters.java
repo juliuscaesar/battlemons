@@ -23,6 +23,7 @@ public class TestMonsters {
     public void test__checkAlive__1() {
         Battle b = Battle.testBattle();
         Monster m = b.p1.getActiveMonster();
+        assertEquals(m.isAlive(), true);
     }
 
     @Test

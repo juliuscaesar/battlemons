@@ -1,7 +1,6 @@
 package general;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -113,8 +112,8 @@ public class Battle {
             }
             // Make the AI decisions HERE. Neither AI will know what the other
             // has chosen until these decisions are executed
-            Decision player1decision = p1.makeDecision(this);
-            Decision player2decision = p2.makeDecision(this);
+            p1.makeDecision(this);
+            p2.makeDecision(this);
 
             // Determine move order
             Trainer order[] = getTurnOrder();
