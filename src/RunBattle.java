@@ -104,6 +104,7 @@ public class RunBattle {
 			return new DT(true);
 		}
 		else {
+			new DT().printTree();
 			return new DT();
 		}
 	}
