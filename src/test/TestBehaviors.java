@@ -24,7 +24,7 @@ import DT.Behavior_UseLowestAccuracyMove;
 import general.Attack;
 import general.Battle;
 import general.Decision;
-
+import general.MonsterID;
 import general.Status;
 
 import monsters.Monster;
@@ -40,21 +40,20 @@ public class TestBehaviors {
 
 	List<Monster> trainer1team = 
 			new ArrayList<Monster>(
-					Arrays.asList(MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster()));
+					Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
+							MonsterSet.getMonster(MonsterID.Armordillo), 
+							MonsterSet.getMonster(MonsterID.Boomtu), 
+							MonsterSet.getMonster(MonsterID.Bulblight),
+							MonsterSet.getMonster(MonsterID.Carrotay), 
+							MonsterSet.getMonster(MonsterID.Emberfly)));
 	List<Monster> trainer2team = 
 			new ArrayList<Monster>(
-					Arrays.asList(MonsterSet.getRandomMonster(),
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster(), 
-							MonsterSet.getRandomMonster()));
-
+					Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
+							MonsterSet.getMonster(MonsterID.Armordillo), 
+							MonsterSet.getMonster(MonsterID.Boomtu), 
+							MonsterSet.getMonster(MonsterID.Bulblight),
+							MonsterSet.getMonster(MonsterID.Carrotay), 
+							MonsterSet.getMonster(MonsterID.Emberfly)));
 
 	List<Item> trainer1items = new ArrayList<Item>();
 	List<Item> trainer2items = new ArrayList<Item>();
@@ -96,7 +95,8 @@ public class TestBehaviors {
 		
 		Attack attackToTest = trainer1.getActiveMonster().listMoves().get(2);
 		Move moveToTest = MoveSet.getMove(attackToTest);
-		moveToTest.testSetPP(0);		
+		moveToTest.testSetPP(0);
+		System.out.println(moveToTest);
 		Behavior_HealPP behaviorHealPP = new Behavior_HealPP();
 		Decision decision = behaviorHealPP.execute(b, trainer1);
 		decision.executeDecision(b, trainer1);

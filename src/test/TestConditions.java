@@ -175,7 +175,7 @@ public class TestConditions {
 		Condition_OpponentHealthLowerThanPercent condition = 
 				new Condition_OpponentHealthLowerThanPercent(100);
 
-		assertEquals(false, condition.check_condition(b, trainer1));
+		assertEquals(true, condition.check_condition(b, trainer1));
 		
 	}
 	
