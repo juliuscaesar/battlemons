@@ -156,6 +156,7 @@ public class MonsterSet {
 		List<Monster> list = new ArrayList<Monster>(monsters.values());
 		Monster m = new Monster(list.get(randomIndex));
 		m.addMoves(moves.get(m.getID()));
-		return new Monster(list.get(randomIndex));
+		m.listMoves();
+		return m;
 	}
 }

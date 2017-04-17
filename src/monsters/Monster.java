@@ -141,11 +141,11 @@ public final class Monster {
 	 *            is the fourth move.
 	 */
 	public void addMoves(Attack...attacks){
-		Map<Attack, Move> temp = new HashMap<>();
+		moves = new HashMap<Attack, Move>();
 		for(int i = 0; i < attacks.length; i++){
-			temp.put(attacks[i], MoveSet.getMove(attacks[i]));
+			moves.put(attacks[i], MoveSet.getMove(attacks[i]));
 		}
-		moves = new HashMap<>(temp);
+		System.out.println(attacks.length);
 	}
 
 	/**
