@@ -129,6 +129,7 @@ public class MoveSet {
     moves.put(Attack.SolarBeam, SolarBeamMove);
     moves.put(Attack.Spore, SporeMove);
     moves.put(Attack.StringShot, StringShotMove);
+    moves.put(Attack.Struggle, StruggleMove);
     moves.put(Attack.Surf, SurfMove);
     moves.put(Attack.Teleport, TeleportMove);
     moves.put(Attack.Thunder, ThunderMove);
