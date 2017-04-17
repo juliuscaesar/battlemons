@@ -13,11 +13,13 @@ import moves.MoveSet;
 
 public class MonsterSet {
 	private static Map<MonsterID, Monster> monsters;
+	private static Map<MonsterID, Attack[]> moves;
 
 
 	// Monsters name, int hp, int atk, int spAtk, int def, int spDef, int spd, Element... elements)
 	static {
 		monsters = new HashMap<>();
+		moves = new HashMap<>();
 
 		Monster Emberfly = new Monster(MonsterID.Emberfly, 120, 100, 75, 110, 75, 90, Element.Fire);
 		Monster Flamber = new Monster(MonsterID.Flamber, 110, 80, 215, 85, 85, 60, Element.Fire);
@@ -49,59 +51,62 @@ public class MonsterSet {
 		/**
 		 * Assigns 4 moves to each Battlemon
 		 */
-		Emberfly.addMoves(MoveSet.getMove(Attack.FirePunch), MoveSet.getMove(Attack.WingAttack),
-				MoveSet.getMove(Attack.Amnesia), MoveSet.getMove(Attack.BodySlam));
-		Flamber.addMoves(MoveSet.getMove(Attack.FireBlast), MoveSet.getMove(Attack.Barrier),
-				MoveSet.getMove(Attack.Sandattack), MoveSet.getMove(Attack.ConfuseRay));
-		Oceolot.addMoves(MoveSet.getMove(Attack.WaterGun), MoveSet.getMove(Attack.Blizzard),
-				MoveSet.getMove(Attack.Mist), MoveSet.getMove(Attack.Barrier));
-		Feesh.addMoves(MoveSet.getMove(Attack.Waterfall), MoveSet.getMove(Attack.Scratch),
-				MoveSet.getMove(Attack.Acid), MoveSet.getMove(Attack.BodySlam));
-		Parrit.addMoves(MoveSet.getMove(Attack.Fly), MoveSet.getMove(Attack.WingAttack),
-				MoveSet.getMove(Attack.SkyAttack), MoveSet.getMove(Attack.Counter));
-		Hummbee.addMoves(MoveSet.getMove(Attack.ConfuseRay), MoveSet.getMove(Attack.WingAttack),
-				MoveSet.getMove(Attack.Amnesia), MoveSet.getMove(Attack.BodySlam));
-		Shockeel.addMoves(MoveSet.getMove(Attack.Thunder), MoveSet.getMove(Attack.Acid),
-				MoveSet.getMove(Attack.Toxic), MoveSet.getMove(Attack.WaterGun));
-		Bulblight.addMoves(MoveSet.getMove(Attack.ThunderPunch), MoveSet.getMove(Attack.ThunderWave),
-				MoveSet.getMove(Attack.BodySlam), MoveSet.getMove(Attack.Sandattack));
-		Enchantu.addMoves(MoveSet.getMove(Attack.Teleport), MoveSet.getMove(Attack.Kinesis),
-				MoveSet.getMove(Attack.Nightshade), MoveSet.getMove(Attack.BodySlam));
-		Hopper.addMoves(MoveSet.getMove(Attack.Teleport), MoveSet.getMove(Attack.Kinesis),
-				MoveSet.getMove(Attack.Nightshade), MoveSet.getMove(Attack.BodySlam));
-		Armordillo.addMoves(MoveSet.getMove(Attack.Earthquake), MoveSet.getMove(Attack.DoubleKick),
-				MoveSet.getMove(Attack.Barrage), MoveSet.getMove(Attack.BodySlam));
-		Munkrock.addMoves(MoveSet.getMove(Attack.Earthquake), MoveSet.getMove(Attack.DoubleKick),
-				MoveSet.getMove(Attack.Barrage), MoveSet.getMove(Attack.BodySlam));
-		Ursidae.addMoves(MoveSet.getMove(Attack.Earthquake), MoveSet.getMove(Attack.Amnesia),
-				MoveSet.getMove(Attack.SeismicToss), MoveSet.getMove(Attack.BodySlam));
-		Meowser.addMoves(MoveSet.getMove(Attack.Scratch), MoveSet.getMove(Attack.DoubleKick),
-				MoveSet.getMove(Attack.Barrage), MoveSet.getMove(Attack.BodySlam));
-		Glacipup.addMoves(MoveSet.getMove(Attack.IceBeam), MoveSet.getMove(Attack.Surf),
-				MoveSet.getMove(Attack.Haze), MoveSet.getMove(Attack.ConfuseRay));
-		Yeeti.addMoves(MoveSet.getMove(Attack.Blizzard), MoveSet.getMove(Attack.Surf),
-				MoveSet.getMove(Attack.Haze), MoveSet.getMove(Attack.ConfuseRay));
-		Punchroo.addMoves(MoveSet.getMove(Attack.HighJumpKick), MoveSet.getMove(Attack.SeismicToss),
-				MoveSet.getMove(Attack.ConfuseRay), MoveSet.getMove(Attack.IcePunch));
-		Carrotay.addMoves(MoveSet.getMove(Attack.Earthquake), MoveSet.getMove(Attack.LowKick),
-				MoveSet.getMove(Attack.SeismicToss), MoveSet.getMove(Attack.ConfuseRay));
-		Grandant.addMoves(MoveSet.getMove(Attack.StringShot), MoveSet.getMove(Attack.Spore),
-				MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.PinMissile));
-		Skorpen.addMoves(MoveSet.getMove(Attack.StringShot), MoveSet.getMove(Attack.Spore),
-				MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.PinMissile));
-		Supalm.addMoves(MoveSet.getMove(Attack.RazorLeaf), MoveSet.getMove(Attack.Spore),
-				MoveSet.getMove(Attack.LeechLife), MoveSet.getMove(Attack.LeechSeed));
-		Crysanthum.addMoves(MoveSet.getMove(Attack.IceBeam), MoveSet.getMove(Attack.PoisonGas),
-				MoveSet.getMove(Attack.SolarBeam), MoveSet.getMove(Attack.PinMissile));
-		Boomtu.addMoves(MoveSet.getMove(Attack.Psybeam), MoveSet.getMove(Attack.Thunder),
-				MoveSet.getMove(Attack.Nightshade), MoveSet.getMove(Attack.ConfuseRay));
-		Haunting.addMoves(MoveSet.getMove(Attack.Lick), MoveSet.getMove(Attack.Teleport),
-				MoveSet.getMove(Attack.Counter), MoveSet.getMove(Attack.TwinNeedle));
-		Nadifly.addMoves(MoveSet.getMove(Attack.Fly), MoveSet.getMove(Attack.Toxic),
-				MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.TwinNeedle));
-		Adnocana.addMoves(MoveSet.getMove(Attack.Lick), MoveSet.getMove(Attack.BodySlam),
-				MoveSet.getMove(Attack.PoisonSting), MoveSet.getMove(Attack.TwinNeedle));
+		/*
+		Emberfly.addMoves(Attack.FirePunch, Attack.WingAttack, Attack.Amnesia, Attack.BodySlam);
+		Flamber.addMoves( (Attack.FireBlast),  (Attack.Barrier), (Attack.Sandattack),  (Attack.ConfuseRay));
+		Oceolot.addMoves( (Attack.WaterGun),  (Attack.Blizzard), (Attack.Mist),  (Attack.Barrier));
+		Feesh.addMoves( (Attack.Waterfall),  (Attack.Scratch), (Attack.Acid),  (Attack.BodySlam));
+		Parrit.addMoves( (Attack.Fly),  (Attack.WingAttack), (Attack.SkyAttack),  (Attack.Counter));
+		Hummbee.addMoves( (Attack.ConfuseRay),  (Attack.WingAttack), (Attack.Amnesia),  (Attack.BodySlam));
+		Shockeel.addMoves( (Attack.Thunder),  (Attack.Acid), (Attack.Toxic),  (Attack.WaterGun));
+		Bulblight.addMoves( (Attack.ThunderPunch),  (Attack.ThunderWave), (Attack.BodySlam),  (Attack.Sandattack));
+		Enchantu.addMoves( (Attack.Teleport),  (Attack.Kinesis), (Attack.Nightshade),  (Attack.BodySlam));
+		Hopper.addMoves( (Attack.Teleport),  (Attack.Kinesis), (Attack.Nightshade),  (Attack.BodySlam));
+		Armordillo.addMoves( (Attack.Earthquake),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam));
+		Munkrock.addMoves( (Attack.Earthquake),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam));
+		Ursidae.addMoves( (Attack.Earthquake),  (Attack.Amnesia), (Attack.SeismicToss),  (Attack.BodySlam));
+		Meowser.addMoves( (Attack.Scratch),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam));
+		Glacipup.addMoves( (Attack.IceBeam),  (Attack.Surf), (Attack.Haze),  (Attack.ConfuseRay));
+		Yeeti.addMoves( (Attack.Blizzard),  (Attack.Surf), (Attack.Haze),  (Attack.ConfuseRay));
+		Punchroo.addMoves( (Attack.HighJumpKick),  (Attack.SeismicToss), (Attack.ConfuseRay),  (Attack.IcePunch));
+		Carrotay.addMoves( (Attack.Earthquake),  (Attack.LowKick), (Attack.SeismicToss),  (Attack.ConfuseRay));
+		Grandant.addMoves( (Attack.StringShot),  (Attack.Spore), (Attack.PoisonSting),  (Attack.PinMissile));
+		Skorpen.addMoves( (Attack.StringShot),  (Attack.Spore), (Attack.PoisonSting),  (Attack.PinMissile));
+		Supalm.addMoves( (Attack.RazorLeaf),  (Attack.Spore), (Attack.LeechLife),  (Attack.LeechSeed));
+		Crysanthum.addMoves( (Attack.IceBeam),  (Attack.PoisonGas),	 (Attack.SolarBeam),  (Attack.PinMissile));
+		Boomtu.addMoves( (Attack.Psybeam),  (Attack.Thunder), (Attack.Nightshade),  (Attack.ConfuseRay));
+		Haunting.addMoves( (Attack.Lick),  (Attack.Teleport), (Attack.Counter),  (Attack.TwinNeedle));
+		Nadifly.addMoves( (Attack.Fly),  (Attack.Toxic), (Attack.PoisonSting),  (Attack.TwinNeedle));
+		Adnocana.addMoves( (Attack.Lick),  (Attack.BodySlam), (Attack.PoisonSting),  (Attack.TwinNeedle));
+		*/
 
+		moves.put(MonsterID.Emberfly, new Attack[]{ Attack.FirePunch, Attack.WingAttack, Attack.Amnesia, Attack.BodySlam });
+		moves.put(MonsterID.Flamber, new Attack[]{ (Attack.FireBlast),  (Attack.Barrier), (Attack.Sandattack),  (Attack.ConfuseRay) });
+		moves.put(MonsterID.Oceolot, new Attack[]{ (Attack.WaterGun),  (Attack.Blizzard), (Attack.Mist),  (Attack.Barrier) });
+		moves.put(MonsterID.Feesh, new Attack[]{ (Attack.Waterfall),  (Attack.Scratch), (Attack.Acid),  (Attack.BodySlam) });
+		moves.put(MonsterID.Parrit, new Attack[]{ (Attack.Fly),  (Attack.WingAttack), (Attack.SkyAttack),  (Attack.Counter) });
+		moves.put(MonsterID.Hummbee, new Attack[]{ (Attack.ConfuseRay),  (Attack.WingAttack), (Attack.Amnesia),  (Attack.BodySlam) });
+		moves.put(MonsterID.Shockeel, new Attack[]{ (Attack.Thunder),  (Attack.Acid), (Attack.Toxic),  (Attack.WaterGun) });
+		moves.put(MonsterID.Bulblight, new Attack[]{ (Attack.ThunderPunch),  (Attack.ThunderWave), (Attack.BodySlam),  (Attack.Sandattack) });
+		moves.put(MonsterID.Enchantu, new Attack[]{ (Attack.Teleport),  (Attack.Kinesis), (Attack.Nightshade),  (Attack.BodySlam) });
+		moves.put(MonsterID.Hopper, new Attack[]{ (Attack.Teleport),  (Attack.Kinesis), (Attack.Nightshade),  (Attack.BodySlam) });
+		moves.put(MonsterID.Armordillo, new Attack[]{ (Attack.Earthquake),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam) });
+		moves.put(MonsterID.Munkrock, new Attack[]{ (Attack.Earthquake),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam) });
+		moves.put(MonsterID.Ursidae, new Attack[]{ (Attack.Earthquake),  (Attack.Amnesia), (Attack.SeismicToss),  (Attack.BodySlam) });
+		moves.put(MonsterID.Meowser, new Attack[]{ (Attack.Scratch),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam) });
+		moves.put(MonsterID.Glacipup, new Attack[]{ (Attack.IceBeam),  (Attack.Surf), (Attack.Haze),  (Attack.ConfuseRay) });
+		moves.put(MonsterID.Yeeti, new Attack[]{ (Attack.Blizzard),  (Attack.Surf), (Attack.Haze),  (Attack.ConfuseRay) });
+		moves.put(MonsterID.Punchroo, new Attack[]{ (Attack.HighJumpKick),  (Attack.SeismicToss), (Attack.ConfuseRay),  (Attack.IcePunch) });
+		moves.put(MonsterID.Carrotay, new Attack[]{ (Attack.Earthquake),  (Attack.LowKick), (Attack.SeismicToss),  (Attack.ConfuseRay) });
+		moves.put(MonsterID.Grandant, new Attack[]{ (Attack.StringShot),  (Attack.Spore), (Attack.PoisonSting),  (Attack.PinMissile) });
+		moves.put(MonsterID.Skorpen, new Attack[]{ (Attack.StringShot),  (Attack.Spore), (Attack.PoisonSting),  (Attack.PinMissile) });
+		moves.put(MonsterID.Supalm, new Attack[]{ (Attack.RazorLeaf),  (Attack.Spore), (Attack.LeechLife),  (Attack.LeechSeed) });
+		moves.put(MonsterID.Crysanthum, new Attack[]{ (Attack.IceBeam),  (Attack.PoisonGas),	 (Attack.SolarBeam),  (Attack.PinMissile) });
+		moves.put(MonsterID.Boomtu, new Attack[]{ (Attack.Psybeam),  (Attack.Thunder), (Attack.Nightshade),  (Attack.ConfuseRay) });
+		moves.put(MonsterID.Haunting, new Attack[]{ (Attack.Lick),  (Attack.Teleport), (Attack.Counter),  (Attack.TwinNeedle) });
+		moves.put(MonsterID.Nadifly, new Attack[]{ (Attack.Fly),  (Attack.Toxic), (Attack.PoisonSting),  (Attack.TwinNeedle) });
+		moves.put(MonsterID.Adnocana, new Attack[]{ (Attack.Lick),  (Attack.BodySlam), (Attack.PoisonSting),  (Attack.TwinNeedle) });
+		
 		/**
 		 * Adds the Battlemons to the HashMap
 		 */
@@ -133,13 +138,15 @@ public class MonsterSet {
 		monsters.put(MonsterID.Adnocana, Adnocana);
 
 	}
-
+	
 	/**
 	 * Return the Monster associated with the given MonsterID
 	 */
 	public static Monster getMonster(MonsterID name) {
 		if(monsters.containsKey(name)) {
-			return new Monster(monsters.get(name));
+			Monster m = new Monster(monsters.get(name));
+			m.addMoves(moves.get(name));
+			return m;
 		}
 		throw new IllegalArgumentException("Monster: [" + name.name() + "] not found.");
 	}
@@ -147,6 +154,8 @@ public class MonsterSet {
 	public static Monster getRandomMonster(Battle b){
 		int randomIndex = Math.abs(b.rng_monster.nextInt(monsters.size()));
 		List<Monster> list = new ArrayList<Monster>(monsters.values());
+		Monster m = new Monster(list.get(randomIndex));
+		m.addMoves(moves.get(m.getID()));
 		return new Monster(list.get(randomIndex));
 	}
 }

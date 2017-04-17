@@ -142,10 +142,18 @@ public final class Monster {
 	 */
 	public void addMoves(Move m1, Move m2, Move m3, Move m4) {
 		Map<Attack, Move> temp = new HashMap<>();
-		temp.put(m1.toAttack(), m1);
-		temp.put(m2.toAttack(), m2);
-		temp.put(m3.toAttack(), m3);
-		temp.put(m4.toAttack(), m4);
+		temp.put(m1.toAttack(), new Move(m1));
+		temp.put(m2.toAttack(), new Move(m2));
+		temp.put(m3.toAttack(), new Move(m3));
+		temp.put(m4.toAttack(), new Move(m4));
+		moves = new HashMap<>(temp);
+	}
+	
+	public void addMoves(Attack...attacks){
+		Map<Attack, Move> temp = new HashMap<>();
+		for(int i = 0; i < attacks.length; i++){
+			temp.put(attacks[i], MoveSet.getMove(attacks[i]));
+		}
 		moves = new HashMap<>(temp);
 	}
 
@@ -489,16 +497,17 @@ public final class Monster {
 	
 	public int getPPOn(Attack atk){
 		if(moves.containsKey(atk)){
+			//System.out.println(moves.get(atk).getPP() + "/" + moves.get(atk).getMaxPP());
 			return moves.get(atk).getPP();
 		}
-		return 0;
+		throw new IllegalArgumentException("Monster doesn't have this attack.");
 	}
 	
 	public int getMaxPPOn(Attack atk){
 		if(moves.containsKey(atk)){
 			return moves.get(atk).getMaxPP();
 		}
-		return 0;
+		throw new IllegalArgumentException("Monster doesn't have this attack.");
 	}
 
 	/**

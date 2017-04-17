@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import monsters.Monster;
+import general.Attack;
 import general.Battle;
 import general.Status;
 import general.MonsterID;
@@ -377,24 +378,56 @@ public class TestMonsters {
         }
     }
     
+	@Test
+	public void test_move_7(){
+		for (MonsterID id : MonsterID.values()) {
+	        Monster m = MonsterSet.getMonster(id);// MonsterSet.getRandomMonster();
+	        for (Attack atk : m.listMoves()) {
+	            while(m.useMove(atk));
+	            assertEquals(m.getPPOn(atk), 0);
+	        }
+	        for (Attack atk : m.listMoves()) {
+	            assertEquals(m.getPPOn(atk), 0);
+	        }
+	    }
+		for (MonsterID id : MonsterID.values()) {
+	        Monster m = MonsterSet.getMonster(id);// MonsterSet.getRandomMonster();
+	        for (Attack atk : m.listMoves()) {
+	            assertEquals(m.getPPOn(atk), m.getMaxPPOn(atk));
+	        }
+	    }
+	}
+    
     @Test
-    public void test_move_7(){
+    public void test_move_8(){
     	for (MonsterID id : MonsterID.values()) {
-            Monster m = MonsterSet.getMonster(id);// MonsterSet.getRandomMonster();
-            for (Move move : m.getMoves().values()) {
-                while(move.use());
-                assertEquals(move.getPP(), 0);
+            Monster m = MonsterSet.getMonster(id);
+            Monster n = MonsterSet.getMonster(id);
+            for(Attack atk : m.listMoves()){
+            	m.useMove(atk);
+            	assertNotEquals(m.getPPOn(atk), n.getPPOn(atk));
             }
-            for (Move move : m.getMoves().values()) {
-                assertEquals(move.getPP(), 0);
-            }
-        }
+    	}
+    	//System.out.println("---------------");
     	for (MonsterID id : MonsterID.values()) {
-            Monster m = MonsterSet.getMonster(id);// MonsterSet.getRandomMonster();
-            for (Move move : m.getMoves().values()) {
-                assertEquals(move.getPP(), move.getMaxPP());
+            Monster m = MonsterSet.getMonster(id);
+            for(Attack atk : m.listMoves()){
+            	assertEquals(m.getPPOn(atk), m.getMaxPPOn(atk));
             }
-        }
+    	}
+    }
+    
+   // @Test
+    public void test__unique__1(){
+    	for (MonsterID id : MonsterID.values()) {
+            Monster m = MonsterSet.getMonster(id);
+            m.receiveAttack(100);
+            assertNotEquals(m.getHP(), m.getMaxHP());
+    	}
+    	for (MonsterID id : MonsterID.values()) {
+            Monster m = MonsterSet.getMonster(id);
+           assertEquals(m.getHP(), m.getMaxHP());
+    	}
     }
 
 }

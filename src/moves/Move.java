@@ -87,7 +87,7 @@ public class Move{
     	 this.name = move.name;
     	 this.damage = move.damage;
     	 this.acc = move.acc;
-    	 this.pp = move.pp;
+    	 this.pp = move.maxPP;
     	 this.element = move.element;
     	 this.cat = move.cat;
     	 this.stats = move.stats;

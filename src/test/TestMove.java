@@ -70,6 +70,9 @@ public class TestMove {
 		for(Attack atk : Attack.values()){
 			Move move = MoveSet.getMove(atk);
 			assertEquals(move.getPP(), move.getMaxPP());
+			assertNotEquals(move.getPP(), 0);
 		}
 	}
+	
+	
 }
