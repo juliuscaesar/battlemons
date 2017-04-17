@@ -231,10 +231,10 @@ public class Move{
      */
     public boolean isStatusMove()
     {
-    	if (this.getStatus() == Status.Normal)
-    		return false;
+    	if (this.getCat().equals(MoveCategory.Status))
+    		return true;
     	
-    	return true;
+    	return false;
     }
     
     /**

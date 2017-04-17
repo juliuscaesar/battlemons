@@ -2,6 +2,9 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import DT.Behavior_HealHP;
@@ -20,14 +23,17 @@ import DT.Behavior_UseLowestAccuracyMove;
 import general.Attack;
 import general.Battle;
 import general.Decision;
+import general.MonsterID;
 import general.Status;
 
 import monsters.Monster;
+import monsters.MonsterSet;
 import moves.Move;
 import moves.MoveSet;
 
 import trainers.Item;
 import trainers.ItemEnum;
+import trainers.Trainer;
 
 public class TestBehaviors {	
 
@@ -165,15 +171,76 @@ public class TestBehaviors {
 	
 	@Test
 	public void test9()
-	{
-			
+	{	
+		List<Monster> trainer1team = new ArrayList<Monster>();
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Adnocana));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Armordillo));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Boomtu));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Bulblight));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Carrotay));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Emberfly));
+
+        List<Monster> trainer2team = new ArrayList<Monster>();
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Adnocana));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Armordillo));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Boomtu));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Bulblight));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Carrotay));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Emberfly));
+
+        List<Item> trainer1items = new ArrayList<Item>();
+        List<Item> trainer2items = new ArrayList<Item>();
+        
+        Trainer t1 = new Trainer("player", trainer1team, trainer1items);
+        Trainer t2 = new Trainer("enemy", trainer2team, trainer2items);
+        
+        Battle battle = new Battle(t1, t2);
+        
+		
 		Behavior_InflictStatusEffect behaviorStatusEffect =
 				new Behavior_InflictStatusEffect();
-		Decision decision = behaviorStatusEffect.execute(b, b.p1);
-		decision.executeDecision(b, b.p1);
+		Decision decision = behaviorStatusEffect.execute(battle, t1);
+		decision.executeDecision(battle, t1);
 		
-		assertEquals(b.p1.getActiveMonster().getStatus().equals(Status.Normal), false);
+		assertEquals(t2.getActiveMonster().getStatus().equals(Status.Normal), false);
 	}
+
+	@Test
+	public void test18()
+	{	
+		List<Monster> trainer1team = new ArrayList<Monster>();
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Glacipup));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Armordillo));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Boomtu));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Bulblight));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Carrotay));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Emberfly));
+
+        List<Monster> trainer2team = new ArrayList<Monster>();
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Adnocana));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Armordillo));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Boomtu));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Bulblight));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Carrotay));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Emberfly));
+
+        List<Item> trainer1items = new ArrayList<Item>();
+        List<Item> trainer2items = new ArrayList<Item>();
+        
+        Trainer t1 = new Trainer("player", trainer1team, trainer1items);
+        Trainer t2 = new Trainer("enemy", trainer2team, trainer2items);
+        
+        Battle battle = new Battle(t1, t2);
+        
+        Status originalStatus = t2.getActiveMonster().getStatus();
+		Behavior_InflictStatusEffect behaviorStatusEffect =
+				new Behavior_InflictStatusEffect();
+		Decision decision = behaviorStatusEffect.execute(battle, t1);
+		decision.executeDecision(battle, t1);
+				
+		assertEquals(t2.getActiveMonster().getStatus().equals(originalStatus), false);
+	}
+
 	
 	@Test
 	public void test10()
@@ -232,6 +299,45 @@ public class TestBehaviors {
 	@Test
 	public void test14()
 	{		
+		Monster originalMonster = b.p1.getActiveMonster();
+		Behavior_SwitchToMonsterWithWeakType behaviorSwitchMonster =
+				new Behavior_SwitchToMonsterWithWeakType();
+		Decision decision = behaviorSwitchMonster.execute(b, b.p1);
+		decision.executeDecision(b, b.p1);
+		Monster newMonster = b.p1.getActiveMonster();
+		
+		
+		assertEquals(originalMonster.getID() == newMonster.getID(), false);
+	}
+	
+	@Test
+	public void test19()
+	{		
+		List<Monster> trainer1team = new ArrayList<Monster>();
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Glacipup));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Armordillo));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Boomtu));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Bulblight));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Carrotay));
+        trainer1team.add(MonsterSet.getMonster(MonsterID.Emberfly));
+
+        List<Monster> trainer2team = new ArrayList<Monster>();
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Adnocana));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Armordillo));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Boomtu));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Bulblight));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Carrotay));
+        trainer2team.add(MonsterSet.getMonster(MonsterID.Emberfly));
+
+        List<Item> trainer1items = new ArrayList<Item>();
+        List<Item> trainer2items = new ArrayList<Item>();
+        
+        Trainer t1 = new Trainer("player", trainer1team, trainer1items);
+        Trainer t2 = new Trainer("enemy", trainer2team, trainer2items);
+        
+        Battle battle = new Battle(t1, t2);
+
+		
 		Monster originalMonster = b.p1.getActiveMonster();
 		Behavior_SwitchToMonsterWithWeakType behaviorSwitchMonster =
 				new Behavior_SwitchToMonsterWithWeakType();
