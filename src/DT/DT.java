@@ -2,22 +2,21 @@ package DT;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
 import general.Battle;
 import general.BattleVariables;
 import general.Decision;
-import monsters.Monster;
 import trainers.Trainer;
 
 public class DT {
 
-	// A map of DecisionNode ids to the Decision nodes themselves.
+	// A map of DecisionNode IDs to the Decision nodes themselves.
 	public HashMap<Integer, DecisionNode> nodeMap;
 	public final static boolean debugOut = BattleVariables.printEachTurn;
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<DecisionNode> conditions = new ArrayList();
 
 	public ArrayList<DecisionNode> behaviors = new ArrayList();

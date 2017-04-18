@@ -1,7 +1,5 @@
 package DT;
 
-import java.util.List;
-
 import general.Battle;
 import general.Decision;
 
