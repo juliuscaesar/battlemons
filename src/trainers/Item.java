@@ -8,7 +8,7 @@ import moves.Move;
 public class Item {
 	private final ItemEnum item;
 	private int quantity;
-	private ItemEffect effect;
+	public ItemEffect effect;
 	
 	public Item(ItemEnum item, int quantity){
 		this.item = item;
