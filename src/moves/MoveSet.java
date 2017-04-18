@@ -62,7 +62,7 @@ public class MoveSet {
 	    Move SeismicTossMove = new Move(Attack.SeismicToss, 0, 100, 20, Element.Fighting, MoveCategory.Physical);
 	   Move SkyAttackMove = new Move(Attack.SkyAttack, 140, 90, 5, Element.Flying, MoveCategory.Physical);
 	   Move SmogMove = new Move(Attack.Smog, 30, 70, 20, Element.Poison, MoveCategory.Special);
-	   Move SolarBeamMove = new Move(Attack.FirePunch, 120, 100, 10, Element.Grass, MoveCategory.Special);
+	   Move SolarBeamMove = new Move(Attack.SolarBeam, 120, 100, 10, Element.Grass, MoveCategory.Special);
 	   Move SporeMove = new Move(Attack.Spore, 0, 100, 15, Element.Grass, MoveCategory.Status);
 	    Move StringShotMove = new Move(Attack.StringShot, 0, 95, 40, Element.Bug, MoveCategory.Status);
 	    Move StruggleMove = new Move(Attack.Struggle, 50, 100, 0, Element.Normal, MoveCategory.Physical);

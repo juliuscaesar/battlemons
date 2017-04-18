@@ -3,13 +3,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import general.Battle;
 import general.MonsterID;
 import general.Attack;
 import general.Element;
-import moves.MoveSet;
 
 public class MonsterSet {
 	private static Map<MonsterID, Monster> monsters;
