@@ -229,9 +229,9 @@ public class Move{
     /**
      * @return the Move's Category
      */
-    public Status getMoveCategory()
+    public MoveCategory getMoveCategory()
     {
-    	return this.getMoveCategory();
+    	return this.cat;
     }
     
     /**

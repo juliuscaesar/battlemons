@@ -14,7 +14,7 @@ import java.util.HashMap;
 public enum Element {
     Fire, Water, Grass, Poison, Flying, Normal, Ghost, Psychic, Fighting, Rock, Ground, Electric, Ice, Bug;
 
-    // The mapping of all important (not 1x) element matchups in the game.
+    // The mapping of all important (not 1x) element match ups in the game.
     // Accessed through getMatchupValue().
     @SuppressWarnings("serial")
     final private static HashMap<Element, HashMap<Element, Double>> elementMatchups = new HashMap<Element, HashMap<Element, Double>>() {

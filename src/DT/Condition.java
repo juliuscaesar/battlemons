@@ -2,7 +2,6 @@ package DT;
 
 
 import general.Battle;
-import general.Status;
 
 import trainers.Trainer;
 
@@ -26,7 +25,7 @@ abstract class Condition {
         parameter = 0;
     }
 
-    // Constructor used for direct instantion (for testing).
+    // Constructor used for direct instantiation (for testing).
     Condition(double parameter) {
         this.parameter = parameter;
     }

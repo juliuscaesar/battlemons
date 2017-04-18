@@ -13,7 +13,6 @@ import trainers.ParalyzHealItem;
 import trainers.Trainer;
 import monsters.Monster;
 import moves.Move;
-import moves.MoveSet;
 
 public abstract interface Decision {
 

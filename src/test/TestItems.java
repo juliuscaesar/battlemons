@@ -9,7 +9,6 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import monsters.*;
-import moves.Move;
 import trainers.*;
 import general.*;
 
@@ -162,6 +161,5 @@ public class TestItems {
 			m.receiveAttack(50);
 			assertEquals(water.useOn(m),false);
 		}
-		System.out.println("Finished");
 	}
 }

@@ -3,13 +3,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import general.Battle;
 import general.MonsterID;
 import general.Attack;
 import general.Element;
-import moves.MoveSet;
 
 public class MonsterSet {
 	private static Map<MonsterID, Monster> monsters;
@@ -51,35 +49,6 @@ public class MonsterSet {
 		/**
 		 * Assigns 4 moves to each Battlemon
 		 */
-		/*
-		Emberfly.addMoves(Attack.FirePunch, Attack.WingAttack, Attack.Amnesia, Attack.BodySlam);
-		Flamber.addMoves( (Attack.FireBlast),  (Attack.Barrier), (Attack.Sandattack),  (Attack.ConfuseRay));
-		Oceolot.addMoves( (Attack.WaterGun),  (Attack.Blizzard), (Attack.Mist),  (Attack.Barrier));
-		Feesh.addMoves( (Attack.Waterfall),  (Attack.Scratch), (Attack.Acid),  (Attack.BodySlam));
-		Parrit.addMoves( (Attack.Fly),  (Attack.WingAttack), (Attack.SkyAttack),  (Attack.Counter));
-		Hummbee.addMoves( (Attack.ConfuseRay),  (Attack.WingAttack), (Attack.Amnesia),  (Attack.BodySlam));
-		Shockeel.addMoves( (Attack.Thunder),  (Attack.Acid), (Attack.Toxic),  (Attack.WaterGun));
-		Bulblight.addMoves( (Attack.ThunderPunch),  (Attack.ThunderWave), (Attack.BodySlam),  (Attack.Sandattack));
-		Enchantu.addMoves( (Attack.Teleport),  (Attack.Kinesis), (Attack.Nightshade),  (Attack.BodySlam));
-		Hopper.addMoves( (Attack.Teleport),  (Attack.Kinesis), (Attack.Nightshade),  (Attack.BodySlam));
-		Armordillo.addMoves( (Attack.Earthquake),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam));
-		Munkrock.addMoves( (Attack.Earthquake),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam));
-		Ursidae.addMoves( (Attack.Earthquake),  (Attack.Amnesia), (Attack.SeismicToss),  (Attack.BodySlam));
-		Meowser.addMoves( (Attack.Scratch),  (Attack.DoubleKick), (Attack.Barrage),  (Attack.BodySlam));
-		Glacipup.addMoves( (Attack.IceBeam),  (Attack.Surf), (Attack.Haze),  (Attack.ConfuseRay));
-		Yeeti.addMoves( (Attack.Blizzard),  (Attack.Surf), (Attack.Haze),  (Attack.ConfuseRay));
-		Punchroo.addMoves( (Attack.HighJumpKick),  (Attack.SeismicToss), (Attack.ConfuseRay),  (Attack.IcePunch));
-		Carrotay.addMoves( (Attack.Earthquake),  (Attack.LowKick), (Attack.SeismicToss),  (Attack.ConfuseRay));
-		Grandant.addMoves( (Attack.StringShot),  (Attack.Spore), (Attack.PoisonSting),  (Attack.PinMissile));
-		Skorpen.addMoves( (Attack.StringShot),  (Attack.Spore), (Attack.PoisonSting),  (Attack.PinMissile));
-		Supalm.addMoves( (Attack.RazorLeaf),  (Attack.Spore), (Attack.LeechLife),  (Attack.LeechSeed));
-		Crysanthum.addMoves( (Attack.IceBeam),  (Attack.PoisonGas),	 (Attack.SolarBeam),  (Attack.PinMissile));
-		Boomtu.addMoves( (Attack.Psybeam),  (Attack.Thunder), (Attack.Nightshade),  (Attack.ConfuseRay));
-		Haunting.addMoves( (Attack.Lick),  (Attack.Teleport), (Attack.Counter),  (Attack.TwinNeedle));
-		Nadifly.addMoves( (Attack.Fly),  (Attack.Toxic), (Attack.PoisonSting),  (Attack.TwinNeedle));
-		Adnocana.addMoves( (Attack.Lick),  (Attack.BodySlam), (Attack.PoisonSting),  (Attack.TwinNeedle));
-		*/
-
 		moves.put(MonsterID.Emberfly, new Attack[]{ Attack.FirePunch, Attack.WingAttack, Attack.Amnesia, Attack.BodySlam });
 		moves.put(MonsterID.Flamber, new Attack[]{ (Attack.FireBlast),  (Attack.Barrier), (Attack.Sandattack),  (Attack.ConfuseRay) });
 		moves.put(MonsterID.Oceolot, new Attack[]{ (Attack.WaterGun),  (Attack.Blizzard), (Attack.Mist),  (Attack.Barrier) });

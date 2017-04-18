@@ -20,21 +20,13 @@ public class GeneticAlgorithm {
     	return tree;
     }
 
-	/**
-     * Remove a node from the decision tree
-     * 
-     */
-    public static DT removeNode(DT tree, int index) {
-    	tree.nodeMap.remove(index);
-    	return tree;
-    }
-    
     /**
-     * Adds a node to the decision tree
+     * Swaps true and false conditions
      * 
      */
-    public static DT addNode(DT tree, DecisionNode node) {
-        tree.nodeMap.put(1, node);
+    public static DT swapConditions(DT tree) {
+        tree.nodeMap.get(0).setConditions(tree.nodeMap.get(0).conditionFalse, 
+        tree.nodeMap.get(0).conditionTrue);
         return tree;
     }
     
@@ -42,13 +34,24 @@ public class GeneticAlgorithm {
      * Swaps a node in a decision tree with the given node
      * 
      */
-    public static DT swapNode(DT tree) {
+    public DT swapNode(DT tree) {
     	Random rng = new Random();
     	int index = Math.abs(rng.nextInt(tree.nodeMap.size()));
-		
+    	
+    	DecisionNode node = tree.getRandomCondition();
+    	node.setConditions(tree.nodeMap.get(index).conditionTrue, 
+    			tree.nodeMap.get(index).conditionFalse);
+
+    	if (!tree.nodeMap.containsKey(node.conditionTrue)) {
+    		//node.setConditions(tree.getRandomBehavior(), node.conditionFalse);
+    	}
+    	
+    	if (!tree.nodeMap.containsKey(node.conditionFalse)) {
+    		//node.setConditions(node.conditionTrue, tree.getRandomBehavior());
+    	}
     	if (tree.nodeMap.get(index).condition != null) {
-    		tree.nodeMap.put(index,tree.getRandomCondition().setConditions(
-    				tree.nodeMap.get(index).conditionTrue, tree.nodeMap.get(index).conditionFalse));
+    		
+    		tree.nodeMap.put(index, node);
     	}
     	else {
     		tree.nodeMap.put(index,tree.getRandomBehavior().setConditions(
@@ -58,7 +61,8 @@ public class GeneticAlgorithm {
     	return tree;
     }
     
-    public static DT mutate(DT tree) {
-    	return GeneticAlgorithm.swapNode(tree);
+    public DT mutate(DT tree) {
+    	return this.swapConditions(tree);
+    	//return this.swapNode(tree);
     }
 }
