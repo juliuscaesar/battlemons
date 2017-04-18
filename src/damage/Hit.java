@@ -94,7 +94,7 @@ public class Hit {
             if (m.getStatus() != Status.Normal) {
                 int valueStat = Math.abs(rng.nextInt(100));
                 if (valueStat < m.getStatusChance()) {
-                    target.setStatus(m.getMoveCategory());
+                    target.setStatus(m.getStatus());
                 }
             }
         }
