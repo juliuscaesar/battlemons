@@ -1,7 +1,5 @@
 package DT;
 
-
-
 import general.Battle;
 import general.Decision;
 
@@ -21,13 +19,15 @@ public class Behavior_SwitchToMonsterWithLowestHP extends Behavior {
         // Iterate through monsters
         for (Monster m : user.listMonsters()) {
             int monHp = m.getHP();
-            if (!m.isAlive()) continue;
+            if (!m.isAlive() || m == user.getActiveMonster()) continue;
             if (monHp > 0 && monHp < lowestHp) {
                 lowestHp = monHp;
                 lowestHpMon = m;
             }
         }
-        // TODO figure out how to handle nulls
-        return new Decision.ChangeMonster(lowestHpMon);
+        if (lowestHpMon != null) {
+            return new Decision.ChangeMonster(lowestHpMon);
+        } else
+            return null;
     }
 }

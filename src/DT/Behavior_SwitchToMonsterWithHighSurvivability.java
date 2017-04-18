@@ -15,7 +15,7 @@ public class Behavior_SwitchToMonsterWithHighSurvivability extends Behavior {
         int highestScore = bestMon.calculateSurvivability(opponent);
         for (Monster m : user.listMonsters()) {
 
-            if (!m.isAlive()) continue;
+            if (!m.isAlive() || m == user.getActiveMonster()) continue;
 
             int survivability = m.calculateSurvivability(opponent);
 
@@ -24,7 +24,9 @@ public class Behavior_SwitchToMonsterWithHighSurvivability extends Behavior {
                 highestScore = survivability;
             }
         }
-
-        return new Decision.ChangeMonster(bestMon);
+        if (bestMon == user.getActiveMonster()) {
+            return new Decision.ChangeMonster(bestMon);
+        } else
+            return null;
     }
 }

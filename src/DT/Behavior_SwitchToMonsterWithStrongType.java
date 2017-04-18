@@ -26,7 +26,7 @@ public class Behavior_SwitchToMonsterWithStrongType extends Behavior {
         // Look for a monster on the user's team with a strong matchup
         for (Monster m : user.listMonsters()) {
 
-            if (!m.isAlive()) continue;
+            if (!m.isAlive() || m == user.getActiveMonster()) continue;
 
             if (Element.getMatchupValue(m.getElem(), opposingType) > 1.) {
                 return new Decision.ChangeMonster(m);

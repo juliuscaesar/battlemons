@@ -44,24 +44,24 @@ public class DT {
 		/**
 		 * IF health > 20 True: use strongest attack False: check heal item
 		 */
-		this.nodeMap.put(0, new DecisionNode(0, new Condition_HealthGreaterThanPercent(.2), null, 3, 5));
+		this.nodeMap.put(0, new DecisionNode(0, new Condition_HealthGreaterThanPercent(.2), null, 3, 1));
 
 		/**
 		 * IF have heal item True: use it False: check if opponent can kill
 		 * monster
 		 */
-		//this.nodeMap.put(1, new DecisionNode(0, new Condition_UserHasHealItem(), null, 4, 2));
+		this.nodeMap.put(1, new DecisionNode(0, new Condition_UserHasHealItem(), null, 4, 2));
 
 		/**
 		 * if opponent can kill monster True: switch to monster with best attack
 		 * False: use strongest attack
 		 */
-		this.nodeMap.put(1, new DecisionNode(0, new Condition_OpponentCanKillMonster(), null, 5, 3));
+		this.nodeMap.put(2, new DecisionNode(0, new Condition_OpponentCanKillMonster(), null, 5, 3));
 
 		// decisions
-		this.nodeMap.put(2, new DecisionNode(0, null, new Behavior_UseHighestDamageMove(), -1, -1));
-		// this.nodeMap.put(4, new DecisionNode(0, null, new Behavior_HealHP(), -1, -1));
-		this.nodeMap.put(3, new DecisionNode(0, null, new Behavior_SwitchToMonsterWithBestAttack(), -1, -1));
+		this.nodeMap.put(3, new DecisionNode(0, null, new Behavior_UseHighestDamageMove(), -1, -1));
+		 this.nodeMap.put(4, new DecisionNode(0, null, new Behavior_HealHP(), -1, -1));
+		this.nodeMap.put(5, new DecisionNode(0, null, new Behavior_SwitchToMonsterWithBestAttack(), -1, -1));
 	}
 
 	private void randomBuild() {
