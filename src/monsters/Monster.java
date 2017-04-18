@@ -48,10 +48,7 @@ public final class Monster {
 	private int statusStart; // The Round where the Monster got this Status.
 	private int statusDuration; // The Duration for this Status.
 	private Element e1; // Monster's Element 1.
-	private Map<Attack, Move> moves; // Map of
-	// Moves for
-	// this
-	// Monster.
+	private Map<Attack, Move> moves; // Map of  Moves for this Monster.
 	private boolean canMove; // True if the Monster can move, false if not.
 	private boolean alive;
 	private final Attributes att;
