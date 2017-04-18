@@ -22,11 +22,8 @@ public class RunBattle {
 	 * @param int n The number of this set
 	 */
 	private static void executeSet(int n) {
-		int indexOfBest = 0;
-		float lowestFitness;
-		float highestFitness;
-		int performedMutations = 0;
 
+		// Contains results of every battle run during this iteration
 		HashMap<Integer, Float> fitnessHistory = new HashMap<Integer, Float>();
 		HashMap<Integer, DT> DTHistory = new HashMap<Integer, DT>();
 
@@ -34,8 +31,11 @@ public class RunBattle {
 			System.out.println("Running Set #" + n);
 		}
 
-		int counter = 0;
-		while (counter < BattleVariables.battlesPerCycle) {
+		// Run battles over and over and over again
+        int battleNum = 0;
+		while (battleNum < BattleVariables.battlesPerCycle) {
+		    
+		    // Setup our starting teams and items
 			List<Monster> trainer1team = 
 					new ArrayList<Monster>(
 							Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
@@ -56,24 +56,22 @@ public class RunBattle {
 			List<Item> trainer1items = new ArrayList<Item>();
 			List<Item> trainer2items = new ArrayList<Item>();
 
-			DT newDT;
-			/**
-			 * Mutate the decision tree first and create the trainer
-			 */
-			if (performedMutations < BattleVariables.maxMutationsPerCycle) {
-				GeneticAlgorithm ga = new GeneticAlgorithm();
-				newDT = ga.mutate(bestTrainerDT);					
-				performedMutations++;
-			}
-			else {
-				newDT = RunBattle.makeDT();
+			DT playerDT = new DT(bestTrainerDT);
+			
+			// Copy and mutate our decision tree
+			int performedMutations = 0;
+			while (performedMutations < BattleVariables.maxMutationsPerCycle) {
+                GeneticAlgorithm ga = new GeneticAlgorithm();
+                playerDT = ga.mutate(playerDT);                    
+                performedMutations++;
 			}
 
-			// create opponent to run this battle with
-			Trainer trainer1 = new Trainer("Caesar", trainer1team, trainer1items, newDT);
+			// Create our trainers
+			Trainer trainer1 = new Trainer("Caesar", trainer1team, trainer1items, playerDT);
 			Trainer trainer2 = new Trainer("Nishant", trainer2team, trainer2items);
 
 			try {
+			    // Build the battle and print our header
 				Battle b = new Battle(trainer1, trainer2);
 				if (BattleVariables.printBattleSummary && !BattleVariables.justFitness) {
 					System.out.println("----- BEGINNING THE BATTLE -----");
@@ -82,20 +80,22 @@ public class RunBattle {
 				// Run the battle and receive the fitness float
 				float fitness = b.runBattle();
 
-				fitnessHistory.put(counter, fitness);
-				DTHistory.put(counter, new DT(b.p1.getDT()));
+				// Save our fitness and our decision tree
+				fitnessHistory.put(battleNum, fitness);
+				DTHistory.put(battleNum, playerDT);
 
 				if (BattleVariables.printBattleSummary && !BattleVariables.justFitness) {
-
 					System.out.println("Fitness: " + fitness);
 				}
 			} catch(StackOverflowError e) {
+			    System.out.println(e.toString());
 				continue;
-
 			}
-			counter++;
+			
+			battleNum++;
 		}
 
+		// Update our fitness and save our result for the next cycle
 		if (BattleVariables.justFitness) {
 			RunBattle.getWorst(fitnessHistory, DTHistory);
 			// TODO make sure to take this outside if because it wont work
