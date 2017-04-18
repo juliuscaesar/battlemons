@@ -16,27 +16,29 @@ import java.util.*;
 public class RunBattle {
 	static float bestFitness = 0;
 	static float worstFitness = 100;
+	static float bestNormal = 0;
+	static float worstNormal = 100;
 	static DT bestTrainerDT = RunBattle.makeDT();
 
 	/**
 	 * Execute a set
 	 * @param int n The number of this set
 	 */
-	private static void executeSet(int n) {
+	private static void executeSet(int n, boolean mutation) {
 
 		// Contains results of every battle run during this iteration
 		HashMap<Integer, Float> fitnessHistory = new HashMap<Integer, Float>();
 		HashMap<Integer, DT> DTHistory = new HashMap<Integer, DT>();
 
-		if (BattleVariables.justFitness) {
+		if (BattleVariables.justFitness && mutation) {
 			System.out.println("Running Set #" + n);
 		}
 
 		// Run battles over and over and over again
-        int battleNum = 0;
+		int battleNum = 0;
 		while (battleNum < BattleVariables.battlesPerCycle) {
-		    
-		    // Setup our starting teams and items
+
+			// Setup our starting teams and items
 			List<Monster> trainer1team = 
 					new ArrayList<Monster>(
 							Arrays.asList(MonsterSet.getMonster(MonsterID.Adnocana),
@@ -58,13 +60,17 @@ public class RunBattle {
 			List<Item> trainer2items = new ArrayList<Item>();
 
 			DT playerDT = new DT(bestTrainerDT);
-			
+
 			// Copy and mutate our decision tree
-			int performedMutations = 0;
-			while (performedMutations < BattleVariables.maxMutationsPerCycle) {
-                GeneticAlgorithm ga = new GeneticAlgorithm();
-                playerDT = ga.mutate(playerDT);                    
-                performedMutations++;
+			if (mutation) {
+				int performedMutations = 0;
+				if (performedMutations < BattleVariables.maxMutationsPerCycle) {
+				}
+				while (performedMutations < BattleVariables.maxMutationsPerCycle) {
+					GeneticAlgorithm ga = new GeneticAlgorithm();
+					playerDT = ga.mutate(playerDT);                    
+					performedMutations++;
+				}
 			}
 
 			// Create our trainers
@@ -72,7 +78,7 @@ public class RunBattle {
 			Trainer trainer2 = new Trainer("Nishant", trainer2team, trainer2items);
 
 			try {
-			    // Build the battle and print our header
+				// Build the battle and print our header
 				Battle b = new Battle(trainer1, trainer2);
 				if (BattleVariables.printBattleSummary && !BattleVariables.justFitness) {
 					System.out.println("----- BEGINNING THE BATTLE -----");
@@ -89,24 +95,24 @@ public class RunBattle {
 					System.out.println("Fitness: " + fitness);
 				}
 			} catch(StackOverflowError e) {
-			    System.out.println(e.toString());
+				System.out.println(e.toString());
 				continue;
 			}
-			
+
 			battleNum++;
 		}
-		
+
 		if (BattleVariables.printDTs) {
 			System.out.println("Current best DT:");
 			System.out.println(bestTrainerDT.printTree());
 		}
-		
+
 		// Update our fitness and save our result for the next cycle
 		if (BattleVariables.justFitness) {
-			RunBattle.getWorst(fitnessHistory, DTHistory);
+			RunBattle.getWorst(fitnessHistory, DTHistory, mutation);
 			// TODO make sure to take this outside if because it wont work
 			// if justfitness isnt true
-			RunBattle.bestTrainerDT = new DT(RunBattle.getBest(fitnessHistory, DTHistory));
+			RunBattle.bestTrainerDT = new DT(RunBattle.getBest(fitnessHistory, DTHistory, mutation));
 
 
 			System.out.println("-------------------------------------------------------");
@@ -128,7 +134,7 @@ public class RunBattle {
 	/**
 	 * Returns the worst Trainer from a set
 	 */
-	public static DT getWorst(HashMap<Integer, Float> map, HashMap<Integer, DT> DTHistory) {
+	public static DT getWorst(HashMap<Integer, Float> map, HashMap<Integer, DT> DTHistory, boolean mutation) {
 		Map.Entry<Integer, Float> minEntry = null;
 
 		for (Map.Entry<Integer, Float> entry : map.entrySet())
@@ -138,14 +144,18 @@ public class RunBattle {
 				minEntry = entry;
 			}
 		}
-
-		if (BattleVariables.justFitness) {
-			System.out.println("Lowest fitness: " + minEntry.getValue());
-			if (minEntry.getValue() < RunBattle.worstFitness) {
-				RunBattle.worstFitness = minEntry.getValue();
+		if (mutation) {
+			if (BattleVariables.justFitness) {
+				System.out.println("Lowest fitness: " + minEntry.getValue());
+				if (minEntry.getValue() < RunBattle.worstFitness) {
+					RunBattle.worstFitness = minEntry.getValue();
+				}
+				//System.out.println("Worst team: " + 
+				//trainerHistory.get(minEntry.getKey()).listMonsters().toString());
 			}
-			//System.out.println("Worst team: " + 
-			//trainerHistory.get(minEntry.getKey()).listMonsters().toString());
+		}
+		else {
+			worstNormal = minEntry.getValue();
 		}
 		return DTHistory.get(minEntry.getKey());
 	}
@@ -153,7 +163,7 @@ public class RunBattle {
 	/**
 	 * Returns the best Trainer from a set
 	 */
-	public static DT getBest(HashMap<Integer, Float> map,  HashMap<Integer, DT> DTHistory) {
+	public static DT getBest(HashMap<Integer, Float> map,  HashMap<Integer, DT> DTHistory, boolean mutation) {
 		Map.Entry<Integer, Float> maxEntry = null;
 
 		for (Map.Entry<Integer, Float> entry : map.entrySet())
@@ -164,15 +174,19 @@ public class RunBattle {
 			}
 		}
 
-
-		if (BattleVariables.justFitness) {
-			if (maxEntry.getValue() > RunBattle.bestFitness) {
-				RunBattle.bestFitness = maxEntry.getValue();
+		if (mutation) {
+			if (BattleVariables.justFitness) {
+				if (maxEntry.getValue() > RunBattle.bestFitness) {
+					RunBattle.bestFitness = maxEntry.getValue();
+				}
+				System.out.println("Highest fitness: " + maxEntry.getValue());
+				System.out.println("Best fitness so far: " + RunBattle.bestFitness);
+				//System.out.println("Best team: " + 
+				//trainerHistory.get(maxEntry.getKey()).listMonsters().toString());
 			}
-			System.out.println("Highest fitness: " + maxEntry.getValue());
-			System.out.println("Best fitness so far: " + RunBattle.bestFitness);
-			//System.out.println("Best team: " + 
-			//trainerHistory.get(maxEntry.getKey()).listMonsters().toString());
+		}
+		else {
+			bestNormal = maxEntry.getValue();
 		}
 		return DTHistory.get(maxEntry.getKey());
 	}
@@ -200,11 +214,14 @@ public class RunBattle {
 
 		int n = 1;
 		while (n <= BattleVariables.numberOfSets) {
-			RunBattle.executeSet(n);
+			RunBattle.executeSet(n, true);
 			n++;
 		}
 
+		RunBattle.executeSet(n, false);
+
 		System.out.println("Done");
+		System.out.println("Without mutation the range was: " + worstNormal + " to " + bestNormal);
 		System.out.println("Mutation results in a range from: " + worstFitness + " to " + bestFitness);
 	}
 }

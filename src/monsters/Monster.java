@@ -160,7 +160,7 @@ public final class Monster {
 			resetStatus();
 		}
 	}
-	
+
 	public String toString() {
 		return this.getID().toString();
 	}
@@ -319,7 +319,7 @@ public final class Monster {
 		this.status = stat;
 		this.applyStatus();
 		getStatusDuration();
-		
+
 	}
 
 	/**
@@ -360,21 +360,25 @@ public final class Monster {
 	 */
 	public void applyStatusDamage() {
 		switch (this.status) {
-			case Burn: {
+		case Burn: {
+			if (BattleVariables.printEachTurn) {
 				System.out.println(name.toString() + " took burn damage. ("
 						+ this.hp + "/" + this.maxHP + ")");
-				this.hp = this.maxHP / 16;
-				return;
 			}
-			case Poison: {
+			this.hp = this.maxHP / 16;
+			return;
+		}
+		case Poison: {
+			if (BattleVariables.printEachTurn) {
 				System.out.println(name.toString() + " took poison damage. ("
 						+ this.hp + "/" + this.maxHP + ")");
-				this.hp = this.maxHP / 16;
-				return;
 			}
-			default: {
-	
-			}
+			this.hp = this.maxHP / 16;
+			return;
+		}
+		default: {
+
+		}
 		}
 		checkAlive();
 	}
@@ -492,7 +496,7 @@ public final class Monster {
 		}
 		return false;
 	}
-	
+
 	public int getPPOn(Attack atk){
 		if(moves.containsKey(atk)){
 			//System.out.println(moves.get(atk).getPP() + "/" + moves.get(atk).getMaxPP());
@@ -500,7 +504,7 @@ public final class Monster {
 		}
 		throw new IllegalArgumentException("Monster doesn't have this attack.");
 	}
-	
+
 	public int getMaxPPOn(Attack atk){
 		if(moves.containsKey(atk)){
 			return moves.get(atk).getMaxPP();
