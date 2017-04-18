@@ -3,10 +3,9 @@ package monsters;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import java.util.Random;
-
 import damage.Damage;
 import general.Attack;
+import general.Battle;
 import general.BattleVariables;
 import general.Element;
 import general.Status;
@@ -333,8 +332,7 @@ public final class Monster {
 			return;
 		}
 		case Paralysis: {
-			Random rng = new Random();
-			int percent = Math.abs(rng.nextInt(100));
+			int percent = Math.abs(Battle.rng_monster.nextInt(100));
 			if (percent < 25) {
 				this.canMove = false;
 			} else {
@@ -389,9 +387,8 @@ public final class Monster {
 			 * 37.5% chance of lasting 2 rounds 37.5% chance of lasting 3 rounds
 			 * 12.5% chance of lasting 4 rounds 12.5% chance of lasting 5 rounds
 			 */
-			Random rng = new Random();
 			int minimum = 1;
-			int percent = Math.abs(rng.nextInt(1000));
+			int percent = Math.abs(Battle.rng_monster.nextInt(1000));
 			if (percent < 375) {
 				this.statusDuration = minimum;
 			} else if (percent < 750) {
@@ -408,8 +405,7 @@ public final class Monster {
 			/*
 			 * Lasts a random value of 1 to 7 rounds.
 			 */
-			Random rng = new Random();
-			this.statusDuration = Math.abs(rng.nextInt(6)) + 1;
+			this.statusDuration = Math.abs(Battle.rng_monster.nextInt(6)) + 1;
 			return;
 		}
 		case Freeze: {
@@ -417,8 +413,7 @@ public final class Monster {
 			 * Each round there is a 20% chance to break the ice.
 			 */
 			int rounds = 1;
-			Random rng = new Random();
-			while (Math.abs(rng.nextInt(100)) >= 20) {
+			while (Math.abs(Battle.rng_monster.nextInt(100)) >= 20) {
 				rounds++;
 				if (rounds == 7) {
 					break;

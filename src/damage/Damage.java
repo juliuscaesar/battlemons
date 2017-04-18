@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Random;
 
 import general.Attack;
+import general.Battle;
 import general.Element;
 import general.MoveCategory;
-
 import moves.Move;
 import moves.MoveSet;
 
@@ -25,14 +25,12 @@ import moves.MoveSet;
  * The class can also iterate through a Monster's attack and find the strongest attack.
  */
 public class Damage {
-	private Random r;
 	
 	/**
 	 * Default Constructor for the Damage Class.
 	 */
 	public Damage(){
 		new MoveSet();
-		r = new Random();
 	}
 	
 	/**
@@ -120,7 +118,7 @@ public class Damage {
 	
 	private double getModifier(Move move, Monster source, Monster target){
 		double multiplier = Element.getMatchupValue(move.getElem(), target.getElem());
-		double rng = 0.85 + (0.15) * r.nextDouble();
+		double rng = 0.85 + (0.15) * Battle.rng_move.nextDouble();
 		double finalMulti = multiplier * rng;
 		if(move.getElem() == source.getElem()){
 			finalMulti *= 1.5;

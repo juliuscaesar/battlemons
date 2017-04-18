@@ -3,6 +3,7 @@ package damage;
 import java.util.Random;
 
 import general.Attack;
+import general.Battle;
 import general.Status;
 import monsters.Monster;
 import moves.Move;
@@ -84,15 +85,15 @@ public class Hit {
      *            Class.
      * @return true if the move landed, false if the move didn't land.
      */
-    public boolean hit(Attack atk, Monster source, Monster target, int dmg, Random rng) {
+    public boolean hit(Attack atk, Monster source, Monster target, int dmg) {
         int chance = getHitChance(atk, source, target);
-        int value = Math.abs(rng.nextInt(100));
+        int value = Math.abs(Battle.rng_move.nextInt(100));
         boolean gotHit = (value <= chance);
         if (gotHit) {
             target.receiveAttack(dmg);
             Move m = set.move(atk);
             if (m.getStatus() != Status.Normal) {
-                int valueStat = Math.abs(rng.nextInt(100));
+                int valueStat = Math.abs(Battle.rng_move.nextInt(100));
                 if (valueStat < m.getStatusChance()) {
                     target.setStatus(m.getStatus());
                 }

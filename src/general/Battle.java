@@ -27,9 +27,9 @@ public class Battle {
     public Trainer p2;
 
     // A random number generator for team selection
-    public Random rng_turnorder;
-    public Random rng_monster;
-    public Random rng_move;
+    public static Random rng_turnorder;
+    public static Random rng_monster;
+    public static Random rng_move;
     // Text output for debugging.
     TextOutput textOutput = new TextOutput();
 
@@ -46,9 +46,9 @@ public class Battle {
     public Battle(Trainer p1, Trainer p2) {
         this.p1 = p1;
         this.p2 = p2;
-        this.rng_turnorder = new Random(0);
-        this.rng_move = new Random(0);
-        this.rng_monster = new Random(0);
+        rng_turnorder = new Random(0);
+        rng_move = new Random(0);
+        rng_monster = new Random(0);
         // mutation? or always 0?
         this.defeated = 0;
     }

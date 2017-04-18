@@ -197,7 +197,7 @@ public abstract interface Decision {
                         + move_to_use.toAttack() + "!");
             }
             if (!h.hit(attackToUse, userMon, enemyMon,
-                    d.getDamage(attackToUse, userMon, enemyMon), b.rng_move)) {
+                    d.getDamage(attackToUse, userMon, enemyMon))) {
                 if (BattleVariables.printEachTurn) {
                     System.out.println("  But it missed!");
                 }
@@ -226,7 +226,7 @@ public abstract interface Decision {
                         + " used " + attackToUse + "!");
             }
             if (!h.hit(attackToUse, userMon, enemyMon,
-                    d.getDamage(attackToUse, userMon, enemyMon), b.rng_move)) {
+                    d.getDamage(attackToUse, userMon, enemyMon))) {
                 if (BattleVariables.printEachTurn) {
                     System.out.println("  But it missed!");
                 }
