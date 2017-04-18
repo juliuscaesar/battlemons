@@ -133,7 +133,7 @@ public class Battle {
 
     /**
      * Determines what order the Trainers will take their turns in, based on the
-     * Decisions taken and the stats of their active monsters.
+     * Decisions taken and the status of their active monsters.
      * 
      * @return A two-element array, with one reference to p1 and one reference
      *         to p2, in the order that their turns will be taken.
@@ -321,7 +321,7 @@ public class Battle {
         p2.clearMonsters();
 
         for (int i = 0; i < 6; i++) {
-            // TODO this rng needs to be moved to a static space
+            // TODO this Random Number Generator needs to be moved to a static space
             p2.addMonster(MonsterSet.getRandomMonster(this));
         }
         if (BattleVariables.printEachTurn) {
