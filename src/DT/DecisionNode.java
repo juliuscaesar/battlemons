@@ -1,5 +1,7 @@
 package DT;
 
+import java.lang.reflect.InvocationTargetException;
+
 import DT.Condition;
 import DT.Behavior;
 
@@ -35,6 +37,40 @@ public class DecisionNode {
         this.id = id;
         this.conditionTrue = condTrue;
         this.conditionFalse = condFalse;
+    }
+
+    public DecisionNode(DecisionNode other) {
+        this.id = other.id;
+        if (other.condition != null) {
+            if (other.condition.uses_parameter) {
+                try {
+                    this.condition = (other.condition.getClass()
+                            .getConstructor(double.class))
+                            .newInstance(other.condition.parameter);
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                }
+            } else {
+                try {
+                    this.condition = (other.condition.getClass()
+                            .getConstructor())
+                            .newInstance();
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                }
+            }
+        }
+
+        if (other.behavior != null) {
+            try {
+                this.behavior = (other.behavior.getClass().getConstructor())
+                        .newInstance();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+        this.conditionTrue = other.conditionTrue;
+        this.conditionFalse = other.conditionFalse;
     }
 
     public DecisionNode setConditions(int t, int f) {
