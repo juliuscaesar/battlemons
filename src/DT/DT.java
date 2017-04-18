@@ -49,12 +49,6 @@ public class DT {
 	 */
     // Copy constructor
     public DT(DT other) {
-        for (DecisionNode d : other.behaviors) {
-            behaviors.add(new DecisionNode(d));
-        }
-        for (DecisionNode d : other.conditions) {
-            conditions.add(new DecisionNode(d));
-        }
         for (Entry<Integer, DecisionNode> e : other.nodeMap.entrySet()) {
             if (e.getValue() != null) {
                 Integer k = new Integer(e.getKey().intValue());
