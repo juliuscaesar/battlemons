@@ -15,6 +15,7 @@ import java.util.*;
  */
 public class RunBattle {
 	static float bestFitness = 0;
+	static float worstFitness = 100;
 	static DT bestTrainerDT = RunBattle.makeDT();
 
 	/**
@@ -94,7 +95,12 @@ public class RunBattle {
 			
 			battleNum++;
 		}
-
+		
+		if (BattleVariables.printDTs) {
+			System.out.println("Current best DT:");
+			System.out.println(bestTrainerDT.printTree());
+		}
+		
 		// Update our fitness and save our result for the next cycle
 		if (BattleVariables.justFitness) {
 			RunBattle.getWorst(fitnessHistory, DTHistory);
@@ -135,6 +141,9 @@ public class RunBattle {
 
 		if (BattleVariables.justFitness) {
 			System.out.println("Lowest fitness: " + minEntry.getValue());
+			if (minEntry.getValue() < RunBattle.worstFitness) {
+				RunBattle.worstFitness = minEntry.getValue();
+			}
 			//System.out.println("Worst team: " + 
 			//trainerHistory.get(minEntry.getKey()).listMonsters().toString());
 		}
@@ -196,5 +205,6 @@ public class RunBattle {
 		}
 
 		System.out.println("Done");
+		System.out.println("Mutation results in a range from: " + worstFitness + " to " + bestFitness);
 	}
 }
