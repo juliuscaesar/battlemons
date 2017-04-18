@@ -42,21 +42,16 @@ public class DecisionNode {
     public DecisionNode(DecisionNode other) {
         this.id = other.id;
         if (other.condition != null) {
-            if (other.condition.uses_parameter) {
+            try {
+                this.condition = (other.condition.getClass()
+                        .getConstructor(double.class))
+                        .newInstance(other.condition.parameter);
+            } catch (Exception e) {
                 try {
                     this.condition = (other.condition.getClass()
-                            .getConstructor(double.class))
-                            .newInstance(other.condition.parameter);
-                } catch (Exception e) {
-                    System.out.println(e.toString());
-                }
-            } else {
-                try {
-                    this.condition = (other.condition.getClass()
-                            .getConstructor())
-                            .newInstance();
-                } catch (Exception e) {
-                    System.out.println(e.toString());
+                            .getConstructor()).newInstance();
+                } catch (Exception e2) {
+                    System.out.println(e2.toString());
                 }
             }
         }
