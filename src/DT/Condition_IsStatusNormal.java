@@ -10,8 +10,6 @@ import trainers.Trainer;
 public class Condition_IsStatusNormal extends Condition {
     public Condition_IsStatusNormal() {
         super();
-        upper_bound = Double.MAX_VALUE;
-        lower_bound = 0.0;
         uses_parameter = false;
     }
 

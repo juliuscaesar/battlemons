@@ -13,9 +13,7 @@ import trainers.ItemEnum;
 public class Condition_CanStatusHealItself extends Condition {
     public Condition_CanStatusHealItself() {
         super();
-        upper_bound = Double.MAX_VALUE;
-        lower_bound = 0.0;
-        uses_parameter = true;
+        uses_parameter = false;
     }
 
     public boolean check_condition(Battle battle, Trainer user) {
