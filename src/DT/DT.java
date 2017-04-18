@@ -3,6 +3,7 @@ package DT;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import general.Battle;
@@ -37,6 +38,21 @@ public class DT {
 		} else {
 			this.buildTree();
 		}
+	}
+	
+	/**
+	 * Copy constructor for the DT class;
+	 * 
+	 * @param other
+	 *            is another DT.
+	 */
+	public DT(DT other) {	
+		this.nodeMap = new HashMap<Integer, DecisionNode>();
+		for(Entry<Integer, DecisionNode> entry : other.nodeMap.entrySet()){
+			this.nodeMap.put(entry.getKey(), entry.getValue());
+		}
+		this.buildTree();
+		this.buildConds();
 	}
 
 	// Constructs the decisionNodes
@@ -156,7 +172,7 @@ public class DT {
 	 * @return
 	 */
 	public Decision makeDecision(Battle battle, Trainer trainer, int i) {
-
+		try {
 		String prefix = "  ";
 		if (debugOut)
 			System.out.println("Making Decision for " + trainer.name);
@@ -186,6 +202,9 @@ public class DT {
 			System.out.println("  Behavior " + current.behavior.toString()
 			+ " selected.");
 		return current.behavior.execute(battle, trainer);
+		} catch(NullPointerException e) {
+			return new Decision.Struggle();
+		}
 	}
 
 	public DecisionNode getRandomCondition() {

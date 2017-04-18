@@ -38,7 +38,7 @@ public class Trainer {
 	public String name; // Trainer's Name.
 	public List<Item> items; // List of this Trainer's items.
 	public Decision decision; // The decision made by the AI for this player.
-	public DT trainerAI = new DT();
+	public DT trainerAI;
 
 	/**
 	 * Default Constructor for the Trainer.
@@ -67,6 +67,7 @@ public class Trainer {
 			this.order.add(m.getID());
 		}
 		active = monsters.get(0);
+		this.trainerAI = new DT();
 	}
 	
 	/**
