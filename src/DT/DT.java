@@ -1,5 +1,7 @@
 package DT;
 
+import java.util.List;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -16,10 +18,10 @@ public class DT {
 	public HashMap<Integer, DecisionNode> nodeMap;
 	public final static boolean debugOut = BattleVariables.printEachTurn;
 
-	@SuppressWarnings("unchecked")
-	public ArrayList<DecisionNode> conditions = new ArrayList();
+	public List<DecisionNode> conditions = new ArrayList<DecisionNode>();
 
-	public ArrayList<DecisionNode> behaviors = new ArrayList();
+	
+	public List<DecisionNode> behaviors = new ArrayList<DecisionNode>();
 
 	// Constructor for decision tree.
 	public DT() {
