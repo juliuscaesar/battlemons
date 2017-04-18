@@ -150,9 +150,7 @@ public class MoveSet {
     moves.put(Attack.Waterfall, WaterfallMove);
     moves.put(Attack.WaterGun, WaterGunMove);
     moves.put(Attack.WingAttack, WingAttackMove);
-  
-   
-    
+
   }
   
   

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import monsters.*;
-import moves.Move;
 import trainers.*;
 import general.*;
 
