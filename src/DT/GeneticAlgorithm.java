@@ -63,7 +63,16 @@ public class GeneticAlgorithm {
 	}
 
 	public DT mutate(DT tree) {
-		//return this.swapConditions(tree);
-		return this.swapNode(tree);
+		Random rn = new Random();
+		int n = 2 - 1 + 1;
+		int i = rn.nextInt() % n;
+		int randomNum =  1 + i;
+		
+		if (randomNum == 1) {
+		return this.swapConditions(tree);
+		}
+		else {
+			return this.swapNode(tree);
+		}
 	}
 }
