@@ -20,7 +20,7 @@ public class DT {
 
 	public List<DecisionNode> conditions = new ArrayList<DecisionNode>();
 
-	
+
 	public List<DecisionNode> behaviors = new ArrayList<DecisionNode>();
 
 	// Constructor for decision tree.
@@ -40,24 +40,24 @@ public class DT {
 			this.buildTree();
 		}
 	}
-	
+
 	/**
 	 * Copy constructor for the DT class;
 	 * 
 	 * @param other
 	 *            is another DT.
 	 */
-    // Copy constructor
-    public DT(DT other) {
-        for (Entry<Integer, DecisionNode> e : other.nodeMap.entrySet()) {
-            if (e.getValue() != null) {
-                Integer k = new Integer(e.getKey().intValue());
-                DecisionNode v = new DecisionNode(e.getValue());
-                nodeMap.put(k, v);
-            }
-        }
+	// Copy constructor
+	public DT(DT other) {
+		for (Entry<Integer, DecisionNode> e : other.nodeMap.entrySet()) {
+			if (e.getValue() != null) {
+				Integer k = new Integer(e.getKey().intValue());
+				DecisionNode v = new DecisionNode(e.getValue());
+				nodeMap.put(k, v);
+			}
+		}
 		this.buildConds();
-    }
+	}
 	// Constructs the decisionNodes
 	private void buildTree() {
 		/**
@@ -79,7 +79,7 @@ public class DT {
 
 		// decisions
 		this.nodeMap.put(3, new DecisionNode(0, null, new Behavior_UseHighestDamageMove(), -1, -1));
-		 this.nodeMap.put(4, new DecisionNode(0, null, new Behavior_HealHP(), -1, -1));
+		this.nodeMap.put(4, new DecisionNode(0, null, new Behavior_HealHP(), -1, -1));
 		this.nodeMap.put(5, new DecisionNode(0, null, new Behavior_SwitchToMonsterWithBestAttack(), -1, -1));
 	}
 
@@ -176,35 +176,35 @@ public class DT {
 	 */
 	public Decision makeDecision(Battle battle, Trainer trainer, int i) {
 		try {
-		String prefix = "  ";
-		if (debugOut)
-			System.out.println("Making Decision for " + trainer.name);
+			String prefix = "  ";
+			if (debugOut)
+				System.out.println("Making Decision for " + trainer.name);
 
-		DecisionNode current = this.nodeMap.get(0);
-		//System.out.println(this.printTree());
-		while (current.behavior == null) {
+			DecisionNode current = this.nodeMap.get(0);
+			//System.out.println(this.printTree());
+			while (current.behavior == null) {
 
-			if (current.condition.check_condition(battle, trainer)) {
-				if (debugOut)
-					System.out
-					.println(prefix + "Condition "
-							+ current.condition.toString()
-							+ " evaluated true.");
-				current = nodeMap.get(current.conditionTrue);
-			} else {
-				if (debugOut)
-					System.out.println(prefix + "Condition "
-							+ current.condition.toString()
-							+ " evaluated false.");
-				current = nodeMap.get(current.conditionTrue);
+				if (current.condition.check_condition(battle, trainer)) {
+					if (debugOut)
+						System.out
+						.println(prefix + "Condition "
+								+ current.condition.toString()
+								+ " evaluated true.");
+					current = nodeMap.get(current.conditionTrue);
+				} else {
+					if (debugOut)
+						System.out.println(prefix + "Condition "
+								+ current.condition.toString()
+								+ " evaluated false.");
+					current = nodeMap.get(current.conditionTrue);
+				}
+				prefix += "  ";
 			}
-			prefix += "  ";
-		}
 
-		if (debugOut)
-			System.out.println("  Behavior " + current.behavior.toString()
-			+ " selected.");
-		return current.behavior.execute(battle, trainer);
+			if (debugOut)
+				System.out.println("  Behavior " + current.behavior.toString()
+				+ " selected.");
+			return current.behavior.execute(battle, trainer);
 		} catch(NullPointerException e) {
 			return new Decision.Struggle();
 		}

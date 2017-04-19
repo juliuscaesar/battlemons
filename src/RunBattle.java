@@ -120,15 +120,8 @@ public class RunBattle {
 	}
 
 	private static DT makeDT() {
-		if (BattleVariables.randomDT) {
-			DT tree = new DT(true);
-			System.out.println(tree.printTree());
-			return new DT(true);
-		}
-		else {
-			new DT().printTree();
-			return new DT();
-		}
+		new DT().printTree();
+		return new DT();
 	}
 
 	/**
