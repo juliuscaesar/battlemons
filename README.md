@@ -36,6 +36,7 @@ In conclusion - our results, on the whole, said more about the effectiveness of 
 ### Selected Mutation Results
 Example 1: successful mutation resulting in a higher fitness function value (rare)
 Battles per cycle: 3
+
 	Max # of mutations per cycle: 5
 	-------------------------------------------------------
 	Done
@@ -43,6 +44,7 @@ Battles per cycle: 3
 	Mutation results in a range from: 5.182857 to 11.0
 
 Example 2: Beginning above average performing decision tree which mutating only decreases the performance of (most common)
+	
 	Battles per cycle: 1000
 	Max # of mutations per cycle: 10
 	-------------------------------------------------------
@@ -58,46 +60,50 @@ Example 2: Beginning above average performing decision tree which mutating only 
 
 # Selected Decision Trees and Results
 Example 1: The standard Decision Tree first used by the player and also consistently used by the opponent
-True [0]: Condition HealthGreaterThanPercent with parameter 0.2
-  True [3]: Behavior - UseHighestDamageMove
-  False [1]: Condition UserHasHealItem
-    True [4]: Behavior - HealHP
-    False [2]: Condition OpponentCanKillMonster
-      True [5]: Behavior - SwitchToMonsterWithBestAttack
-      False [3]: Behavior - UseHighestDamageMove
+	
+	True [0]: Condition HealthGreaterThanPercent with parameter 0.2
+	  True [3]: Behavior - UseHighestDamageMove
+	  False [1]: Condition UserHasHealItem
+	    True [4]: Behavior - HealHP
+	    False [2]: Condition OpponentCanKillMonster
+	      True [5]: Behavior - SwitchToMonsterWithBestAttack
+	      False [3]: Behavior - UseHighestDamageMove
 
-Highest fitness after 100 battles: 11.0
+	Highest fitness after 100 battles: 11.0
 
 ---------------------------------------------------------------------------------------------------------
 Example 2: A resulting Decision Tree of the previous one after 9 sets of mutations
-True [0]: Condition CanStatusHealItself
-  True [3]: Behavior - UseHighestDamageMove
-  False [1]: Condition IsOpponentStatusNotNormal
-    True [4]: Behavior - UseLowestAccuracyMove
-    False [2]: Condition IsOpponentStatusNotNormal
-      True [5]: Behavior - SwitchToMonsterWithLowestHP
-      False [3]: Behavior - UseHighestDamageMove
+
+	True [0]: Condition CanStatusHealItself
+	  True [3]: Behavior - UseHighestDamageMove
+	  False [1]: Condition IsOpponentStatusNotNormal
+	    True [4]: Behavior - UseLowestAccuracyMove
+	    False [2]: Condition IsOpponentStatusNotNormal
+	      True [5]: Behavior - SwitchToMonsterWithLowestHP
+	      False [3]: Behavior - UseHighestDamageMove
 
 
-Highest fitness after 100 battles: 10.496296
+	Highest fitness after 100 battles: 10.496296
 ---------------------------------------------------------------------------------------------------------
 Example 3: A resulting Decision Tree of the original one after 17 sets of mutations
-True [0]: Condition IfSomeMoveHasNoPP
-  True [3]: Behavior - UseHighestDamageMove
-  False [1]: Condition HealthGreaterThanValue with parameter 50.0
-    True [4]: Behavior - UseLowestDamageMove
-    False [2]: Condition CanStatusHealItself
-      True [5]: Behavior - SwitchToMonsterWithBestAttack
-      False [3]: Behavior - UseHighestDamageMove
 
-Highest fitness after 100 battles: 11.0
+	True [0]: Condition IfSomeMoveHasNoPP
+	  True [3]: Behavior - UseHighestDamageMove
+	  False [1]: Condition HealthGreaterThanValue with parameter 50.0
+	    True [4]: Behavior - UseLowestDamageMove
+	    False [2]: Condition CanStatusHealItself
+	      True [5]: Behavior - SwitchToMonsterWithBestAttack
+	      False [3]: Behavior - UseHighestDamageMove
+
+	Highest fitness after 100 battles: 11.0
 ---------------------------------------------------------------------------------------------------------
 Example 4: A simple randomly generated Decision Tree
-True [0]: Condition HealthGreaterThanPercent with parameter 0.2
-  True [37]: Behavior - SwitchToMonsterWithWeakType
-  False [36]: Behavior - UseHighestAccuracyMove
 
-Highest fitness after 100 battles: 5.4914284
+	True [0]: Condition HealthGreaterThanPercent with parameter 0.2
+	  True [37]: Behavior - SwitchToMonsterWithWeakType
+	  False [36]: Behavior - UseHighestAccuracyMove
+
+	Highest fitness after 100 battles: 5.4914284
 
 
 
